@@ -1,0 +1,4 @@
+@ECHO OFF
+ECHO Fecha y Hora Actual:
+ECHO %DATE% %TIME%
+PAUSE
