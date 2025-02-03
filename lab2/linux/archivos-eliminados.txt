@@ -1,0 +1,1 @@
+Se elimino el archivo: ./MiDirectorio/prueba
