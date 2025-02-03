@@ -1,13 +1,30 @@
 @ECHO OFF
-SET "sourceDir=C:\ruta\del\directorio"
+SET "sourceDir=C:\Users\jocra\Desktop\windows\MiDirectorio"
 SET "outputFile=combined.txt"
-REM Verifica si el archivo de salida ya existe y lo elimina
+
+SET /p "excludeWord=Ingrese la palabra que desea excluir: "
+
+IF "%excludeWord%"=="" (
+    ECHO No hay ninguna palabra para excluir.
+    PAUSE
+    GOTO END
+)
+
 IF EXIST "%outputFile%" DEL "%outputFile%"
-REM Combina el contenido de todos los archivos .txt en uno solo
+
 FOR %%f IN ("%sourceDir%\*.txt") DO (
   ECHO Combinando: %%~nxf
+
+  SET "tempFile=%%~dpnf_temp.txt"
+
+  FINDSTR /v /i /c:"%excludeWord%" "%%f" > "%tempFile%"
+
+  MOVE /Y "%tempFile%" "%%f" > NUL
+
   TYPE "%%f" >> "%outputFile%"
-  ECHO. >> "%outputFile%" REM Añade una línea en blanco entre los contenidos de los archivos
+  ECHO. >> "%outputFile%" 
+  ECHO. >> "%outputFile%" 
 )
+
 ECHO Todos los archivos .txt han sido combinados en %outputFile%.
 PAUSE
