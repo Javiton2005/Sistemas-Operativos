@@ -1,5 +1,5 @@
 @ECHO OFF
-SET "sourceDir=%cd%\MiDirectorio"
+SET "sourceDir=C:\Users\jocra\Desktop\windows\MiDirectorio"
 SET "outputFile=combined.txt"
 
 SET /p "excludeWord=Ingrese la palabra que desea excluir: "

@@ -1,10 +1,7 @@
 @echo off
 
-SET "targetDir=%cd%"
-SET "outputFile=%cd%\archivos_seleccionados.txt"
-
-REM Eliminar el archivo de salida si ya existe
-IF EXIST "%outputFile%" DEL "%outputFile%"
+SET "targetDir=C:\Users\jdpv6\OneDrive\Documentos\SSOO\Lab2"
+SET "outputFile=archivos_seleccionados.txt"
 
 FOR %%i IN (%targetDir%\*) DO (
     IF "%%~xi"=="%~1" (

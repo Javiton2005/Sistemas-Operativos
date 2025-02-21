@@ -10,7 +10,7 @@ SET "file=%~1"
 
 IF NOT EXIST "%file%" (
     ECHO El archivo no existe. Creando el archivo: %file%
-    ECHO. > "%file%"
+    ECHO. > "%file%"  :: Crea un archivo vacío
 )
 
 START NOTEPAD "%file%"
