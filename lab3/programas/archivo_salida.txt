@@ -1,0 +1,7 @@
+PID 20759 leyendo: hola
+PID 20759 leyendo: que tal
+PID 20759 leyendo: marlon
+PID 20759 leyendo: estoy muy bien
+PID 20759 leyendo: haciendo ejercicios
+PID 20759 leyendo: me gusta tu asignatura
+PID 20759 leyendo: lo que no me gusta es no poder formaterar en nvim bien

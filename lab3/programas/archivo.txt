@@ -1,0 +1,7 @@
+hola
+que tal
+marlon
+estoy muy bien
+haciendo ejercicios
+me gusta tu asignatura
+lo que no me gusta es no poder formaterar en nvim bien
