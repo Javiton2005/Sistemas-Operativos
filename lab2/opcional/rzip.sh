@@ -1,10 +1,9 @@
 #! /bin/bash
 
 if [[ -z $1 || -z $2 ]]; then
-  echo "$1"
-  echo "$2"
+  echo "Carpeta tipo de compresion (zip/tar)"
   echo "Faltan parametros"
-  break 
+  exit 
 fi
 
 if [[ -d $1 ]]; then
