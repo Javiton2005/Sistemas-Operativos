@@ -1,9 +1,10 @@
+//#include <bits/pthreadtypes.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 
 #define MAX_LINE_LENGTH 256
-
+#define MAX_NUM_THREADS 4
 FILE* file;
 
 void* readAndPrintLines(void* arg) {
@@ -17,7 +18,9 @@ void* readAndPrintLines(void* arg) {
 }
 
 int main() {
-    pthread_t thread1, thread2;
+    pthread_t threads[MAX_NUM_THREADS];
+    int thread_out, i;
+  //pthread_t thread1, thread2, thread3, thread4;
 
     // Abrir el fichero
     file = fopen("archivo.txt", "r");
@@ -25,18 +28,25 @@ int main() {
         perror("fopen");
         return EXIT_FAILURE;
     }
-
-    // Crear los hilos
-    if (pthread_create(&thread1, NULL, &readAndPrintLines, NULL) != 0 ||
-        pthread_create(&thread2, NULL, &readAndPrintLines, NULL) != 0) {
+    
+    for(i=0; i<MAX_NUM_THREADS;i++){
+      thread_out=pthread_create(&threads[i], NULL, &readAndPrintLines, NULL);
+      if(thread_out != 0){
+        
+        for (int j=0; j<i; i++){
+          pthread_cancel(threads[j]);
+        }
         perror("pthread_create");
         fclose(file);
         return EXIT_FAILURE;
+      }
     }
+    // Crear los hilos
 
     // Esperar a que los hilos terminen
-    pthread_join(thread1, NULL);
-    pthread_join(thread2, NULL);
+    for(i=0; i<MAX_NUM_THREADS;i++){
+      pthread_join(threads[i],NULL);
+    }
 
     // Limpieza
     fclose(file);
