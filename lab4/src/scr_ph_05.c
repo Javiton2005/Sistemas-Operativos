@@ -51,6 +51,8 @@ int main() {
 
     if (pid == 0) {
         // Proceso hijo
+        printf("Proceso hijo: %d\n", getpid());
+        
         pthread_t thread1, thread2;
 
         pthread_create(&thread1, NULL, printVowels, NULL);
@@ -59,7 +61,9 @@ int main() {
         pthread_join(thread1, NULL);
         pthread_join(thread2, NULL);
     } else if (pid > 0) {
-        // Proceso padre
+        // Proceso padre        
+        printf("Proceso Padre: %d\n", getppid());
+
         pthread_t thread3, thread4;
 
         pthread_create(&thread3, NULL, printEvens, NULL);
