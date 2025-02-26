@@ -1,5 +1,3 @@
-
-
 Retos
 
 scr_ph_01: modifica el proceso para visualizar el proceso y el hilo en ejecución (similar a los procesos a con fork).

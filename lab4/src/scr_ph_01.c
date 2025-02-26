@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <unistd.h>
 
 // Esta es la función que el hilo ejecutará
 // gcc -o hilo_programa programa.c -lpthread
 void* printMessages(void* arg) {
     char* message = (char*)arg;
     printf("%s\n", message);
+    printf("Soy el hijo n: %d\n", getpid());
+    printf("Mi padre es el proceso: %d\n", getppid());
     return NULL;
 }
 
