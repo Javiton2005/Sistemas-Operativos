@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define NUM_LINES 10  // Número de líneas de texto aleatorio a generar
 #define MAX_LINE_LENGTH 80  // Longitud máxima de cada línea de texto
@@ -16,11 +17,35 @@ void generateRandomText(FILE *file) {
 }
 
 int main() {
-    FILE *file, *copy;
+    FILE *file, *copy, *properties;
     char line[MAX_LINE_LENGTH];
-
+    char *origen;
+    char *copia;
+    int var=0;
+    properties = fopen("./properties.txt", "r");
+    if(!properties){
+      perror("no se pudo arbir el archivo properties");
+      return 1;
+    }
+    
+    while (fgets(line, MAX_LINE_LENGTH, properties) != NULL) {
+      switch (var) {
+        case 0:
+          origen = strdup(line);
+          var ++;
+          break;
+        case 1:
+          copia = strdup(line);
+          var++;
+          break;
+      }
+    }
+    
+    origen[strlen(origen)-1]='\0';
+    copia[strlen(copia)-1]='\0';
+    printf("%s",copia);
     // Crear y escribir texto aleatorio en "archivo.txt"
-    file = fopen("archivo.txt", "w");
+    file = fopen(origen, "w");
     if (!file) {
         perror("No se pudo abrir archivo.txt para escritura");
         return 1;
@@ -31,10 +56,10 @@ int main() {
 
     // Cerrar el fichero original
     fclose(file);
-
+    
     // Abrir el fichero original y el fichero de destino para la copia
-    file = fopen("archivo.txt", "r");
-    copy = fopen("/ruta/especifica/copia_archivo.txt", "w");  // Ajusta esta ruta
+    file = fopen(origen, "r");
+    copy = fopen(copia, "w");  // Ajusta esta ruta
     if (!file || !copy) {
         perror("No se pudo abrir uno de los archivos");
         return 1;
