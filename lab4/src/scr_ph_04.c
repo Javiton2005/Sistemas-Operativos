@@ -39,6 +39,7 @@ int main() {
         exit(EXIT_FAILURE);
     }
     
+    
     while ((c=fgetc(file))!=EOF){
       if(c=='\n'){
         if(contador>max){
@@ -58,6 +59,8 @@ int main() {
       contador++;
     }
     fclose(file);
+    
+
     cuarto = count/4;
     // Dividir las líneas entre los dos hilos
     data1.lines = lines;
