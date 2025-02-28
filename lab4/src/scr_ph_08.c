@@ -4,15 +4,50 @@
 
 #define MAX_LINE_LENGTH 256
 
-int main() {
+int main(int argc, char *argv[]) {
     FILE *file;
     char line[MAX_LINE_LENGTH];
     char *key, *value;
     char username[MAX_LINE_LENGTH] = "";
     char password[MAX_LINE_LENGTH] = "";
+    char *path;
+    int num, num_pthread;
+    switch (argc) {
+        case 1:
+            printf("Uso: %s <path> <numero> <pthread>\n", argv[0]);
+            printf("No has puesto ningun parametro, serán 0\n");
+            path = (char*)NULL;
+            num = 0;
+            num_pthread = 0;
+            break;
+        case 2:
+            printf("Uso: %s <path> <numero> <pthread>\n", argv[0]);
+            printf("Te faltan un número y pthread, serán 0\n");
+            path = argv[1];
+            num = 0;
+            num_pthread = 0;
+            break;
+        case 3:
+            printf("Uso: %s <path> <numero> <pthread>\n", argv[0]);
+            printf("Te faltan pthread, será 0\n");
+            num = atoi(argv[2]);
+            num_pthread = 0;
+            break;
+        case 4:
+            printf("Bravo, has puesto relleno en los argumentos. Esperemos que esté bien\n");
+            path = argv[1];
+            num = atoi(argv[2]);
+            num_pthread = atoi(argv[3]);
+            break;
+        default:
+                printf("Uso: %s <path> <numero> <pthread>\n", argv[0]);
+                printf("Lo has logrado: has puesto de manera horrible los argumentos de esta función.\nSaliendo...\n");
+                return 1;
+    }
 
+    printf("%s\n", path);
     // Abre el fichero de properties
-    file = fopen("config.properties", "r");
+    file = fopen(path, "r");
     if (!file) {
         perror("No se pudo abrir el archivo");
         return EXIT_FAILURE;
