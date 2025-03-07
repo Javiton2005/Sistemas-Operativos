@@ -55,7 +55,6 @@ void* hilo_B(void* arg) {
     } 
 
     return NULL; 
-
 } 
 
  
@@ -92,9 +91,9 @@ int main() {
 
     if (sem_init(&sem_A, 0, 1) == -1 ||  
 
-        sem_init(&sem_B, 0, 1) == -1 ||  
+        sem_init(&sem_B, 0, 0) == -1 ||  
 
-        sem_init(&sem_C, 0, 1) == -1) { 
+        sem_init(&sem_C, 0, 0) == -1) { 
 
         perror("Error al inicializar semáforos"); 
 
