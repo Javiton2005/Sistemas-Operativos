@@ -1,0 +1,4 @@
+./users.csv
+./db.csv
+./banco.log
+
