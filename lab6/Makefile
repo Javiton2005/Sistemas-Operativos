@@ -12,7 +12,9 @@ TARGET = banco
 
 # Archivos fuente (aquí arreglamos el tema de la barra y agregamos bien los paths)
 SRCS := $(wildcard $(SRCDIR)/*.c) \
-        $(wildcard $(SRCDIR)/banco/*.c)
+        $(wildcard $(SRCDIR)/banco/*.c) \
+        $(wildcard $(SRCDIR)/usuarios/*.c) \
+				$(wildcard $(SRCDIR)/comun/*.c)
 
 # Archivos objeto (y aquí transformamos los .c a .o dentro de obj/)
 OBJS := $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))

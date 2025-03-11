@@ -1,4 +1,3 @@
-./users.csv
-./db.csv
-./banco.log
+./ficheros/db.csv
+./ficheros/banco.log
 
