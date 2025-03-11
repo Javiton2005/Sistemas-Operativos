@@ -6,7 +6,7 @@ USER **CrearListaUsuarios(char *fichero){
   if (fichero==NULL) {
     printf("No se a dado un fichero\n");
   }
-  USER **listaUsurarios=NULL;
+  USER **listaUsuarios=NULL;
   char *linea=NULL;
   FILE *archivo=fopen(fichero, "r");
   char caracter;
@@ -22,26 +22,20 @@ USER **CrearListaUsuarios(char *fichero){
     caracteres++;
     
     if (caracter=='\n') {
-      linea[caracteres]='\0';
-      printf("%s", linea);
-      
+      linea[caracteres]='\0'; 
       USER *usuario = crearUsuario(linea);
-      listaUsurarios=realloc(listaUsurarios, (Estadisticas.usuarios+1)*sizeof(USER *));
-      listaUsurarios[Estadisticas.usuarios-1]=usuario;
+      listaUsuarios=realloc(listaUsuarios, (Estadisticas.usuarios+1)*sizeof(USER *));
+      listaUsuarios[Estadisticas.usuarios-1]=usuario;
       
       caracteres=0;
     }
   }
   free(linea);
   
-  for (int i = 0; i < Estadisticas.usuarios; i++) {
-    char *nombre = listaUsurarios[i]->ncuenta;
-    printf("Nombre: %s\n", nombre);
-  }
   fclose(archivo);
   /*while (fgets(linea, 255, archivo)) {
     printf("%s\n", linea); 
   }*/
 
-  return listaUsurarios;
+  return listaUsuarios;
 }

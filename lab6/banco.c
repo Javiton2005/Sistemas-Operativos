@@ -12,8 +12,10 @@ int main(){
   int fileIndex=0;
   char *dbFile;
   char *bancoFile;
+  USER **listaUsuarios=NULL;
   InitGlobal();
   properties=fopen("./properties.txt", "r");
+  
   if(properties==NULL){
     perror("No se a podido abrir el fichero prproperties.txt");
     return (1);
@@ -28,13 +30,10 @@ int main(){
       case 1:
         bancoFile=strdup(path);
         break;
-      default:
-        //printf("Se ha leido mas lineas de las debidas: %s", path);
-        break;
     }
     fileIndex++;
   }
-  CrearListaUsuarios(dbFile);
+  listaUsuarios=CrearListaUsuarios(dbFile);
 
   return 1;
 }
