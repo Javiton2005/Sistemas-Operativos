@@ -1,0 +1,3 @@
+./ficheros/db.csv
+./ficheros/banco.log
+

@@ -1,22 +1,45 @@
-# Makefile para compilar un archivo con nombre variable y soporte para pthread
-# Uso: make FILE=nombre_archivo (sin extensión)
+
+# Makefile para compilar el proyecto
 
 # Variables
 CC = gcc
-LDFLAGS = -pthread
+CFLAGS = -I. -IListas 
+LDFLAGS = -lpthread
+OBJDIR = obj
+SRCDIR = .
+BINDIR = bin
+TARGET = banco
 
-# Si no se especifica FILE, usar 'programa' como valor predeterminado
-FILE 
+# Archivos fuente (aquí arreglamos el tema de la barra y agregamos bien los paths)
+SRCS := $(wildcard $(SRCDIR)/*.c) \
+        $(wildcard $(SRCDIR)/banco/*.c) \
+        $(wildcard $(SRCDIR)/usuarios/*.c) \
+        $(wildcard $(SRCDIR)/comun/*.c) \
+				$(wildcard $(SRCDIR)/login/*.c) \
+				$(wildcard $(SRCDIR)/funciones/*.c) \
+				$(wildcard $(SRCDIR)/monitor/*.c)
 
-# Regla principal
-all: $(FILE)
+# Archivos objeto (y aquí transformamos los .c a .o dentro de obj/)
+OBJS := $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
-# Patrón para compilar cualquier .c en un ejecutable con el mismo nombre
-$(FILE): ./src/$(FILE).c
-	$(CC) -o $@ $< $(LDFLAGS)
+# Reglas
+all: $(TARGET)
 
-# Limpiar archivos compilados
+$(TARGET): $(OBJS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+# Reglas de compilación para cada .c (ahora compatible con subcarpetas)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+# Necesitas una regla extra para que los .c dentro de `banco/` generen .o en `obj/banco/`
+$(OBJDIR)/banco/%.o: $(SRCDIR)/banco/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
 clean:
-	rm -f $(FILE)
+	rm -rf $(OBJDIR) $(TARGET)
 
 .PHONY: all clean
+
