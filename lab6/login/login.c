@@ -6,8 +6,6 @@ void *login(USER **listaUsuarios){
   char nombre[50];
   char contraseña[50];
 
-  printf("\n\nEstadisticas Usuarios: %d\n\n", Estadisticas.usuarios);
-
   printf("Inserta Nombre de la cuenta: ");
   scanf("%s", nombre);
 

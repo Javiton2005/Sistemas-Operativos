@@ -1,6 +1,7 @@
 #include "comun/comun.h"
 #include "login/login.h"
 #include "usuarios/usuarios.h"
+#include "funciones/funciones.h"
 #include <stdio.h>
 
 
@@ -37,23 +38,17 @@ int main(){
     fileIndex++;
   }
   listaUsuarios=CrearListaUsuarios(dbFile);
-
-  for(int i =0;i<Estadisticas.usuarios;i++){
-    printf("Nombre: %s\nContraseña:%s\n", listaUsuarios[i]->nombre,listaUsuarios[i]->contrasena);
-  }
   
 
   tmp=login(listaUsuarios);
+  
 
 
   if(tmp==NULL)
     exit(1);
-  registrado=(USER*)tmp;
-  printf("%s\n",registrado->nombre);
-  printf("%s\n",registrado->contrasena);
-  printf("%s\n",registrado->ncuenta);
-  printf("%d\n",registrado->ntrasacciones);
-  printf("%d\n",registrado->saldo);
 
+
+  registrado=(USER*)tmp;
+  MenuOpciones(registrado);
   return 1;
 }
