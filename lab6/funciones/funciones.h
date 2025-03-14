@@ -6,6 +6,7 @@
 extern char *funcionesMenu[];
 
 void MenuOpciones();
+
 int SacarDinero();
 int MeterDinero();
 int ConsultarSaldo();
