@@ -1,5 +1,4 @@
 #include "usuarios.h"
-#include <stdio.h>
 
 USER **CrearListaUsuarios(char *fichero){
 
@@ -24,18 +23,15 @@ USER **CrearListaUsuarios(char *fichero){
     if (caracter=='\n') {
       linea[caracteres]='\0'; 
       USER *usuario = crearUsuario(linea);
-      listaUsuarios=realloc(listaUsuarios, (Estadisticas.usuarios+1)*sizeof(USER *));
-      listaUsuarios[Estadisticas.usuarios-1]=usuario;
+      listaUsuarios=realloc(listaUsuarios, (Estadisticas.usuarios)*sizeof(USER *));
+      listaUsuarios[Estadisticas.usuarios]=usuario;
+      Estadisticas.usuarios++;
       
       caracteres=0;
     }
   }
   free(linea);
-  
   fclose(archivo);
-  /*while (fgets(linea, 255, archivo)) {
-    printf("%s\n", linea); 
-  }*/
-
+  
   return listaUsuarios;
 }

@@ -1,11 +1,12 @@
 #include "comun/comun.h"
+#include "login/login.h"
 #include "usuarios/usuarios.h"
 #include <stdio.h>
-#include <string.h>
+
 
 #define MAX_LEN_FICHERO 100 
 
- FILE *properties;
+FILE *properties;
 
 int main(){
   char path[MAX_LEN_FICHERO];
@@ -13,6 +14,8 @@ int main(){
   char *dbFile;
   char *bancoFile;
   USER **listaUsuarios=NULL;
+  USER *registrado;
+  void *tmp;
   InitGlobal();
   properties=fopen("./properties.txt", "r");
   
@@ -34,6 +37,23 @@ int main(){
     fileIndex++;
   }
   listaUsuarios=CrearListaUsuarios(dbFile);
+
+  for(int i =0;i<Estadisticas.usuarios;i++){
+    printf("Nombre: %s\nContraseña:%s\n", listaUsuarios[i]->nombre,listaUsuarios[i]->contrasena);
+  }
+  
+
+  tmp=login(listaUsuarios);
+
+
+  if(tmp==NULL)
+    exit(1);
+  registrado=(USER*)tmp;
+  printf("%s\n",registrado->nombre);
+  printf("%s\n",registrado->contrasena);
+  printf("%s\n",registrado->ncuenta);
+  printf("%d\n",registrado->ntrasacciones);
+  printf("%d\n",registrado->saldo);
 
   return 1;
 }

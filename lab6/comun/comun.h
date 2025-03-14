@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stddef.h>
+#include <stdio.h>
 
 typedef struct _User{
   char *nombre;

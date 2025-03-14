@@ -14,8 +14,9 @@ TARGET = banco
 SRCS := $(wildcard $(SRCDIR)/*.c) \
         $(wildcard $(SRCDIR)/banco/*.c) \
         $(wildcard $(SRCDIR)/usuarios/*.c) \
-				$(wildcard $(SRCDIR)/comun/*.c)
-
+        $(wildcard $(SRCDIR)/comun/*.c) \
+				$(wildcard $(SRCDIR)/login/*.c) \
+				$(wildcard $(SRCDIR)/funciones/*.c)
 # Archivos objeto (y aquí transformamos los .c a .o dentro de obj/)
 OBJS := $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 

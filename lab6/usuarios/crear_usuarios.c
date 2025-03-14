@@ -1,8 +1,7 @@
 #include "usuarios.h"
-#include <strings.h>
 
 USER *crearUsuario(char *linea){
-
+  //printf("%s", linea);
   USER *user=malloc(sizeof(USER));
   
   int indice = 0;
@@ -12,7 +11,7 @@ USER *crearUsuario(char *linea){
     char *palabra = strdup(output);
     if(*palabra == '\0')
       palabra = "N/A";
-  
+    //printf("%s\n", palabra); 
     switch (indice) {
       case 0:
         user->nombre = palabra;
@@ -28,10 +27,9 @@ USER *crearUsuario(char *linea){
         break;
       case 4:
         user->ntrasacciones=atoi(palabra);
+        break;
     }
     indice++;
   }
-  Estadisticas.usuarios++;
-
   return user;
 }

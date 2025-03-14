@@ -1,16 +1,11 @@
-#ifdef FUNCIONES
+#ifndef FUNCIONES
   #define FUNCIONES
 
-char *funcionesMenu[]={
-    "Sacar Dinero",
-    "Meter Dinero",
-    "Consultar Saldo",
-    "Informacion de la Cuenta",
-    "Transaccion",
-    "Pagar Tasas",
-    "Cancelar Tarjetas",
-}
+#include "../comun/comun.h"
 
+extern char *funcionesMenu[];
+
+void MenuOpciones();
 int SacarDinero();
 int MeterDinero();
 int ConsultarSaldo();
