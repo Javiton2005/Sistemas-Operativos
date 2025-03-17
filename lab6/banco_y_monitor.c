@@ -12,7 +12,7 @@
 #define ESTADO_APROBADA 0
 #define ESTADO_EXCEDE_LIMITE 1
 
-int main(){
+int MainMonitor(){
 
   int banco_a_monitor[2]; // Pipe para enviar datos del banco al monitor
   int monitor_a_banco[2]; // Pipe para enviar datos del monitor al banco

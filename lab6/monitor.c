@@ -4,7 +4,7 @@
 
 #define LIMITE_TRANSFERENCIA 1000.0
 
-int main() {
+int mainmonitor() {
     double cantidad;
     int respuesta;
     

@@ -5,7 +5,7 @@ int ConsultarSaldo(USER *usuario){
     if(usuario==NULL){
         return 4;
     }
-    if (usuario->nombre=="\0")
+    if (strcmp(usuario->nombre, "\0")==0)
     {
         return 6;
     }

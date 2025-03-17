@@ -47,7 +47,6 @@ int main(){
   if(tmp==NULL)
     exit(1);
 
-
   registrado=(USER*)tmp;
   MenuOpciones(registrado);
   return 1;
