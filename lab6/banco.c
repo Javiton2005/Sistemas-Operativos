@@ -1,22 +1,27 @@
 #include "comun/comun.h"
-#include "login/login.h"
 #include "usuarios/usuarios.h"
-#include "funciones/funciones.h"
+#include <bits/pthreadtypes.h>
 #include <stdio.h>
-
+#include "login/login.h"
 
 #define MAX_LEN_FICHERO 100 
 
-FILE *properties;
+
+int hilosCount=0;
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
 int main(){
   char path[MAX_LEN_FICHERO];
+  FILE *properties;
   int fileIndex=0;
   char *dbFile;
   char *bancoFile;
   USER **listaUsuarios=NULL;
   USER *registrado;
   void *tmp;
+  int *usado;
+  pthread_t *hilos = malloc(sizeof(pthread_t));
+  
   InitGlobal();
   properties=fopen("./properties.txt", "r");
   
@@ -38,16 +43,13 @@ int main(){
     fileIndex++;
   }
   listaUsuarios=CrearListaUsuarios(dbFile);
+
+  tmp = login(listaUsuarios, hilos);
   
-
-  tmp=login(listaUsuarios);
-  
-
-
-  if(tmp==NULL)
-    exit(1);
-
-  registrado=(USER*)tmp;
-  MenuOpciones(registrado);
+  if(tmp!=NULL || tmp != 0){
+    for (int i=0; i<=*(int *)tmp; i++) {
+      pthread_join(hilos[i], NULL);
+    }
+  }
   return 1;
 }

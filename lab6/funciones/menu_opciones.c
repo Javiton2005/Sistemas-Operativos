@@ -1,7 +1,18 @@
 #include "funciones.h"
 #include <stdio.h>
 
-void MenuOpciones(USER *registrado){
+void *MenuOpciones(void *registrado){
+
+  int *codigoRetorno = malloc(sizeof(int));
+  if (codigoRetorno == NULL)
+    return NULL;
+
+  if (registrado == NULL) {
+      *codigoRetorno = 1;
+      return codigoRetorno;
+  }
+
+  
   int seleccion=-1;
   system("clear");
   for (int i =0; i<5; i++) {
@@ -24,5 +35,8 @@ void MenuOpciones(USER *registrado){
     default:
       break;
   }
+
+  *codigoRetorno=0;
+  return codigoRetorno;
 }
 

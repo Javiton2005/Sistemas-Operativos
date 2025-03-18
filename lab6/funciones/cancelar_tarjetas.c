@@ -1,7 +1,6 @@
 #include "funciones.h"
 
-void *ConsultarSaldo(void *usuario){
-
+void *CancelarTarjetas(void *usuario){
   if(usuario==NULL){
       return (void *)4;
   }
@@ -13,10 +12,7 @@ void *ConsultarSaldo(void *usuario){
   if (user->saldo<=-1)
   {
       return (void *)2;
-  }    
+  }
 
-  printf("El saldo de la cuenta de %s\n",user->nombre);
-  printf("Saldo: %d\n", user->saldo);
-  
-  return 0;
+
 }

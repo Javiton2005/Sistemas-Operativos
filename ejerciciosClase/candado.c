@@ -45,7 +45,7 @@ void* incrementar(void* arg) {
     }
     
     free(arg);
-    return NULL;
+  return NULL;
 }
 
 int main() {

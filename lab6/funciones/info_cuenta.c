@@ -1,24 +1,26 @@
 #include "funciones.h"
 #include <stdio.h>
 
-int InfoCuenta(USER *usuario){
+void *InfoCuenta(void *usuario){
   
   if(usuario==NULL){
-      return 4;
+      return (void *)4;
   }
-  if (strcmp(usuario->nombre, "\0")==0){
-      return 6;
-  }
-  if (usuario->saldo<=-1)
+  USER *user = (USER *)usuario;
+  if (strcmp(user->nombre, "\0")==0)
   {
-      return 2;
-  }  
+      return (void *)6;
+  }
+  if (user->saldo<=-1)
+  {
+      return (void *)2;
+  }    
   
-  printf("Nombre: %s\n", usuario->nombre);
-  printf("Contraseña: %s\n", usuario->contrasena);
-  printf("Numero de cuenta: %s\n", usuario->ncuenta);
-  printf("Saldo: %d\n", usuario->saldo);
-  printf("Numero de Trasacciones: %d\n",usuario->ntrasacciones);
+  printf("Nombre: %s\n", user->nombre);
+  printf("Contraseña: %s\n", user->contrasena);
+  printf("Numero de cuenta: %s\n", user->ncuenta);
+  printf("Saldo: %d\n", user->saldo);
+  printf("Numero de Trasacciones: %d\n",user->ntrasacciones);
   
   printf("\nPresiona cualquier tecla para salir\n"); 
   getchar();
