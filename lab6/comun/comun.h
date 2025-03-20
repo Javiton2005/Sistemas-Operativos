@@ -11,15 +11,24 @@
 #include <string.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <time.h>
+
+#define MAX_TRANSACCION 1000
 
 typedef struct _User{
   char *nombre;
   char *contrasena;
-  char *ncuenta;
-  int saldo;
+  unsigned int ncuenta;
+  double saldo;
   int ntrasacciones;
+  TRANSACCION transaccion;
 } USER;
-
+typedef struct _Transaccion{
+  double cantidad;
+  unsigned int ncuentas;
+  unsigned int ncuentao;
+  struct tm *fecha;
+} TRANSACCION;
 
 extern struct _Estadisticas {
   int usuarios;

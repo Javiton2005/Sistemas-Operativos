@@ -20,7 +20,7 @@ USER *crearUsuario(char *linea){
         user->contrasena=palabra;
         break;
       case 2:
-        user->ncuenta = palabra;
+        user->ncuenta = atoi(palabra);
         break;
       case 3:
         user->saldo = atoi(palabra);
