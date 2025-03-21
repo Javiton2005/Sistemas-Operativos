@@ -24,6 +24,7 @@ void daemonizar() {
 }
 
 int main() {
+    printf("servidor on\n");
     daemonizar();  // Convierte el servidor en un demonio
 
     while (1) {

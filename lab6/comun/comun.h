@@ -8,11 +8,11 @@
 #include <signal.h>
 #include <threads.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <string.h>
 #include <stddef.h>
 #include <pthread.h>
-
-
+#include <semaphore.h>
 
 typedef struct _User{
   char *nombre;
@@ -22,6 +22,15 @@ typedef struct _User{
   int ntrasacciones;
 } USER;
 
+extern struct _Config {
+  int limite_retiro;
+  int limite_transferencia;
+  int umbral_retiros;
+  int umbral_transferencias;
+  int num_hilos;
+  char archivo_cuentas[50];
+  char archivo_log[50];
+} Config;
 
 extern struct _Estadisticas {
   int usuarios;

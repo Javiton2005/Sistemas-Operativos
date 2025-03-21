@@ -31,5 +31,6 @@ USER *crearUsuario(char *linea){
     }
     indice++;
   }
+
   return user;
 }

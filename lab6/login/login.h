@@ -4,7 +4,6 @@
 #include "../comun/comun.h"
 #include "../funciones/funciones.h"
 
-void *login(USER **listaUsuarios,  pthread_t *hilos);
-
+void login(USER **listaUsuarios);
 
 #endif // LOGIN_H
