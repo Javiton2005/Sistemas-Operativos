@@ -1,59 +1,41 @@
+/*
+ * Banco es el proceso principal del banco
+ *
+ * Es un bucle que crea la lista de usuarios 
+ * y se la pasa al proceso de log in
+ * en el caso de que el usuario inserte * el
+ * proceso acaba.
+ *
+*/
+
+
 #include "comun/comun.h"
-#include "login/login.h"
 #include "usuarios/usuarios.h"
+#include "login/login.h"
 #include <stdio.h>
 
 
-#define MAX_LEN_FICHERO 100 
-
-FILE *properties;
-
 int main(){
-  char path[MAX_LEN_FICHERO];
-  int fileIndex=0;
-  char *dbFile;
-  char *bancoFile;
+
   USER **listaUsuarios=NULL;
-  USER *registrado;
-  void *tmp;
+  char salir='a';
   InitGlobal();
-  properties=fopen("./properties.txt", "r");
-  
-  if(properties==NULL){
-    perror("No se a podido abrir el fichero prproperties.txt");
-    return (1);
-  }
 
-  while (fgets(path, MAX_LEN_FICHERO, properties)!=NULL) {  
-    path[strlen(path)-1]='\0';
-    switch (fileIndex) {
-      case 0:
-        dbFile=strdup(path);
-        break;
-      case 1:
-        bancoFile=strdup(path);
-        break;
+  while (salir!='*') {
+    system("clear");
+    listaUsuarios=CrearListaUsuarios(Config.archivo_cuentas);
+    if(listaUsuarios==NULL){
+      printf("Error en la creaccion de Lista de Usuarios");
+      exit(-1);
     }
-    fileIndex++;
-  }
-  listaUsuarios=CrearListaUsuarios(dbFile);
+    
+    //printf("nombre: %s\nContraseña %s",listaUsuarios[Estadisticas.usuarios]->nombre,listaUsuarios[Estadisticas.usuarios]->contrasena);
 
-  for(int i =0;i<Estadisticas.usuarios;i++){
-    printf("Nombre: %s\nContraseña:%s\n", listaUsuarios[i]->nombre,listaUsuarios[i]->contrasena);
+    login(listaUsuarios);
+    printf("Para salir presiona *: ");
+    while (getchar() != '\n'); // Limpiamos el buffer de entrada
+    salir=getchar();
   }
   
-
-  tmp=login(listaUsuarios);
-
-
-  if(tmp==NULL)
-    exit(1);
-  registrado=(USER*)tmp;
-  printf("%s\n",registrado->nombre);
-  printf("%s\n",registrado->contrasena);
-  printf("%s\n",registrado->ncuenta);
-  printf("%d\n",registrado->ntrasacciones);
-  printf("%d\n",registrado->saldo);
-
   return 1;
 }
