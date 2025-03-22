@@ -1,6 +1,9 @@
-#include <stdio.h>
+#include "comun/comun.h" 
+#include "funciones/funciones.h"
 
 int main(int argc, char *argv[]){
-  printf("Hola soy el usuario\nMe han pasado %d argumentos", argc);
-  char letra = getchar();
+  USER usuario = {argv[1],argv[2],argv[3],atoi(argv[4]),atoi(argv[5])};
+  while (1) {  
+    MenuOpciones(&usuario);
+  }
 }

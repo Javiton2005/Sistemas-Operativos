@@ -37,5 +37,6 @@ extern struct _Estadisticas {
 } Estadisticas;
 
 void InitGlobal();
+void EscribirEnLog(char *frase);
 
 #endif // Comun_H
