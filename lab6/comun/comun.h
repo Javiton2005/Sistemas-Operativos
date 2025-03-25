@@ -20,6 +20,7 @@ typedef struct _User{
   char *ncuenta;
   int saldo;
   int ntrasacciones;
+  int linea;
 } USER;
 
 extern struct _Config {
@@ -38,5 +39,5 @@ extern struct _Estadisticas {
 
 void InitGlobal();
 void EscribirEnLog(char *frase);
-
+void *EditarCsv(void *usuario);
 #endif // Comun_H

@@ -23,7 +23,7 @@ void *MenuOpciones(void *registrado){
   switch (seleccion)
   {
     case 0:
-      SacarDinero(registrado);
+      SacarDinero(registrado,1);
       break;
     case 1:
       MeterDinero(registrado);

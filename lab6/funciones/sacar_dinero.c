@@ -1,5 +1,5 @@
 #include "funciones.h"
 
-void *SacarDinero(void *usuario){
-  
+void SacarDinero(USER *usuario){
+     
 }

@@ -36,6 +36,9 @@ USER *crearUsuario(char *linea){
       case 4:
         user->ntrasacciones=atoi(palabra);
         break;
+      case 5:
+        user->linea=atoi(palabra);
+        break;
     }
     indice++;
   }

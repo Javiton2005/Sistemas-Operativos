@@ -31,11 +31,13 @@ void login(USER **listaUsuarios){
         // Convertimos edad y dinero a cadenas
         char nTransaccionesStr[50];
         char saldoStr[50];
+        char lineaStr[5];
         sprintf(nTransaccionesStr, "%d", listaUsuarios[i]->ntrasacciones);
         sprintf(saldoStr, "%d", listaUsuarios[i]->saldo);
+        sprintf(lineaStr, "%d", listaUsuarios[i]->linea);
         
         char comando[256];
-        snprintf(comando, sizeof(comando), "./usuario \"%s\" \"%s\" \"%s\" \"%s\" \"%s\" \"%s\" ", listaUsuarios[i]->nombre, listaUsuarios[i]->contrasena, listaUsuarios[i]->ncuenta,saldoStr ,nTransaccionesStr, Config.archivo_log);
+        snprintf(comando, sizeof(comando), "./usuario \"%s\" \"%s\" \"%s\" \"%s\" \"%s\" \"%s\" \"%s\"", listaUsuarios[i]->nombre, listaUsuarios[i]->contrasena, listaUsuarios[i]->ncuenta,saldoStr ,nTransaccionesStr, lineaStr,Config.archivo_log);
 
         if (access("/bin/gnome-terminal", X_OK) == 0) { //Comprueba si la terminal gnome existe, si es asi la ejecuta y si no ejecuta kitty
           execlp("gnome-terminal", "gnome-terminal", "--", "sh", "-c",  comando, (char *)NULL);
