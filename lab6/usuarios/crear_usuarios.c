@@ -9,7 +9,7 @@
 
 #include "usuarios.h"
 
-USER *crearUsuario(char *linea){
+USER *crearUsuario(char *linea, int nLinea){
   USER *user=malloc(sizeof(USER)); // Aloca memoria para un nuevo usuario
   
   int indice = 0;
@@ -37,7 +37,7 @@ USER *crearUsuario(char *linea){
         user->ntrasacciones=atoi(palabra);
         break;
       case 5:
-        user->linea=atoi(palabra);
+        user->linea=nLinea;
         break;
     }
     indice++;
