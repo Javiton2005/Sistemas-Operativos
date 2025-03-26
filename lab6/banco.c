@@ -21,9 +21,9 @@ int main(){
   char salir='a';
   InitGlobal();
 
-  int fd[2]; // Descriptores de lectura y escritura del pipe
+  int pipe_alerta[2]; // Descriptores de lectura y escritura del pipe
 
-  if (pipe(fd) == -1) { // Crear el pipe
+  if (pipe(pipe_alerta) == -1) { // Crear el pipe
     perror("Error en pipe");
     exit(EXIT_FAILURE);
   }
@@ -36,11 +36,11 @@ int main(){
   }
 
   if (pid == 0) {
-    close(fd[1]); // Cerrar el descriptor de escritura del pipe
-    monitor(fd[0]); // Lanzar el proceso monitor
+    close(pipe_alerta[1]); // Cerrar el descriptor de escritura del pipe
+    monitor(pipe_alerta[0]); // Lanzar el proceso monitor
     exit(0);
   } else {
-    close(fd[0]); // Cerrar el descriptor de lectura del pipe
+    close(pipe_alerta[0]); // Cerrar el descriptor de lectura del pipe
 
     while (salir!='*') {
       system("clear");
@@ -50,15 +50,21 @@ int main(){
         exit(-1);
       }
       
-      //printf("nombre: %s\nContraseña %s",listaUsuarios[Estadisticas.usuarios]->nombre,listaUsuarios[Estadisticas.usuarios]->contrasena);
+      char alerta[256];
+      ssize_t alerta_size = read(pipe_alerta[0], alerta, sizeof(alerta)-1);
+      if (alerta_size > 0) {
+        alerta[alerta_size] = '\0';
+        printf("ALERTA: %s\n", alerta);
+      } else {
+        perror("read");
+      }
 
-      login(listaUsuarios);
       printf("Para salir presiona *: ");
       while (getchar() != '\n'); // Limpiamos el buffer de entrada
       salir=getchar();
     }
 
-    close(fd[1]); // Cerrar el descriptor de escritura del pipe
+    close(pipe_alerta[0]); // Cerrar el descriptor de escritura del pipe
   }
   
   return 1;
