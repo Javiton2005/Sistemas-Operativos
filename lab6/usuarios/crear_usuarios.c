@@ -10,11 +10,9 @@
 #include "usuarios.h"
 #include <stdio.h>
 
-<<<<<<< HEAD
+
 USER *crearUsuario(char *linea, int id){
-=======
-USER *crearUsuario(char *linea, int nLinea){
->>>>>>> main
+
   USER *user=malloc(sizeof(USER)); // Aloca memoria para un nuevo usuario
   
   int indice = 0;
@@ -39,9 +37,6 @@ USER *crearUsuario(char *linea, int nLinea){
         break;
       case 4:
         user->ntrasacciones=atoi(palabra);
-        break;
-      case 5:
-        user->linea=nLinea;
         break;
     }
     indice++;
