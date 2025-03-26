@@ -36,8 +36,8 @@ USER **CrearListaUsuarios(char *fichero){
     caracteres++;
     
     if (caracter=='\n' || caracter ==EOF) {
-      linea[caracteres]='\0'; 
-      USER *usuario = crearUsuario(linea);
+      linea[caracteres]='\0';
+      USER *usuario = crearUsuario(linea,usuarios+1);
       //free(linea);
       listaUsuarios=realloc(listaUsuarios, (usuarios)*sizeof(USER *));
       listaUsuarios[usuarios]=usuario;

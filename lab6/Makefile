@@ -17,7 +17,8 @@ SRCS_BANCO := $(wildcard $(SRCDIR)/banco.c) \
 
 SRCS_USUARIO := $(wildcard $(SRCDIR)/usuario.c) \
         $(wildcard $(SRCDIR)/comun/*.c) \
-        $(wildcard $(SRCDIR)/funciones/*.c)
+        $(wildcard $(SRCDIR)/funciones/*.c) \
+				$(wildcard $(SRCDIR)/usuarios/*.c)
 
 # Archivos objeto para banco y usuario
 OBJS_BANCO := $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS_BANCO))

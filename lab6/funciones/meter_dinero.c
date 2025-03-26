@@ -1,5 +1,5 @@
 #include "funciones.h"
 
-void *MeterDinero(void *usuario){
+void MeterDinero(int *idUser){
   
 }

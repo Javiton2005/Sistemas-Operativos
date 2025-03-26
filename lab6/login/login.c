@@ -5,6 +5,7 @@
 */
 
 #include "login.h"
+#include <stdio.h>
 
 
 void login(USER **listaUsuarios){
@@ -16,6 +17,7 @@ void login(USER **listaUsuarios){
   time_t t;
   struct tm *tm_info;
   char fecha[50];
+
   // El usuario introduce sus credenciales
   printf("Inserta Nombre de la cuenta: ");
   scanf("%s", nombre);
@@ -24,20 +26,17 @@ void login(USER **listaUsuarios){
   scanf("%s", contraseña);
   
   for(int i =0;i<Estadisticas.usuarios;i++){
+    
     // Si las credenciales conciden entra en el stament
     if (strcmp(nombre, listaUsuarios[i]->nombre)==0 && strcmp(contraseña, listaUsuarios[i]->contrasena)==0) {
       pid_t pid = fork(); // Se duplica para que el hijo pueda morir sin que el proceso padre pueda seguir ejecutando
       if (pid == 0) {  // Proceso hijo
         // Convertimos edad y dinero a cadenas
-        char nTransaccionesStr[50];
-        char saldoStr[50];
-        char lineaStr[5];
-        sprintf(nTransaccionesStr, "%d", listaUsuarios[i]->ntrasacciones);
-        sprintf(saldoStr, "%d", listaUsuarios[i]->saldo);
-        sprintf(lineaStr, "%d", listaUsuarios[i]->linea);
+        char idStr[5];
+        sprintf(idStr, "%d", listaUsuarios[i]->id);
         
         char comando[256];
-        snprintf(comando, sizeof(comando), "./usuario \"%s\" \"%s\" \"%s\" \"%s\" \"%s\" \"%s\" \"%s\"", listaUsuarios[i]->nombre, listaUsuarios[i]->contrasena, listaUsuarios[i]->ncuenta,saldoStr ,nTransaccionesStr, lineaStr,Config.archivo_log);
+        snprintf(comando, sizeof(comando), "./usuario \"%s\" ", idStr);
 
         if (access("/bin/gnome-terminal", X_OK) == 0) { //Comprueba si la terminal gnome existe, si es asi la ejecuta y si no ejecuta kitty
           execlp("gnome-terminal", "gnome-terminal", "--", "sh", "-c",  comando, (char *)NULL);

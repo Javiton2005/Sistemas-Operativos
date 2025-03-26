@@ -1,18 +1,12 @@
 #include "funciones.h"
 #include <stdio.h>
 
-void *MenuOpciones(void *registrado){
+void MenuOpciones(int *idUser){
 
-  int *codigoRetorno = malloc(sizeof(int));
-  if (codigoRetorno == NULL)
-    return NULL;
-
-  if (registrado == NULL) {
-      *codigoRetorno = 1;
-      return codigoRetorno;
-  }
-
-  
+  if (idUser==NULL) {
+    perror("Error al pasar id de User");
+    exit(-1);
+  } 
   int seleccion=-1;
   system("clear");
   for (int i =0; funcionesMenu[i]!=NULL; i++) {
@@ -23,25 +17,25 @@ void *MenuOpciones(void *registrado){
   switch (seleccion)
   {
     case 0:
-      SacarDinero(registrado,1);
+      SacarDinero(idUser);
       break;
     case 1:
-      MeterDinero(registrado);
+      MeterDinero(idUser);
       break;    
     case 2:
-      ConsultarSaldo(registrado);
+      ConsultarSaldo(idUser);
       break;
     case 3:
-      InfoCuenta(registrado);
+      InfoCuenta(idUser);
       break;
     case 4:
-      Transaccion(registrado);
+      Transaccion(idUser);
       break;
     case 5:
-      PagarTasas(registrado);
+      PagarTasas(idUser);
       break;
     case 6:
-      CancelarTarjetas(registrado);
+      CancelarTarjetas(idUser);
       break;
     case 7:
       exit(1);
@@ -49,8 +43,4 @@ void *MenuOpciones(void *registrado){
     default:
       break;
   }
-
-  *codigoRetorno=0;
-  return codigoRetorno;
 }
-
