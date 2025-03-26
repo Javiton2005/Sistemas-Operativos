@@ -1,20 +1,14 @@
 #include "funciones.h"
 #include <stdio.h>
 
-void *InfoCuenta(void *usuario){
-  char letra;
-  if(usuario==NULL){
-      return (void *)4;
+void InfoCuenta(int *idUser){
+  
+  if (idUser<0) {
+    return;
   }
-  USER *user = (USER *)usuario;
-  if (strcmp(user->nombre, "\0")==0)
-  {
-      return (void *)6;
-  }
-  if (user->saldo<=-1)
-  {
-      return (void *)2;
-  }    
+  
+  USER *user=leerCsv(idUser); 
+
   system("clear");
   printf("Info de la cuenta:\n"); 
   printf("Nombre: %s\n", user->nombre);
@@ -22,9 +16,9 @@ void *InfoCuenta(void *usuario){
   printf("Numero de cuenta: %s\n", user->ncuenta);
   printf("Saldo: %d\n", user->saldo);
   printf("Numero de Trasacciones: %d\n",user->ntrasacciones);
-  
+  printf("Id: %d",user->id);
   printf("\nPresiona cualquier tecla para salir"); 
   while (getchar() != '\n'); // Limpiamos el buffer de entrada
   getchar();
-  return 0;
+  return;
 }

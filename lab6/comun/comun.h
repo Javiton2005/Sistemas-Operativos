@@ -14,12 +14,14 @@
 #include <pthread.h>
 #include <semaphore.h>
 
+
 typedef struct _User{
   char *nombre;
   char *contrasena;
   char *ncuenta;
   int saldo;
   int ntrasacciones;
+  int id;
 } USER;
 
 extern struct _Config {
@@ -38,5 +40,5 @@ extern struct _Estadisticas {
 
 void InitGlobal();
 void EscribirEnLog(char *frase);
-
+USER *leerCsv(int *idUser);
 #endif // Comun_H

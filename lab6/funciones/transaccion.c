@@ -1,5 +1,5 @@
 #include "funciones.h"
 
-void *Transaccion(void *usuario){
+void Transaccion(int *idUser){
   
 }

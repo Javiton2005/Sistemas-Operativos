@@ -1,5 +1,5 @@
 #include "funciones.h"
 
-void *PagarTasas(void *usuario){
+void PagarTasas(int *idUser){
   
 }

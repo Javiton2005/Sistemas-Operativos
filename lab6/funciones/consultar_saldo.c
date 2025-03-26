@@ -1,20 +1,13 @@
 #include "funciones.h"
 #include <stdio.h>
 
-void *ConsultarSaldo(void *usuario){
+void ConsultarSaldo(int *idUser){
 
-  if(usuario==NULL){
-      return (void *)4;
+  if(idUser==NULL){
+    perror("Error al pasar el id");
+    exit(-1);
   }
-  USER *user = (USER *)usuario;
-  if (strcmp(user->nombre, "\0")==0)
-  {
-      return (void *)6;
-  }
-  if (user->saldo<=-1)
-  {
-      return (void *)2;
-  }    
+  USER *user = leerCsv(idUser);
   system("clear"); 
   printf("Saldo de la cuenta:\n");
   printf("El saldo de la cuenta de %s\n",user->nombre);
@@ -23,5 +16,5 @@ void *ConsultarSaldo(void *usuario){
   while (getchar()!='\n'){}
   
   getchar();
-  return 0;
+  return;
 }
