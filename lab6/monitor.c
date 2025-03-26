@@ -1,4 +1,7 @@
-#include "comun/comun.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
 #define ESTADO_APROBADA 0
 #define ESTADO_FONDOS_INSUFICIENTES 1
 #define ESTADO_EXCEDE_LIMITE 2
@@ -10,15 +13,27 @@
 #define LIMITE_TRANSFERENCIA 1000.0
 #define LIMITE_INTENTOS_LOGIN 3
 
+TRANSACCION **transacciones;
+int num_transacciones = 0;
+int fd_pipe[2];
+
 // Función monitor principal
-int monitor(int codigo, void* datos, void* datos2) {
-    
-    double cantidad;
-    int respuesta;
-    
-    // Crear hilos para anomalías
+void monitor(int fd_alerta) {
+    fd_pipe[1] = fd_alerta;
+
+    transacciones = CrearListaTransacciones("transacciones.csv");
+    if (!transacciones) {
+        printf("Error al crear la lista de transacciones.\n");
+        return;
+    }
+
+    while (transacciones[num.transacciones] != NULL) {
+        num.transacciones++;
+    }
+
     pthread_t hilo_fondos, hilo_transacciones_grandes, hilo_login, hilo_internacional, hilo_secuencia, hilo_no_existe;
-    
+
+    // Crear hilos para anomalías
     pthread_create(&hilo_fondos, NULL, hilo_fondos_insuficientes, NULL);
     pthread_create(&hilo_transacciones_grandes, NULL, hilo_transacciones_grandes, NULL);
     pthread_create(&hilo_login, NULL, hilo_login_fallido, NULL);
@@ -27,15 +42,12 @@ int monitor(int codigo, void* datos, void* datos2) {
     pthread_create(&hilo_no_existe, NULL, hilo_usuario_no_existe, NULL);
 
     // CODIGO PARA LEER TRANSACCIONES Y CUENTAS
-    
     pthread_join(hilo_fondos, NULL);
     pthread_join(hilo_transacciones_grandes, NULL);
     pthread_join(hilo_login, NULL);
     pthread_join(hilo_internacional, NULL);
     pthread_join(hilo_secuencia, NULL);
     pthread_join(hilo_no_existe, NULL);
-        
-    return 0;
 }
 
 // Función para registrar anomalías en el log
@@ -46,29 +58,21 @@ void registrar_anomalia(int codigo_anomalia) {
     struct tm *tiempo_info = localtime(&tiempo);
     strftime(tiempo_str, sizeof(strftime), "%Y-%m-%d %H:%M:%S", tiempo_info);
 
-    printf("[%s] ANOMALÍA %d\n", tiempo_str, codigo_anomalia);
-    sleep(5);
+    char mensaje[50];
+    sprintf(mesnaje, sizeof(mensaje), "ANOMALÍA %d - [%s]\n", codigo_anomalia, tiempo_str);
+    
+    printf("MONITOR: %s", mensaje); // Mostrar en pantalla
 
-    if (codigo_anomalia == ESTADO_APROBADA) {
-        return;
-    }
-
-    char mensaje_anomalia[50];    
-    sprintf(mensaje_anomalia, "[%s] ANOMALÍA %d\n", tiempo_str, codigo_anomalia);
-
-    //ENVIAR MENSAJE_ANOMALIA AL BANCO
-
-    return;
+    write(fd_pipe[1], mensaje, sizeof(mensaje)); // Enviar mensaje al banco
 }
 
 //------------------------------ FUNCIONES DE LOS HILOS PARA DETECTAR ANOMALÍAS ------------------------------
 
 // Detección de fondos insuficientes
-void *hilo_fondos_insuficientes(void *arg) {
-        
+void *hilo_fondos_insuficientes(void *arg) {        
     // Comprobar si alguna cuenta tiene saldo negativo
-    for (int i = 0; i < monitor.num_cuentas; i++) {
-        if (monitor.cuentas[i].saldo < 0) {
+    for (int i = 0; i < num.transacciones; i++) {
+        if (transacciones[i]->saldo < 0) {
             registrar_anomalia(ESTADO_FONDOS_INSUFICIENTES);
         }
     }
@@ -155,3 +159,4 @@ void *hilo_usuario_no_existe(void *arg) {
     }
     return NULL;
 }
+
