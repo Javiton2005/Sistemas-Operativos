@@ -8,6 +8,7 @@ void ConsultarSaldo(int *idUser){
     exit(-1);
   }
   USER *user = leerCsv(idUser);
+
   system("clear"); 
   printf("Saldo de la cuenta:\n");
   printf("El saldo de la cuenta de %s\n",user->nombre);

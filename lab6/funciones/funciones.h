@@ -14,6 +14,7 @@ void InfoCuenta(int *idUser);
 void Transaccion(int *idUser);
 void PagarTasas(int *idUser);
 void CancelarTarjetas(int *idUser);
+
 /*
    0 "Sacar Dinero",
    1 "Meter Dinero",
@@ -24,4 +25,3 @@ void CancelarTarjetas(int *idUser);
    6 "Cancelar Tarjetas"
 */
 #endif // FUNCIONES
-

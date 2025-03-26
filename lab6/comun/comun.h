@@ -22,6 +22,7 @@ typedef struct _User{
   int saldo;
   int ntrasacciones;
   int id;
+
 } USER;
 
 extern struct _Config {
@@ -41,4 +42,6 @@ extern struct _Estadisticas {
 void InitGlobal();
 void EscribirEnLog(char *frase);
 USER *leerCsv(int *idUser);
+
+void *EditarCsv(void *usuario);
 #endif // Comun_H
