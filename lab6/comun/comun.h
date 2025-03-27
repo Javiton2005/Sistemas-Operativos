@@ -22,8 +22,15 @@ typedef struct _User{
   int saldo;
   int ntrasacciones;
   int id;
-
 } USER;
+
+typedef struct _Transaccion{
+  double cantidad;
+  unsigned int ncuentas;
+  unsigned int ncuentao;
+  struct tm *fecha;
+  char *descripcion;
+} TRANSACCION;
 
 extern struct _Config {
   int limite_retiro;
