@@ -11,6 +11,9 @@
 #include <fcntl.h>
 #include <string.h>
 #include <stddef.h>
+#include <stdio.h>
+#include <time.h>
+
 #include <pthread.h>
 #include <semaphore.h>
 
@@ -18,12 +21,19 @@
 typedef struct _User{
   char *nombre;
   char *contrasena;
-  char *ncuenta;
-  int saldo;
-  int ntrasacciones;
-  int id;
-
+  unsigned int ncuenta;
+  double saldo;
+  int ntransacciones;
+  TRANSACCION transaccion;
 } USER;
+typedef struct _Transaccion{
+  double cantidad;
+  unsigned int ncuentas;
+  unsigned int ncuentao;
+  struct tm *fecha;
+  char *descripcion;
+} TRANSACCION;
+
 
 extern struct _Config {
   int limite_retiro;
