@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "monitor.h"
+
 #define ESTADO_APROBADA 0
 #define ESTADO_FONDOS_INSUFICIENTES 1
 #define ESTADO_EXCEDE_LIMITE 2
@@ -17,38 +19,6 @@ TRANSACCION **transacciones;
 int num_transacciones = 0;
 int fd_pipe[2];
 
-// Función monitor principal
-void monitor(int fd_alerta) {
-    fd_pipe[1] = fd_alerta;
-
-    transacciones = CrearListaTransacciones("transacciones.csv");
-    if (!transacciones) {
-        printf("Error al crear la lista de transacciones.\n");
-        return;
-    }
-
-    while (transacciones[num.transacciones] != NULL) {
-        num.transacciones++;
-    }
-
-    pthread_t hilo_fondos, hilo_transacciones_grandes, hilo_login, hilo_internacional, hilo_secuencia, hilo_no_existe;
-
-    // Crear hilos para anomalías
-    pthread_create(&hilo_fondos, NULL, hilo_fondos_insuficientes, NULL);
-    pthread_create(&hilo_transacciones_grandes, NULL, hilo_transacciones_grandes, NULL);
-    pthread_create(&hilo_login, NULL, hilo_login_fallido, NULL);
-    pthread_create(&hilo_internacional, NULL, hilo_transacciones_internacionales, NULL);
-    pthread_create(&hilo_secuencia, NULL, hilo_secuencia_inusual, NULL);
-    pthread_create(&hilo_no_existe, NULL, hilo_usuario_no_existe, NULL);
-
-    // CODIGO PARA LEER TRANSACCIONES Y CUENTAS
-    pthread_join(hilo_fondos, NULL);
-    pthread_join(hilo_transacciones_grandes, NULL);
-    pthread_join(hilo_login, NULL);
-    pthread_join(hilo_internacional, NULL);
-    pthread_join(hilo_secuencia, NULL);
-    pthread_join(hilo_no_existe, NULL);
-}
 
 // Función para registrar anomalías en el log
 void registrar_anomalia(int codigo_anomalia) {
@@ -158,5 +128,39 @@ void *hilo_usuario_no_existe(void *arg) {
         }
     }
     return NULL;
+}
+
+
+// Función monitor principal
+void monitor(int fd_alerta) {
+    fd_pipe[1] = fd_alerta;
+
+    transacciones = CrearListaTransacciones("transacciones.csv");
+    if (!transacciones) {
+        printf("Error al crear la lista de transacciones.\n");
+        return;
+    }
+
+    while (transacciones[num.transacciones] != NULL) {
+        num.transacciones++;
+    }
+
+    pthread_t hilo_fondos, hilo_transacciones_grandes, hilo_login, hilo_internacional, hilo_secuencia, hilo_no_existe;
+
+    // Crear hilos para anomalías
+    pthread_create(&hilo_fondos, NULL, hilo_fondos_insuficientes, NULL);
+    pthread_create(&hilo_transacciones_grandes, NULL, hilo_transacciones_grandes, NULL);
+    pthread_create(&hilo_login, NULL, hilo_login_fallido, NULL);
+    pthread_create(&hilo_internacional, NULL, hilo_transacciones_internacionales, NULL);
+    pthread_create(&hilo_secuencia, NULL, hilo_secuencia_inusual, NULL);
+    pthread_create(&hilo_no_existe, NULL, hilo_usuario_no_existe, NULL);
+
+    // CODIGO PARA LEER TRANSACCIONES Y CUENTAS
+    pthread_join(hilo_fondos, NULL);
+    pthread_join(hilo_transacciones_grandes, NULL);
+    pthread_join(hilo_login, NULL);
+    pthread_join(hilo_internacional, NULL);
+    pthread_join(hilo_secuencia, NULL);
+    pthread_join(hilo_no_existe, NULL);
 }
 

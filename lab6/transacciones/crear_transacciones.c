@@ -1,4 +1,8 @@
 #include "transacciones.h"
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include <time.h>
 
 // Función para crear una transacción a partir de una línea del CSV
@@ -9,7 +13,6 @@ TRANSACCION *crearTransaccion(char *linea, int nLinea) {
     int indice = 0;
     char *output;
     while ((output = strsep(&linea, ";")) != NULL) {
-        
         char *palabra = strdup(output);
         if (*palabra == '\0')
             palabra = "N/A";
@@ -39,3 +42,4 @@ TRANSACCION *crearTransaccion(char *linea, int nLinea) {
 
     return transaccion;
 }
+

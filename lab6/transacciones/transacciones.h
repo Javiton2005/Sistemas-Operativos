@@ -7,3 +7,4 @@ USER *crearTransaccion(char *linea, int nLinea);
 USER **CrearListaTransacciones(char *fichero);
 
 #endif // TRANSACCIONES_H
+

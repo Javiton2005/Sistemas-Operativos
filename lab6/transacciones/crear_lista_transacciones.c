@@ -1,4 +1,6 @@
 #include "transacciones.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 TRANSACCION **CrearListaTransacciones(char *fichero) {
     if (fichero == NULL) {
@@ -45,3 +47,4 @@ TRANSACCION **CrearListaTransacciones(char *fichero) {
     
     return listaTransacciones;
 }
+

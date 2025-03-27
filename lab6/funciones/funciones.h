@@ -5,15 +5,23 @@
 
 extern char *funcionesMenu[];
 
-void MenuOpciones();
+void MenuOpciones(int *idUser);
 
-int SacarDinero();
-int MeterDinero();
-int ConsultarSaldo();
-int InfoCuenta();
-int Transaccion();
-int PagarTasas();
-int CancelarTarjetas();
+void SacarDinero(int *idUser);
+void MeterDinero(int *idUser);
+void ConsultarSaldo(int *idUser);
+void InfoCuenta(int *idUser);
+void Transaccion(int *idUser);
+void PagarTasas(int *idUser);
+void CancelarTarjetas(int *idUser);
 
+/*
+   0 "Sacar Dinero",
+   1 "Meter Dinero",
+   2 "Consultar Saldo",
+   3 "Informacion de la Cuenta",
+   4 "Transaccion",
+   5 "Pagar Tasas",
+   6 "Cancelar Tarjetas"
+*/
 #endif // FUNCIONES
-
