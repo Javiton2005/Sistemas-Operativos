@@ -8,12 +8,15 @@
 #include <signal.h>
 #include <threads.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <string.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <time.h>
 
-#define MAX_TRANSACCION 1000
+#include <pthread.h>
+#include <semaphore.h>
+
 
 typedef struct _User{
   char *nombre;
@@ -31,10 +34,24 @@ typedef struct _Transaccion{
   char *descripcion;
 } TRANSACCION;
 
+
+extern struct _Config {
+  int limite_retiro;
+  int limite_transferencia;
+  int umbral_retiros;
+  int umbral_transferencias;
+  int num_hilos;
+  char archivo_cuentas[50];
+  char archivo_log[50];
+} Config;
+
 extern struct _Estadisticas {
   int usuarios;
 } Estadisticas;
 
 void InitGlobal();
+void EscribirEnLog(char *frase);
+USER *leerCsv(int *idUser);
 
+void *EditarCsv(void *usuario);
 #endif // Comun_H
