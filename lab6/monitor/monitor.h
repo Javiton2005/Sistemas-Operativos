@@ -2,6 +2,7 @@
 #define MONITOR_H
 
 #include "../comun/comun.h"
+#include "../transacciones/transacciones.h"
 
 void monitor(int fd_alerta);
 
@@ -11,5 +12,6 @@ void *hilo_transacciones_grandes(void *arg);
 void *hilo_login_fallido(void *arg);
 void *hilo_transacciones_internacionales(void *arg);
 void *hilo_secuencia_inusual(void *arg);
+
 
 #endif // MONITOR_H

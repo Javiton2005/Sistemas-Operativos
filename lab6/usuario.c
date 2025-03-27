@@ -1,6 +1,5 @@
 #include "comun/comun.h"
 #include "funciones/funciones.h"
-#include <stdio.h>
 
 int main(int argc, char *argv[]){
   int idUser=atoi(argv[1]);
