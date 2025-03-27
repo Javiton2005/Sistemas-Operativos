@@ -1,17 +1,19 @@
 #include "funciones.h"
 
-int transaccion(){
+int Transaccion(){
   int nc, b=0;
   float c;
   printf("Nº de cuenta al que se le quiera hacer la transacción: \n");
-  scanf("%d", %nc);
+  scanf("%d", &nc);
   if (nc < 0){
     printf("Nº de cuenta no existe\n");
     return(1);
   }
+  /*
   USER **listaUsuarios = CrearListaUsuarios("./ficheros/db.csv");
   for (int i=0;i<Estadisticas.usuarios;i++) if (nc == listaUsuarios[i]->ncuenta) b++;
   USER o;
+  */
   if (b > 1){
     printf("Hay varias cuentas con ese numero de cuenta\n");
     return(2);
@@ -21,7 +23,7 @@ int transaccion(){
     return(3);
   }
   printf("¿Que cantidad quiere transferir? \n");
-  scanf("%d", &c);
+  scanf("%f", &c);
   if (c < 0){
     printf("Formato incorrecto\n");
     return(4);
@@ -37,9 +39,12 @@ int transaccion(){
   transaccion.cantidad = c;
   transaccion.ncuentas = user->ncuenta;
   transaccion.ncuentao = o.ncuenta;
+  char *d = malloc(26);
+  d = "Transaccion entre cuentas\0";
   time(&t);
   transaccion.fecha = localtime(&t);
-
+  ModificarCSV(user);
+  //ModificarCSV(o);
   printf("Transaccion completada\n");
   return(0);
 }

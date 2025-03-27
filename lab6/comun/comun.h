@@ -20,7 +20,7 @@ typedef struct _User{
   char *contrasena;
   unsigned int ncuenta;
   double saldo;
-  int ntrasacciones;
+  int ntransacciones;
   TRANSACCION transaccion;
 } USER;
 typedef struct _Transaccion{
@@ -28,6 +28,7 @@ typedef struct _Transaccion{
   unsigned int ncuentas;
   unsigned int ncuentao;
   struct tm *fecha;
+  char *descripcion;
 } TRANSACCION;
 
 extern struct _Estadisticas {
