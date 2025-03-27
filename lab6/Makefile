@@ -11,6 +11,7 @@ TARGET_USUARIO = usuario
 # Archivos fuente
 SRCS_BANCO := $(wildcard $(SRCDIR)/banco.c) \
         $(wildcard $(SRCDIR)/usuarios/*.c) \
+	$(wildcard $(SRCDIR)/transacciones/*.c) \
         $(wildcard $(SRCDIR)/comun/*.c) \
         $(wildcard $(SRCDIR)/login/*.c) \
         $(wildcard $(SRCDIR)/monitor/*.c)
