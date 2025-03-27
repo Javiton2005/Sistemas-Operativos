@@ -1,7 +1,7 @@
 #include "login.h"
 #include <stdio.h>
 
-void *login(USER **listaUsuarios){
+int *login(USER **listaUsuarios){
 
   char nombre[50];
   char contraseña[50];

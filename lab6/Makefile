@@ -14,6 +14,7 @@ TARGET = banco
 SRCS := $(wildcard $(SRCDIR)/*.c) \
         $(wildcard $(SRCDIR)/banco/*.c) \
         $(wildcard $(SRCDIR)/usuarios/*.c) \
+		$(wildcard $(SRCDIR)/transacciones/*.c) \
         $(wildcard $(SRCDIR)/comun/*.c) \
 				$(wildcard $(SRCDIR)/login/*.c) \
 				$(wildcard $(SRCDIR)/funciones/*.c) \
