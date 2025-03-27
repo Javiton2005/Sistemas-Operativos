@@ -1,4 +1,5 @@
 #include "transacciones.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -6,6 +7,7 @@
 
 // Función para crear una transacción a partir de una línea del CSV
 TRANSACCION *crearTransaccion(char *linea, int nLinea) {
+    
     TRANSACCION *transaccion = malloc(sizeof(TRANSACCION));
     
     int indice = 0;
@@ -40,3 +42,4 @@ TRANSACCION *crearTransaccion(char *linea, int nLinea) {
 
     return transaccion;
 }
+

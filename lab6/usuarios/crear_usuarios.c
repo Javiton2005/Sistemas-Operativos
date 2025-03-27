@@ -1,5 +1,6 @@
 /*
 
+
   Recibe la Linea del fichero
   Devuelve un puntero a un usuario
   
@@ -30,7 +31,7 @@ USER *crearUsuario(char *linea, int id){
         user->contrasena=palabra;
         break;
       case 2:
-        user->ncuenta = palabra;
+        user->ncuenta = atoi(palabra);
         break;
       case 3:
         user->saldo = atoi(palabra);

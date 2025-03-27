@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 #include "monitor.h"
 
@@ -126,6 +129,7 @@ void *hilo_usuario_no_existe(void *arg) {
     }
     return NULL;
 }
+
 
 // Función monitor principal
 void monitor(int fd_alerta) {

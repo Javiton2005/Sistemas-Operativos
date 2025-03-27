@@ -47,3 +47,4 @@ TRANSACCION **CrearListaTransacciones(char *fichero) {
     
     return listaTransacciones;
 }
+
