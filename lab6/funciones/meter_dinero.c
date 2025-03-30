@@ -1,6 +1,6 @@
 #include "funciones.h"
 
-int MeterDinero(){
+void MeterDinero(int *id){
     float c;
     printf("Cantidad a ingresar: \n");
     scanf("%f", &c);

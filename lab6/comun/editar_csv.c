@@ -1,5 +1,4 @@
 #include "comun.h"
-#include <stdio.h>
 
 void *EditarCsv(void *usuario){
   
@@ -15,12 +14,11 @@ void *EditarCsv(void *usuario){
   int contador;
   while (fgets(buffer, sizeof(buffer), csv)) {
     contador++;
-    if (contador == user->linea) {
+    if (contador == user->id) {
       char linea[255];
-      snprintf(linea, sizeof(linea), "%s ",user->nombre);
-      fprintf(csv,); 
+      snprintf(linea, sizeof(linea), "%s;%s;%s;%f;%d",user->nombre,user->contrasena,user->ncuenta,user->saldo,user->ntransacciones);
+      fprintf(csv,"%s",linea);
     }
   }
-
   return NULL;
 }

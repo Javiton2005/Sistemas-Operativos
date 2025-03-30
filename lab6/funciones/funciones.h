@@ -5,6 +5,11 @@
 #include "../usuarios/usuarios.h"
 extern char *funcionesMenu[];
 
+typedef struct _idValor{
+  int *id;
+  double *valor;
+}IdValor;
+
 void MenuOpciones(int *idUser);
 
 void SacarDinero(int *idUser);
