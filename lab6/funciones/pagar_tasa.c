@@ -1,6 +1,6 @@
 #include "funciones.h"
 
-int PagarTasas(int *idUser){
+void PagarTasas(int *idUser){
   int nc;
   char *ruta;
   char *s;
