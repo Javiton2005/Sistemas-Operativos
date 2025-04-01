@@ -1,6 +1,7 @@
 # Límites de Operaciones
 LIMITE_RETIRO=5000
 LIMITE_TRANSFERENCIA=10000
+LIMITE_INTENTOS_LOGIN=3
 
 # Umbrales de Detección de Anomalías
 UMBRAL_RETIROS=3

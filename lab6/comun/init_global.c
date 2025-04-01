@@ -1,5 +1,4 @@
 #include "comun.h"
-#include <string.h>
 
 struct _Estadisticas Estadisticas;
 struct _Config Config;
@@ -26,6 +25,8 @@ void InitGlobal(){
     else if (strstr(path, "NUM_HILOS")) sscanf(path, "NUM_HILOS=%d", &Config.num_hilos);
     else if (strstr(path, "ARCHIVO_CUENTAS")) sscanf(path, "ARCHIVO_CUENTAS=%s", Config.archivo_cuentas);
     else if (strstr(path, "ARCHIVO_LOG")) sscanf(path, "ARCHIVO_LOG=%s",Config.archivo_log);
+    else if (strstr(path, "LIMITE_INTENTOS_LOGIN")) sscanf(path, "LIMITE_INTENTOS_LOGIN=%d",&Config.limite_login);
+    else if (strstr(path, "ARCHIVO_TRANSFERENCIAS")) sscanf(path, "ARCHIVO_TRANSFERENCIAS=%s",Config.archivo_tranferencias);
   } 
 
 }

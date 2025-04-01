@@ -14,6 +14,13 @@
 #include <pthread.h>
 #include <semaphore.h>
 
+#define ESTADO_APROBADA 0
+#define ESTADO_FONDOS_INSUFICIENTES 1
+#define ESTADO_EXCEDE_LIMITE 2
+#define ESTADO_CONSTRASEÑA_INCORRECTA 3
+#define ESTADO_TRANSACCION_INTERNACIONAL 4
+#define ESTADO_SECUENCIA_INUSUAL 5
+#define ESTADO_USUARIO_DESTINO_NO_EXISTE 6
 
 typedef struct _User{
   char *nombre;
@@ -23,6 +30,7 @@ typedef struct _User{
   int ntransacciones;
   int id;
 } USER;
+
 typedef struct _Transaccion{
   double cantidad;
   unsigned int ncuentas;
@@ -40,6 +48,8 @@ extern struct _Config {
   int num_hilos;
   char archivo_cuentas[50];
   char archivo_log[50];
+  char archivo_tranferencias[50];
+  int limite_login;
 } Config;
 
 extern struct _Estadisticas {

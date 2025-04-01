@@ -1,19 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
 #include "monitor.h"
 
-#define ESTADO_APROBADA 0
-#define ESTADO_FONDOS_INSUFICIENTES 1
-#define ESTADO_EXCEDE_LIMITE 2
-#define ESTADO_CONSTRASEÑA_INCORRECTA 3
-#define ESTADO_TRANSACCION_INTERNACIONAL 4
-#define ESTADO_SECUENCIA_INUSUAL 5
-#define ESTADO_USUARIO_DESTINO_NO_EXISTE 6
 
-#define LIMITE_TRANSFERENCIA 1000.0
-#define LIMITE_INTENTOS_LOGIN 3
 
 TRANSACCION **transacciones;
 int num_transacciones = 0;
@@ -29,7 +16,7 @@ void registrar_anomalia(int codigo_anomalia) {
     strftime(tiempo_str, sizeof(strftime), "%Y-%m-%d %H:%M:%S", tiempo_info);
 
     char mensaje[50];
-    sprintf(mesnaje, sizeof(mensaje), "ANOMALÍA %d - [%s]\n", codigo_anomalia, tiempo_str);
+    sprintf(mensaje,"ANOMALÍA %d - [%s]\n", codigo_anomalia, tiempo_str);
     
     printf("MONITOR: %s", mensaje); // Mostrar en pantalla
 
@@ -67,7 +54,7 @@ void *hilo_login_fallido(void *arg) {
     int intentos_previos = 0;
 
     // Comprobar si hay nuevos intentos de login fallidos
-    if (monitor.num_intentos_login >= LIMITE_INTENTOS_LOGIN) {
+    if (monitor.num_intentos_login >= Config.limite_login) {
         registrar_anomalia(ESTADO_CONSTRASEÑA_INCORRECTA);
         intentos_previos = monitor.num_intentos_login;
     }
@@ -135,7 +122,7 @@ void *hilo_usuario_no_existe(void *arg) {
 void monitor(int fd_alerta) {
     fd_pipe[1] = fd_alerta;
 
-    transacciones = CrearListaTransacciones("transacciones.csv");
+    transacciones = CrearListaTransacciones(Config.archivo_tranferencias);
     if (!transacciones) {
         printf("Error al crear la lista de transacciones.\n");
         return;
