@@ -1,6 +1,6 @@
 #include "funciones.h"
 
-int Transaccion(int *idUser){
+void Transaccion(int *idUser){
   char nc[255];
   float c;
   pthread_t h;
