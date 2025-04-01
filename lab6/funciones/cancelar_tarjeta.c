@@ -1,6 +1,6 @@
 #include "funciones.h"
 
-int CancelarTarjeta(int *idUser){
+void CancelarTarjeta(int *idUser){
   char *np;
   printf("Ingrese el nuevo pin que quiera tener en la tarjeta: \n");
   scanf("%s",np);
