@@ -1,20 +1,22 @@
 #include "funciones.h"
 
-int CancelarTarjeta(){
-  char *c, *p, *np;
-  printf("Se requiere contraseña para realizar esta operacion: \n");
-  scanf("%s", c);
-  printf("Se requiere pin de tarjeta para realizar esta operacion: \n");
-  scanf("%s",p);
+int CancelarTarjeta(int *idUser){
+  char *np;
   printf("Ingrese el nuevo pin que quiera tener en la tarjeta: \n");
   scanf("%s",np);
+  IdValor parametros = {idUser, np};
+
+}
+void CancelarTarjetaHilo(void *valor){
+  IdValor *parametros = (IdValor*)valor;
+  USER *user = leerCsv(parametros->id);
   printf("Iniciando cancelacion de tarjeta\n");
   for(int i=0;i < 16;i++){
-    user->ntarjeta[i] = (random() * 10) + '0';
+    //user->ntarjeta[i] = (random() * 10) + '0';
   }
-  user->pin = np;
+  //user->pin = np;
   ModificarCSV(user);
   printf("Tarjeta cancelada\n");
   printf("Se le ha asignado una nueva\n");
-  return(0);
+  return;
 }
