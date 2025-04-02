@@ -1,4 +1,4 @@
-#include "comun.h"
+#include "funciones.h"
 
 void EscribirLogTrans(TRANSACCION trans){
   char fecha[50], mensaje[100];

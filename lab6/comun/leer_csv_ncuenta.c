@@ -1,9 +1,15 @@
 #include "comun.h"
+#include <stdio.h>
 
 USER *LeerCSVNcuenta(char *ncuenta){
   FILE *db;
   char *line;
-  USER *user;
+  USER *user=malloc(sizeof(USER));
+  if (user==NULL) {
+    perror("Error al alocar memoria");
+    exit(-1);
+
+  }
   db = fopen("../ficheros/db.csv", "r");
   fgets(line, 256, db);
   while((line = fgets(line, 256, db))!=NULL){
@@ -20,4 +26,5 @@ USER *LeerCSVNcuenta(char *ncuenta){
     fclose(db);
     return(NULL);
   }
+  return user;
 }
