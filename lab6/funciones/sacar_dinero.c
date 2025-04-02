@@ -12,9 +12,9 @@ void *_HiloSacarDinero(void *valor){
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
 
   USER *user=leerCsv(parametros->id);
-  if(user->saldo<*parametros->valor)
+  if(user->saldo<(*(float*)(parametros->valor)))
     return NULL;
-  user->saldo-=*parametros->valor;
+  user->saldo-=(*(float*)(parametros->valor));
   EditarCsv(user); 
 
   sem_post(semaforo);

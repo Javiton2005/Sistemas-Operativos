@@ -35,11 +35,11 @@ void TransaccionHilo(void *valor){
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
   USER *user = leerCsv(*(parametros[0].id));
   USER *usero = leerCsv(*(parametros[1].id));
-  user->saldo = user->saldo - *(parametros[0].valor);
-  usero->saldo = usero->saldo + *(parametros[1].valor);
+  user->saldo = user->saldo - (*(float*)(parametros->valor));
+  usero->saldo = usero->saldo + (*(float*)(parametros->valor));
   TRANSACCION transaccion;
   time_t t;
-  transaccion.cantidad = *(parametros[0].valor);
+  transaccion.cantidad = (*(float*)(parametros->valor));
   transaccion.ncuentas = user->ncuenta;
   transaccion.ncuentao = usero->ncuenta;
   char *d = malloc(26);

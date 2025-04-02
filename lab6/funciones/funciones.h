@@ -7,7 +7,7 @@ extern char *funcionesMenu[];
 
 typedef struct _idValor{
   int *id;
-  double *valor;
+  void *valor;
 }IdValor;
 
 void MenuOpciones(int *idUser);

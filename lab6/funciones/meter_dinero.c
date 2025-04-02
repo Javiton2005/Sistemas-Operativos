@@ -22,10 +22,10 @@ void MeterDineroHilo(void *valor){
     printf("Iniciando ingreso\n");
     sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
     USER *user = leerCsv(*(parametros->id));
-    user->saldo = user->saldo + *(parametros->valor);
+    user->saldo = user->saldo + (*(float*)(parametros->valor));
     TRANSACCION transaccion;
     time_t t;
-    transaccion.cantidad = *(parametros->valor);
+    transaccion.cantidad = (*(float*)(parametros->valor));
     transaccion.ncuentas = user->ncuenta;
     transaccion.ncuentao = NULL;
     time(&t);
