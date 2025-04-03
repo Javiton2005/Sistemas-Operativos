@@ -21,7 +21,7 @@ void *TransaccionHilo(void *valor){
   transaccion.fecha = localtime(&t);
   EscribirLogTrans(transaccion);
   EditarCsv(user);
-  EditarCsv(user);
+  EditarCsv(usero);
   sem_post(semaforo);
   //FIN SEM======================================
   free(parametros);
