@@ -11,12 +11,9 @@
 #include "usuarios/usuarios.h"
 #include "login/login.h"
 #include "monitor/monitor.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <string.h>
 
 void manejar_anomalia(char *mensaje) {
   printf("BANCO: %s", mensaje);
@@ -30,17 +27,21 @@ void manejar_anomalia(char *mensaje) {
     case ESTADO_TRANSACCION_GRANDE:
       printf("BANCO: Transacción grande detectada.\n");
       break;
-    case ESTADO_CONSTRASEÑA_INCORRECTA:
+    case ESTADO_LOGIN_FALLIDO:
+      printf("BANCO: Login fallido detectado.\n");
+      break;
+    case ESTADO_CONSTRASENA_INCORRECTA:
       printf("BANCO: Contraseña incorrecta detectada.\n");
+      Sleep(1000);
       break;
-    case ESTADO_TRANSACCION_INTERNACIONAL:
-      printf("BANCO: Transacción internacional detectada.\n");
-      break;
-    case ANOMALIA_SECUENCIA_INUSUAL:
+    case ESTADO_SECUENCIA_INUSUAL:
       printf("BANCO: Secuencia inusual detectada.\n");
       break;
     case ESTADO_USUARIO_NO_EXISTE:
       printf("BANCO: Usuario no existe detectado.\n");
+      break;
+    case ESTADO_EXCEDE_LIMITE:
+      printf("BANCO: Excede el limite de transferencia.\n");
       break;
     default:
       printf("BANCO: Anomalía desconocida.\n");

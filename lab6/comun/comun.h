@@ -16,11 +16,12 @@
 
 #define ESTADO_APROBADA 0
 #define ESTADO_FONDOS_INSUFICIENTES 1
-#define ESTADO_EXCEDE_LIMITE 2
-#define ESTADO_CONSTRASEÑA_INCORRECTA 3
-#define ESTADO_TRANSACCION_INTERNACIONAL 4
-#define ESTADO_SECUENCIA_INUSUAL 5
-#define ESTADO_USUARIO_DESTINO_NO_EXISTE 6
+#define ESTADO_TRANSACCION_GRANDE 2
+#define ESTADO_LOGIN_FALLIDO 3
+#define ESTADO_SECUENCIA_INUSUAL 4
+#define ESTADO_USUARIO_NO_EXISTE 5
+#define ESTADO_EXCEDE_LIMITE 6
+#define ESTADO_CONSTRASENA_INCORRECTA 7
 
 typedef struct _User{
   char *nombre;
@@ -54,6 +55,7 @@ extern struct _Config {
 
 extern struct _Estadisticas {
   int usuarios;
+  int num_transacciones;
 } Estadisticas;
 
 void InitGlobal();

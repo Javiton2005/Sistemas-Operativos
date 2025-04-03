@@ -1,25 +1,19 @@
 #include "monitor.h"
 
 
-
+// Estructuras para almacenar estadísticas
 TRANSACCION **transacciones;
-int num_transacciones = 0;
-int fd_pipe[2];
+USER **users;
+
+int fd_pipe[2]; // Pipe para enviar mensajes de anomalias al banco
 
 
-// Función para registrar anomalías en el log
+// Función para registrar anomalías en el log y mandar al banco
 void registrar_anomalia(int codigo_anomalia) {
-    
-    char tiempo_str[20];
-    time_t tiempo = time(NULL);
-    struct tm *tiempo_info = localtime(&tiempo);
-    strftime(tiempo_str, sizeof(strftime), "%Y-%m-%d %H:%M:%S", tiempo_info);
-
     char mensaje[50];
-    sprintf(mensaje,"ANOMALÍA %d - [%s]\n", codigo_anomalia, tiempo_str);
+    sprintf(mensaje,"ANOMALÍA %d\n", codigo_anomalia);
+    EscribirEnLog(mensaje);
     
-    printf("MONITOR: %s", mensaje); // Mostrar en pantalla
-
     write(fd_pipe[1], mensaje, sizeof(mensaje)); // Enviar mensaje al banco
 }
 
@@ -28,8 +22,8 @@ void registrar_anomalia(int codigo_anomalia) {
 // Detección de fondos insuficientes
 void *hilo_fondos_insuficientes(void *arg) {        
     // Comprobar si alguna cuenta tiene saldo negativo
-    for (int i = 0; i < num.transacciones; i++) {
-        if (transacciones[i]->saldo < 0) {
+    for (int i = 0; i < Estadisticas.num_transacciones; i++) {
+        if (transacciones[i]->cantidad < 0) {
             registrar_anomalia(ESTADO_FONDOS_INSUFICIENTES);
         }
     }
@@ -40,8 +34,8 @@ void *hilo_fondos_insuficientes(void *arg) {
 void *hilo_transacciones_grandes(void *arg) {     
 
     // Comprobar si hay transacciones con monto mayor a 1000
-    for (int i = 0; i < monitor.num_transacciones; i++) {
-        if (monitor.transacciones[i].monto > 1000.0) {
+    for (int i = 0; i < Estadisticas.num_transacciones; i++) {
+        if (transacciones[i]->cantidad > 1000.0) {
             registrar_anomalia(ESTADO_EXCEDE_LIMITE);
         }
     }
@@ -53,49 +47,37 @@ void *hilo_login_fallido(void *arg) {
         
     int intentos_previos = 0;
 
-    // Comprobar si hay nuevos intentos de login fallidos
-    if (monitor.num_intentos_login >= Config.limite_login) {
-        registrar_anomalia(ESTADO_CONSTRASEÑA_INCORRECTA);
-        intentos_previos = monitor.num_intentos_login;
-    }
-    return NULL;
-}
+    
 
-// Detección de transacciones internacionales
-void *hilo_transacciones_internacionales(void *arg) {
+    // Comprobar si hay nuevos intentos de login fallidos
+    if (intentos_previos > Config.limite_login) {
+        registrar_anomalia(ESTADO_CONSTRASENA_INCORRECTA);
         
-    // Comprobar si hay transacciones internacionales
-    for (int i = 0; i < monitor.num_transacciones; i++) {
-        if (monitor.transacciones[i].pais != monitor.usuario.pais) {
-            registrar_anomalia(ESTADO_TRANSACCION_INTERNACIONAL);
-        }
     }
     return NULL;
 }
 
 // Detección de muchas secuencias inusuales en poco tiempo (3 transacciones en menos de 1 minuto)
 void *hilo_secuencia_inusual(void *arg) {
-        
+
     // Verificar si hay múltiples transacciones para una misma cuenta en un corto período
-    if (monitor.num_transacciones >= 3) {
-        for (int i = 0; i < monitor.num_cuentas; i++) {
-            int id_cuenta = monitor.cuentas[i].id_cuenta;
+    if (Estadisticas.num_transacciones < 3) return NULL;
+    else if (Estadisticas.num_transacciones >= 3) {
+        for (int i = 0; i < Estadisticas.usuarios; i++) {
+            int id_cuenta_sospechosa = users[i]->id;
             int transacciones_rapidas = 0;
-            time_t tiempo_base = 0;
+            time_t tiempo_base = time(NULL);
             
-            for (int j = 0; j < monitor.num_transacciones; j++) {
-                if (monitor.transacciones[j].id_cuenta == id_cuenta) {
-                    if (tiempo_base == 0) {
-                        tiempo_base = monitor.transacciones[j].timestamp;
-                        transacciones_rapidas = 1;
-                    } else if (monitor.transacciones[j].timestamp - tiempo_base < 60) { // 60 segundos
+            for (int j = 0; j < Estadisticas.num_transacciones; j++) {
+                if (transacciones[j]->ncuentao == id_cuenta_sospechosa) {
+                    time_t tiempo_actual = time(NULL);  // Obtener el tiempo de la transacción actual
+
+                    if ((tiempo_actual - tiempo_base) < 60000000) { // Si está dentro del último minuto
                         transacciones_rapidas++;
-                        if (transacciones_rapidas >= 3) {
-                            registrar_anomalia(ANOMALIA_SECUENCIA_INUSUAL);
-                            break;
-                        }
+                        if (transacciones_rapidas >= 3) registrar_anomalia(ESTADO_SECUENCIA_INUSUAL);
                     } else {
-                        tiempo_base = monitor.transacciones[j].timestamp;
+                        // Reiniciar contador si la nueva transacción es después de 1 minuto
+                        tiempo_base = tiempo_actual;
                         transacciones_rapidas = 1;
                     }
                 }
@@ -109,9 +91,9 @@ void *hilo_secuencia_inusual(void *arg) {
 void *hilo_usuario_no_existe(void *arg) {
         
     // Verificar si hay transacciones para usuarios que no existen
-    for (int i = 0; i < monitor.num_transacciones; i++) {
-        if (monitor.transacciones[i].id_usuario_destino == -1) {
-            registrar_anomalia(ESTADO_USUARIO_DESTINO_NO_EXISTE);
+    for (int i = 0; i < Estadisticas.num_transacciones; i++) {
+        if (transacciones[i]->ncuentao == NULL) {
+            registrar_anomalia(ESTADO_USUARIO_NO_EXISTE);
         }
     }
     return NULL;
@@ -120,7 +102,7 @@ void *hilo_usuario_no_existe(void *arg) {
 
 // Función monitor principal
 void monitor(int fd_alerta) {
-    fd_pipe[1] = fd_alerta;
+    fd_pipe[1] = fd_alerta; // Pipe para enviar mensajes al banco
 
     transacciones = CrearListaTransacciones(Config.archivo_tranferencias);
     if (!transacciones) {
@@ -128,8 +110,14 @@ void monitor(int fd_alerta) {
         return;
     }
 
-    while (transacciones[num.transacciones] != NULL) {
-        num.transacciones++;
+    while (transacciones[Estadisticas.num_transacciones] != NULL) {
+        Estadisticas.num_transacciones++;
+    }
+
+    users = CrearListaCuentas(Config.archivo_cuentas);
+    if (!users) {
+        printf("Error al crear la lista de cuentas.\n");
+        return;
     }
 
     pthread_t hilo_fondos, hilo_transacciones_grandes, hilo_login, hilo_internacional, hilo_secuencia, hilo_no_existe;
@@ -138,7 +126,6 @@ void monitor(int fd_alerta) {
     pthread_create(&hilo_fondos, NULL, hilo_fondos_insuficientes, NULL);
     pthread_create(&hilo_transacciones_grandes, NULL, hilo_transacciones_grandes, NULL);
     pthread_create(&hilo_login, NULL, hilo_login_fallido, NULL);
-    pthread_create(&hilo_internacional, NULL, hilo_transacciones_internacionales, NULL);
     pthread_create(&hilo_secuencia, NULL, hilo_secuencia_inusual, NULL);
     pthread_create(&hilo_no_existe, NULL, hilo_usuario_no_existe, NULL);
 
@@ -146,7 +133,6 @@ void monitor(int fd_alerta) {
     pthread_join(hilo_fondos, NULL);
     pthread_join(hilo_transacciones_grandes, NULL);
     pthread_join(hilo_login, NULL);
-    pthread_join(hilo_internacional, NULL);
     pthread_join(hilo_secuencia, NULL);
     pthread_join(hilo_no_existe, NULL);
 }

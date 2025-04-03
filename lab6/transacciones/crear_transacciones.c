@@ -1,10 +1,5 @@
 #include "transacciones.h"
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
-
 // Función para crear una transacción a partir de una línea del CSV
 TRANSACCION *crearTransaccion(char *linea, int nLinea) {
     
@@ -19,22 +14,19 @@ TRANSACCION *crearTransaccion(char *linea, int nLinea) {
         
         switch (indice) {
             case 0:
-                transaccion->usuario = palabra;
+                transaccion->cantidad = atoi(palabra);
                 break;
             case 1:
-                transaccion->accion = palabra;  // "retiro", "ingreso", etc.
+                transaccion->ncuentas = palabra;
                 break;
             case 2:
-                transaccion->monto = atoi(palabra);
+                transaccion->ncuentao = palabra;
                 break;
             case 3:
-                transaccion->saldo = atoi(palabra);
+                transaccion->fecha = palabra;
                 break;
             case 4:
-                transaccion->timestamp = atol(palabra);  // Guardamos timestamp en formato numérico
-                break;
-            case 5:
-                transaccion->linea = nLinea;
+                transaccion->descripcion = palabra;
                 break;
         }
         indice++;

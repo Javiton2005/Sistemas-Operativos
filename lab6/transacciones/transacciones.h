@@ -3,8 +3,8 @@
 
 #include "../comun/comun.h"
 
-USER *crearTransaccion(char *linea, int nLinea);
-USER **CrearListaTransacciones(char *fichero);
+TRANSACCION *crearTransaccion(char *linea, int nLinea);
+TRANSACCION **CrearListaTransacciones(char *fichero);
 
 #endif // TRANSACCIONES_H
 
