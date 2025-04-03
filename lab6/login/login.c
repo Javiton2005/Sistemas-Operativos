@@ -12,7 +12,7 @@
 void login(USER **listaUsuarios){
 
   char nombre[50];
-  char contraseña[50];
+  char contrasena[50];
   FILE *banco;
   char mensaje[256];
   time_t t;
@@ -24,12 +24,12 @@ void login(USER **listaUsuarios){
   scanf("%s", nombre);
 
   printf("Inserta Contraseña de la cuenta: ");
-  scanf("%s", contraseña);
-  
+  scanf("%s", contrasena);
+   
   for(int i =0;i<Estadisticas.usuarios;i++){
-    
+    //printf("Comparado con: %s, %s",listaUsuarios[i]->nombre,listaUsuarios[i]->contrasena);
     // Si las credenciales conciden entra en el stament
-    if (strcmp(nombre, listaUsuarios[i]->nombre)==0 && strcmp(contraseña, listaUsuarios[i]->contrasena)==0) {
+    if (strcmp(nombre, listaUsuarios[i]->nombre)==0 && strcmp(contrasena, listaUsuarios[i]->contrasena)==0) {
       pid_t pid = fork(); // Se duplica para que el hijo pueda morir sin que el proceso padre pueda seguir ejecutando
       if (pid == 0) {  // Proceso hijo
         // Convertimos edad y dinero a cadenas
@@ -57,7 +57,7 @@ void login(USER **listaUsuarios){
     }
   }
   // Crea el mensaje del para escribir en ellog
-  snprintf(mensaje, sizeof(mensaje), "Intento inicio de sesion: Usuario:%s Contraseña:%s\n", nombre, contraseña);
+  snprintf(mensaje, sizeof(mensaje), "Intento inicio de sesion: Usuario:%s Contraseña:%s\n", nombre, contrasena);
   EscribirEnLog(mensaje);
   printf("Las credenciales introducidas con coinciden con ningun usuario\n");
   return;

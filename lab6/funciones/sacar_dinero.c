@@ -13,23 +13,24 @@ void *_HiloSacarDinero(void *valor){
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
 
   USER *user=leerCsv(parametros->id);
-  if(user->saldo<(*(float*)(parametros->valor))){
+  if(user->saldo<(*(double*) parametros->valor)){
     sem_post(semaforo);
     return NULL;
   }
-  user->saldo-=(*(float*)(parametros->valor));
-  TRANSACCION transaccion;
-  time_t t;
-  transaccion.cantidad = (*(float*)(parametros->valor));
-  transaccion.ncuentas = user->ncuenta;
-  transaccion.ncuentao = NULL;
-  time(&t);
-  transaccion.fecha = localtime(&t);
-  transaccion.descripcion = "Retirada manual";
-  EscribirLogTrans(transaccion);
+  user->saldo-=(*(double*)(parametros->valor));
+  /*TRANSACCION transaccion;*/
+  /*time_t t;*/
+  /*transaccion.cantidad = (*(float*)(parametros->valor));*/
+  /*transaccion.ncuentas = user->ncuenta;*/
+  /*transaccion.ncuentao = NULL;*/
+  /*time(&t);*/
+  /*transaccion.fecha = localtime(&t);*/
+  /*transaccion.descripcion = "Retirada manual";*/
+  /*EscribirLogTrans(transaccion);*/
   EditarCsv(user); 
 
   sem_post(semaforo);
+  getchar();
   return NULL;
 }
 
@@ -44,5 +45,6 @@ void SacarDinero(int *idUser){
   scanf("%lf",&cantidad);
   IdValor parametros = {idUser,&cantidad}; 
 
-  pthread_create (&h1 , NULL , _HiloSacarDinero , &parametros ); 
+  pthread_create (&h1 , NULL , _HiloSacarDinero , &parametros );
+  pthread_join(h1,NULL);
 }

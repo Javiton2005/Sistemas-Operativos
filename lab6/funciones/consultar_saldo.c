@@ -12,7 +12,7 @@ void ConsultarSaldo(int *idUser){
   system("clear"); 
   printf("Saldo de la cuenta:\n");
   printf("El saldo de la cuenta de %s\n",user->nombre);
-  printf("Saldo: %f\n", user->saldo);
+  printf("Saldo: %.2lf\n", user->saldo);
   printf("\nPresiona cualquier tecla para salir");
   while (getchar()!='\n'){}
   

@@ -54,6 +54,6 @@ USER **CrearListaUsuarios(char *fichero){
   }
   free(linea);
   fclose(archivo);
-  Estadisticas.usuarios=usuarios;
+  Estadisticas.usuarios=usuarios-1;
   return listaUsuarios;
 }
