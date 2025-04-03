@@ -8,7 +8,7 @@ void EscribirLogTrans(TRANSACCION trans){
   snprintf(mensaje, sizeof(mensaje),"%s %d %d %f %s\n", fecha, trans.ncuentas, trans.ncuentao, trans.cantidad, trans.descripcion);
   // Bloquea el sistema por medio de semaforos
   sem_t *sem = sem_open("/sem_log_trans", O_CREAT, 0644, 1);
-  FILE *log = fopen("../ficheros/transacciones.log","a"); // Abre el fichero
+  FILE *log = fopen(Config.archivo_log_tranferencias,"a"); // Abre el fichero
   fputs(trans.descripcion, log); // Añade la linea al final del fichero
   fclose(log);
   sem_post(sem);

@@ -12,7 +12,7 @@ void EscribirEnLog(char *frase){
   struct tm *tm_info;
   char fecha[50];
   t = time(NULL); 
-  
+ 
   tm_info = localtime(&t);
   // Coje la fecha del sistema
   strftime(fecha, sizeof(fecha), "%d-%m-%Y %H:%M:%S", tm_info);

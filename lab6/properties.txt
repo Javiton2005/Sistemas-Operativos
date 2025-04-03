@@ -11,4 +11,5 @@ UMBRAL_TRANSFERENCIAS=5
 NUM_HILOS=4
 ARCHIVO_CUENTAS=./ficheros/db.csv
 ARCHIVO_LOG=./ficheros/banco.log
-
+ARCHIVO_TRANSFERENCIAS=./ficheros/transacciones.csv
+ARCHIVO_LOG_TRANSFERENCIAS=./ficheros/transacciones.log

@@ -120,7 +120,7 @@ void *hilo_usuario_no_existe(void *arg) {
 
 // Función monitor principal
 void monitor(int fd_alerta) {
-    fd_pipe[1] = fd_alerta;
+    fd_pipe[1] = fd_alerta; 
 
     transacciones = CrearListaTransacciones(Config.archivo_tranferencias);
     if (!transacciones) {
@@ -129,7 +129,8 @@ void monitor(int fd_alerta) {
     }
 
     while (transacciones[num.transacciones] != NULL) {
-        num.transacciones++;
+    
+      num.transacciones++;
     }
 
     pthread_t hilo_fondos, hilo_transacciones_grandes, hilo_login, hilo_internacional, hilo_secuencia, hilo_no_existe;

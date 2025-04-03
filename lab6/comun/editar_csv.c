@@ -16,7 +16,7 @@ void *EditarCsv(void *usuario){
     contador++;
     if (contador == user->id) {
       char linea[255];
-      snprintf(linea, sizeof(linea), "%s;%s;%s;%f;%d",user->nombre,user->contrasena,user->ncuenta,user->saldo,user->ntransacciones);
+      snprintf(linea, sizeof(linea), "%s;%s;%s;%f",user->nombre,user->contrasena,user->ncuenta,user->saldo);
       fprintf(csv,"%s",linea);
     }
   }

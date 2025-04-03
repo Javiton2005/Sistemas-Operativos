@@ -18,7 +18,6 @@ USER *LeerCSVNcuenta(char *ncuenta){
     user->ncuenta = strtok(line, NULL);
     if (user->ncuenta == ncuenta){
       user->saldo = atof(strtok(line, NULL));
-      user->ntransacciones = atoi(strtok(line, NULL));
       //añadir linea de usuario y estructura de transacciones
       fclose(db);
       return(user);

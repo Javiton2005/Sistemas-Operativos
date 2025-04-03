@@ -24,5 +24,4 @@ void CancelarTarjeta(int *idUser){
   //Preparacion del hilo=========================
   IdValor parametros = {idUser, &n};
   pthread_create(&h , NULL , CancelarTarjetaHilo , &parametros);
-  return;
 }

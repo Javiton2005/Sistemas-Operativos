@@ -27,7 +27,6 @@ typedef struct _User{
   char *contrasena;
   char *ncuenta;
   double saldo;
-  int ntransacciones;
   int id;
 } USER;
 
@@ -49,6 +48,7 @@ extern struct _Config {
   char archivo_cuentas[50];
   char archivo_log[50];
   char archivo_tranferencias[50];
+  char archivo_log_tranferencias[50];
   int limite_login;
 } Config;
 
