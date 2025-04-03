@@ -1,6 +1,6 @@
 #include "funciones.h"
 
-void MeterDineroHilo(void *valor){
+void *MeterDineroHilo(void *valor){
   IdValor *parametros = (IdValor*)valor;
   //SEM==========================================
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
@@ -20,7 +20,7 @@ void MeterDineroHilo(void *valor){
   EditarCsv(user);
   //FIN SEM======================================
   sem_post(semaforo);
-  return(0);
+  return(NULL);
 }
 
 void MeterDinero(int *idUser){

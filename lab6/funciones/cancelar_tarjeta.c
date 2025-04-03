@@ -1,6 +1,6 @@
 #include "funciones.h"
 
-void CancelarTarjetaHilo(void *valor){
+void *CancelarTarjetaHilo(void *valor){
   IdValor *parametros = (IdValor*)valor;
   //SEM =========================================
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
@@ -10,7 +10,7 @@ void CancelarTarjetaHilo(void *valor){
   EditarCsv(user);
   sem_post(semaforo);
   //FIN SEM =====================================
-  return;
+  return(NULL);
 }
 
 void CancelarTarjeta(int *idUser){

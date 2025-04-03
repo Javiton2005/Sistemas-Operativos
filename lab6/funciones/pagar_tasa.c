@@ -1,6 +1,6 @@
 #include "funciones.h"
 
-void PagarTasasHilo(void *valor){
+void *PagarTasasHilo(void *valor){
   IdValor *parametros = (IdValor*)valor;
   //SEM =========================================
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
@@ -20,7 +20,7 @@ void PagarTasasHilo(void *valor){
   EditarCsv(user);
   sem_post(semaforo);
   //FIN SEM =====================================
-  return(0);
+  return(NULL);
 }
 
 void PagarTasas(int *idUser){
@@ -38,7 +38,7 @@ void PagarTasas(int *idUser){
   //Comprobacion inicial=========================
   if ((tasa = fopen(ruta, "r"))==NULL){
     printf("Fichero de tasa no existe\n");
-    return(1);
+    return;
   }
   fgets(s, 256, tasa);
   fclose(ruta);
@@ -47,11 +47,11 @@ void PagarTasas(int *idUser){
   free(s);
   if (c < 0){
     printf("Formato incorrecto\n");
-    return(2);
+    return;
   }
   if (c > Config.limite_transferencia){
     printf("Cantidad excede el limite establecido en este banco\n");
-    return(3);
+    return;
   }
   //Preparacion del hilo=========================
   IdValor *parametros = {idUser, &c};
