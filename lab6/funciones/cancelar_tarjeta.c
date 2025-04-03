@@ -11,7 +11,7 @@ void CancelarTarjetaHilo(void *valor){
   USER *user = leerCsv(parametros->id);
   printf("Iniciando cancelacion de tarjeta\n");
   user->ncuenta = (parametros->valor);
-  ModificarCSV(user);
+  EditarCsv(user);
   printf("Tarjeta cancelada\n");
   printf("Se le ha asignado una nueva\n");
   return;

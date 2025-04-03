@@ -32,7 +32,7 @@ void MeterDineroHilo(void *valor){
     transaccion.fecha = localtime(&t);
     transaccion.descripcion = "Ingreso manual";
     EscribirEnLogTrans(transaccion);
-    ModificarCSV(user);
+    EditarCsv(user);
     sem_post(semaforo);
     printf("Ingreso completado\n");
     return(0);

@@ -15,6 +15,15 @@ void *_HiloSacarDinero(void *valor){
   if(user->saldo<(*(float*)(parametros->valor)))
     return NULL;
   user->saldo-=(*(float*)(parametros->valor));
+  TRANSACCION transaccion;
+  time_t t;
+  transaccion.cantidad = (*(float*)(parametros->valor));
+  transaccion.ncuentas = user->ncuenta;
+  transaccion.ncuentao = NULL;
+  time(&t);
+  transaccion.fecha = localtime(&t);
+  transaccion.descripcion = "Retirada manual";
+  EscribirEnLogTrans(transaccion);
   EditarCsv(user); 
 
   sem_post(semaforo);

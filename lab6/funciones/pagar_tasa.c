@@ -45,7 +45,7 @@ void PagarTasasHilo(void *valor){
   transaccion.fecha = localtime(&t);
   transaccion.descripcion = "Pago de tasa";
   EscribirLogTrans(transaccion);
-  ModificarCSV(user);
+  EditarCsv(user);
   sem_post(semaforo);
   //FIN SEM ============================
   printf("Pago de tasa completado\n");
