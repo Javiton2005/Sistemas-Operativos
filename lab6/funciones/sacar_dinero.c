@@ -26,7 +26,7 @@ void *_HiloSacarDinero(void *valor){
   time(&t);
   transaccion.fecha = localtime(&t);
   transaccion.descripcion = "Retirada manual";
-  EscribirEnLogTrans(transaccion);
+  EscribirLogTrans(transaccion);
   EditarCsv(user); 
 
   sem_post(semaforo);

@@ -32,8 +32,8 @@ typedef struct _User{
 
 typedef struct _Transaccion{
   double cantidad;
-  unsigned int ncuentas;
-  unsigned int ncuentao;
+  char *ncuentas;
+  char *ncuentao;
   struct tm *fecha;
   char *descripcion;
 } TRANSACCION;
