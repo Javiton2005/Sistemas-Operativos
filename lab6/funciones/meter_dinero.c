@@ -5,7 +5,7 @@ void *MeterDineroHilo(void *valor){
   //SEM==========================================
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
   //Modificar info usuario=======================
-  USER *user = leerCsv(*(parametros->id));
+  USER *user = leerCsv(parametros->id);
   user->saldo = user->saldo + (*(float*)(parametros->valor));
   //Registrar transaccion========================
   TRANSACCION transaccion;
@@ -16,7 +16,7 @@ void *MeterDineroHilo(void *valor){
   time(&t);
   transaccion.fecha = localtime(&t);
   transaccion.descripcion = "Ingreso manual\0";
-  EscribirEnLogTrans(transaccion);
+  EscribirLogTrans(transaccion);
   EditarCsv(user);
   //FIN SEM======================================
   sem_post(semaforo);
