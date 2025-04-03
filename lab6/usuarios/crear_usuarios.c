@@ -34,7 +34,7 @@ USER *crearUsuario(char *linea, int id){
         user->ncuenta = palabra;
         break;
       case 3:
-        user->saldo = atoi(palabra);
+        user->saldo = (double) atoi(palabra);
         break;
     }
     indice++;

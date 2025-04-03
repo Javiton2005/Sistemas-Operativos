@@ -1,9 +1,10 @@
 #include "monitor.h"
+#include <string.h>
 
 
 // Estructuras para almacenar estadísticas
 TRANSACCION **transacciones;
-USER **users;
+USER **users = NULL;
 
 int fd_pipe[2]; // Pipe para enviar mensajes de anomalias al banco
 
@@ -64,12 +65,11 @@ void *hilo_secuencia_inusual(void *arg) {
     if (Estadisticas.num_transacciones < 3) return NULL;
     else if (Estadisticas.num_transacciones >= 3) {
         for (int i = 0; i < Estadisticas.usuarios; i++) {
-            int id_cuenta_sospechosa = users[i]->id;
             int transacciones_rapidas = 0;
             time_t tiempo_base = time(NULL);
             
             for (int j = 0; j < Estadisticas.num_transacciones; j++) {
-                if (transacciones[j]->ncuentao == id_cuenta_sospechosa) {
+                if (strcmp(transacciones[j]->ncuentao, users[i]->ncuenta)==0) {
                     time_t tiempo_actual = time(NULL);  // Obtener el tiempo de la transacción actual
 
                     if ((tiempo_actual - tiempo_base) < 60000000) { // Si está dentro del último minuto
@@ -114,7 +114,7 @@ void monitor(int fd_alerta) {
         Estadisticas.num_transacciones++;
     }
 
-    users = CrearListaCuentas(Config.archivo_cuentas);
+    users = CrearListaUsuarios(Config.archivo_cuentas);
     if (!users) {
         printf("Error al crear la lista de cuentas.\n");
         return;

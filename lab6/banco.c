@@ -11,6 +11,7 @@
 #include "usuarios/usuarios.h"
 #include "login/login.h"
 #include "monitor/monitor.h"
+#include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -32,7 +33,7 @@ void manejar_anomalia(char *mensaje) {
       break;
     case ESTADO_CONSTRASENA_INCORRECTA:
       printf("BANCO: Contraseña incorrecta detectada.\n");
-      Sleep(1000);
+      sleep(1000);
       break;
     case ESTADO_SECUENCIA_INUSUAL:
       printf("BANCO: Secuencia inusual detectada.\n");
@@ -54,7 +55,6 @@ int main(){
   USER **listaUsuarios=NULL;
   char salir='a';
   InitGlobal();
-
   int pipe_alerta[2]; // Descriptores de lectura y escritura del pipe
 
   if (pipe(pipe_alerta) == -1) { // Crear el pipe

@@ -36,12 +36,12 @@ void PagarTasas(int *idUser){
   printf("Ruta del archivo de la tasa: \n");
   scanf("%s", ruta);
   //Comprobacion inicial=========================
-  if ((tasa = fopen(ruta, "r"))==NULL){
+  if ((tasa = fopen(ruta, "rb"))==NULL){
     printf("Fichero de tasa no existe\n");
     return;
   }
   fgets(s, 256, tasa);
-  fclose(ruta);
+  fclose(tasa);
   c = atof(s);
   free(ruta);
   free(s);
@@ -54,6 +54,6 @@ void PagarTasas(int *idUser){
     return;
   }
   //Preparacion del hilo=========================
-  IdValor *parametros = {idUser, &c};
+  IdValor parametros = {idUser, (void *)&c};
   pthread_create(&h , NULL , PagarTasasHilo , &parametros); 
 }

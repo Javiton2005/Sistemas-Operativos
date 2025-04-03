@@ -35,7 +35,7 @@ void MenuOpciones(int *idUser){
       PagarTasas(idUser);
       break;
     case 6:
-      CancelarTarjetas(idUser);
+      CancelarTarjeta(idUser);
       break;
     case 7:
       exit(1);

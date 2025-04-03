@@ -2,7 +2,7 @@
 #define MONITOR_H
 
 #include "../comun/comun.h"
-
+#include "../usuarios/usuarios.h"
 #include "../transacciones/transacciones.h"
 
 void monitor(int fd_alerta);

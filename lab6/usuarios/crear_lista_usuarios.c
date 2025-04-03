@@ -20,34 +20,37 @@ USER **CrearListaUsuarios(char *fichero){
   }
   USER **listaUsuarios=NULL; // Lista de usuarios que se retornara
   char *linea=NULL;
-  FILE *archivo=fopen(fichero, "r"); // Abre el fichero
+  FILE *archivo=fopen(fichero, "rb"); // Abre el fichero
   char caracter;
-  int usuarios=0;
+  int usuarios=1;
   int caracteres=0;
   
   while ((caracter = fgetc(archivo)) != '\n' && caracter != EOF); // Se salta la primera linea
-  
-
+   
   while (1) {
     caracter=fgetc(archivo); // lee el fichero hasta el final carcater por caracter
+
+    if(caracter==EOF) break;
     linea=realloc(linea, caracteres+1); // Realoca memoria para la linea para añadir el caracter
 
     linea[caracteres]=caracter; // Añade el caracter en la posicion indicada
     caracteres++;
     
     if (caracter=='\n' || caracter ==EOF) {
-
       linea[caracteres]='\0';
-      USER *usuario = crearUsuario(linea,usuarios+1);
+      USER *usuario = crearUsuario(linea,usuarios);
       //free(linea);
       listaUsuarios=realloc(listaUsuarios, (usuarios)*sizeof(USER *));
-      listaUsuarios[usuarios]=usuario;
+      if(listaUsuarios==NULL){
+        perror("error al alocar memoria");
+        exit(-1);
+      }
+
+      listaUsuarios[usuarios-1]=usuario;
       usuarios++;
       
       caracteres=0;
     }
-    if(caracter==EOF)
-      break;
   }
   free(linea);
   fclose(archivo);
