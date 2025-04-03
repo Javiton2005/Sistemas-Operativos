@@ -1,4 +1,5 @@
 #include "funciones.h"
+#include <semaphore.h>
 #include <stdio.h>
 
 void *_HiloSacarDinero(void *valor){
@@ -12,9 +13,20 @@ void *_HiloSacarDinero(void *valor){
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
 
   USER *user=leerCsv(parametros->id);
-  if(user->saldo<(*(float*)(parametros->valor)))
+  if(user->saldo<(*(float*)(parametros->valor))){
+    sem_post(semaforo);
     return NULL;
+  }
   user->saldo-=(*(float*)(parametros->valor));
+  TRANSACCION transaccion;
+  time_t t;
+  transaccion.cantidad = (*(float*)(parametros->valor));
+  transaccion.ncuentas = user->ncuenta;
+  transaccion.ncuentao = NULL;
+  time(&t);
+  transaccion.fecha = localtime(&t);
+  transaccion.descripcion = "Retirada manual";
+  EscribirLogTrans(transaccion);
   EditarCsv(user); 
 
   sem_post(semaforo);

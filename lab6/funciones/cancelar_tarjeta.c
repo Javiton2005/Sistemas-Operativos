@@ -1,18 +1,27 @@
 #include "funciones.h"
 
+void *CancelarTarjetaHilo(void *valor){
+  IdValor *parametros = (IdValor*)valor;
+  //SEM =========================================
+  sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
+  //Modificar info usuario=======================
+  USER *user = leerCsv(parametros->id);
+  user->ncuenta = (parametros->valor);
+  EditarCsv(user);
+  sem_post(semaforo);
+  //FIN SEM =====================================
+  return(NULL);
+}
+
 void CancelarTarjeta(int *idUser){
   char *n;
+  pthread_t h;
+  //Introduccion de datos========================
   printf("Ingrese el nuevo numero de cuenta quiera tener: \n");
   scanf("%s",n);
-  IdValor parametros = {idUser, n};
-}
-void CancelarTarjetaHilo(void *valor){
-  IdValor *parametros = (IdValor*)valor;
-  USER *user = leerCsv(parametros->id);
-  printf("Iniciando cancelacion de tarjeta\n");
-  user->ncuenta = (parametros->valor);
-  ModificarCSV(user);
-  printf("Tarjeta cancelada\n");
-  printf("Se le ha asignado una nueva\n");
-  return;
+  //Comprobacion inicial=========================
+  if(!atoi(n)) return;
+  //Preparacion del hilo=========================
+  IdValor parametros = {idUser, &n};
+  pthread_create(&h , NULL , CancelarTarjetaHilo , &parametros);
 }

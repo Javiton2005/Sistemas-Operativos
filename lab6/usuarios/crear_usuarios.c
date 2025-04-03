@@ -31,13 +31,10 @@ USER *crearUsuario(char *linea, int id){
         user->contrasena=palabra;
         break;
       case 2:
-        user->ncuenta = atoi(palabra);
+        user->ncuenta = palabra;
         break;
       case 3:
         user->saldo = atoi(palabra);
-        break;
-      case 4:
-        user->ntrasacciones=atoi(palabra);
         break;
     }
     indice++;

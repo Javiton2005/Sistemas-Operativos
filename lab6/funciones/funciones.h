@@ -2,7 +2,6 @@
   #define FUNCIONES
 
 #include "../comun/comun.h"
-#include "../usuarios/usuarios.h"
 extern char *funcionesMenu[];
 
 typedef struct _idValor{

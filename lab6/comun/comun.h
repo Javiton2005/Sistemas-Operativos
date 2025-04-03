@@ -28,14 +28,13 @@ typedef struct _User{
   char *contrasena;
   char *ncuenta;
   double saldo;
-  int ntransacciones;
   int id;
 } USER;
 
 typedef struct _Transaccion{
   double cantidad;
-  unsigned int ncuentas;
-  unsigned int ncuentao;
+  char *ncuentas;
+  char *ncuentao;
   struct tm *fecha;
   char *descripcion;
 } TRANSACCION;
@@ -50,6 +49,7 @@ extern struct _Config {
   char archivo_cuentas[50];
   char archivo_log[50];
   char archivo_tranferencias[50];
+  char archivo_log_tranferencias[50];
   int limite_login;
 } Config;
 

@@ -27,6 +27,7 @@ void InitGlobal(){
     else if (strstr(path, "ARCHIVO_LOG")) sscanf(path, "ARCHIVO_LOG=%s",Config.archivo_log);
     else if (strstr(path, "LIMITE_INTENTOS_LOGIN")) sscanf(path, "LIMITE_INTENTOS_LOGIN=%d",&Config.limite_login);
     else if (strstr(path, "ARCHIVO_TRANSFERENCIAS")) sscanf(path, "ARCHIVO_TRANSFERENCIAS=%s",Config.archivo_tranferencias);
+    else if (strstr(path, "ARCHIVO_LOG_TRANSFERENCIAS")) sscanf(path, "ARCHIVO_LOG_TRANSFERENCIAS=%s",Config.archivo_log_tranferencias);
   } 
 
 }
