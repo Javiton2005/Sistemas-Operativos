@@ -7,12 +7,12 @@ void *TransaccionHilo(void *valor){
   //Modificar info usuario=======================
   USER *user = leerCsv((parametros[0].id));
   USER *usero = leerCsv((parametros[1].id));
-  user->saldo = user->saldo - (*(float*)(parametros->valor));
-  usero->saldo = usero->saldo + (*(float*)(parametros->valor));
+  user->saldo = user->saldo - (*(double*)(parametros->valor));
+  usero->saldo = usero->saldo + (*(double*)(parametros->valor));
   //Registrar transaccion========================
   TRANSACCION transaccion;
   time_t t;
-  transaccion.cantidad = (*(float*)(parametros->valor));
+  transaccion.cantidad = (*(double*)(parametros->valor));
   transaccion.ncuentas = user->ncuenta;
   transaccion.ncuentao = usero->ncuenta;
   char *d = malloc(26);
@@ -30,13 +30,13 @@ void *TransaccionHilo(void *valor){
 
 void Transaccion(int *idUser){
   char nc[255];
-  float c;
+  double c;
   pthread_t h;
   //Introduccion de datos========================
   printf("Nº de cuenta al que se le quiera hacer la transacción: \n");
   scanf("%s", nc);
   printf("¿Que cantidad quiere transferir? \n");
-  scanf("%f", &c);
+  scanf("%lf", &c);
   //Comprobacion inicial=========================
   if (c < 0){
     printf("Formato incorrecto\n");

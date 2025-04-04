@@ -19,7 +19,7 @@ USER *leerCsv(int *idLinea){
   }
 
   usuario=crearUsuario(linea,*idLinea);
-
+  fclose(fichero);
   if(usuario!=NULL)
     return usuario;
   else{

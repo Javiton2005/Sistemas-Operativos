@@ -6,11 +6,11 @@ void *PagarTasasHilo(void *valor){
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
   //Modificar info usuario=======================
   USER *user=leerCsv(parametros->id);
-  user->saldo = user->saldo - (*(float*)(parametros->valor));
+  user->saldo = user->saldo - (*(double*)(parametros->valor));
   //Registrar transaccion========================
   TRANSACCION transaccion;
   time_t t;
-  transaccion.cantidad = (*(float*)(parametros->valor));
+  transaccion.cantidad = (*(double*)(parametros->valor));
   transaccion.ncuentas = user->ncuenta;
   transaccion.ncuentao = NULL;
   time(&t);
@@ -27,7 +27,7 @@ void PagarTasas(int *idUser){
   int nc;
   char *ruta;
   char *s;
-  float c;
+  double c;
   pthread_t h;
   ruta = malloc(256);
   s = malloc(256);

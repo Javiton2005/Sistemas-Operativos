@@ -17,7 +17,7 @@ void *EditarCsv(void *usuario) {
         exit(EXIT_FAILURE);
     }
 
-    FILE *temp = fopen("temp.csv", "w"); // Archivo temporal
+    FILE *temp = fopen("temp.csv", "wb"); // Archivo temporal
     if (!temp) {
         perror("Error al crear el archivo temporal");
         fclose(csv);

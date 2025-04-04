@@ -8,7 +8,7 @@ void MenuOpciones(int *idUser){
     exit(-1);
   } 
   int seleccion=-1;
-  system("clear");
+  //system("clear");
   for (int i =0; funcionesMenu[i]!=NULL; i++) {
     printf("%d:%s\n", i,funcionesMenu[i]);
   }
