@@ -11,13 +11,13 @@ void *EditarCsv(void *usuario) {
 
     USER *user = (USER *)usuario;
     
-    FILE *csv = fopen(Config.archivo_cuentas, "r"); // Modo lectura
+    FILE *csv = fopen(Config.archivo_cuentas, "rb"); // Modo lectura
     if (!csv) {
         perror("Error al abrir el archivo original");
         exit(EXIT_FAILURE);
     }
 
-    FILE *temp = fopen("temp.csv", "w"); // Archivo temporal
+    FILE *temp = fopen("temp.csv", "wb"); // Archivo temporal
     if (!temp) {
         perror("Error al crear el archivo temporal");
         fclose(csv);

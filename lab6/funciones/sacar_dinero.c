@@ -13,11 +13,11 @@ void *_HiloSacarDinero(void *valor){
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
 
   USER *user=leerCsv(parametros->id);
-  if(user->saldo<(*(double*) parametros->valor)){
+  if(user->saldo<(*(float*) parametros->valor)){
     sem_post(semaforo);
     return NULL;
   }
-  user->saldo-=(*(double*)(parametros->valor));
+  user->saldo-=(*(float*)(parametros->valor));
   /*TRANSACCION transaccion;*/
   /*time_t t;*/
   /*transaccion.cantidad = (*(float*)(parametros->valor));*/
@@ -38,11 +38,11 @@ void *_HiloSacarDinero(void *valor){
 void SacarDinero(int *idUser){
   
   pthread_t h1 ;
-  double cantidad;
+  float cantidad;
 
   system("clear");
   printf("Introduce la cantidad a sacar:");
-  scanf("%lf",&cantidad);
+  scanf("%f",&cantidad);
   IdValor parametros = {idUser,&cantidad}; 
 
   pthread_create (&h1 , NULL , _HiloSacarDinero , &parametros );
