@@ -8,6 +8,10 @@ USER **users = NULL;
 
 int fd_pipe[2]; // Pipe para enviar mensajes de anomalias al banco
 
+// Mutex y variable de condicion para sincronización de hilos
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER; // Mutex para proteger el acceso a la variable compartida
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER; // Variable de condición para esperar la señal de nuevo chequeo
+int nueva_verificacion = 0; // Variable para indicar si hay un nuevo chequeo (tomara valores 0 o 1)
 
 // Función para registrar anomalías en el log y mandar al banco
 void registrar_anomalia(int codigo_anomalia) {
@@ -22,10 +26,18 @@ void registrar_anomalia(int codigo_anomalia) {
 
 // Detección de fondos insuficientes
 void *hilo_fondos_insuficientes(void *arg) {        
-    // Comprobar si alguna cuenta tiene saldo negativo
-    for (int i = 0; i < Estadisticas.num_transacciones; i++) {
-        if (transacciones[i]->cantidad < 0) {
-            registrar_anomalia(ESTADO_FONDOS_INSUFICIENTES);
+    while(1){
+        pthread_mutex_lock(&mutex);
+        while (!nueva_verificacion) {
+            pthread_cond_wait(&cond, &mutex); // Esperar señal de nuevo chequeo
+        }
+        pthread_mutex_unlock(&mutex);
+
+        // Comprobar si alguna cuenta tiene saldo negativo
+        for (int i = 0; i < Estadisticas.num_transacciones; i++) {
+            if (transacciones[i]->cantidad < 0) {
+                registrar_anomalia(ESTADO_FONDOS_INSUFICIENTES);
+            }
         }
     }
     return NULL;
@@ -33,11 +45,18 @@ void *hilo_fondos_insuficientes(void *arg) {
 
 // Detección de transacciones demasiado grandes
 void *hilo_transacciones_grandes(void *arg) {     
+    while(1){
+        pthread_mutex_lock(&mutex);
+        while (!nueva_verificacion) {
+            pthread_cond_wait(&cond, &mutex); // Esperar señal de nuevo chequeo
+        }
+        pthread_mutex_unlock(&mutex);
 
-    // Comprobar si hay transacciones con monto mayor a 1000
-    for (int i = 0; i < Estadisticas.num_transacciones; i++) {
-        if (transacciones[i]->cantidad > 1000.0) {
-            registrar_anomalia(ESTADO_EXCEDE_LIMITE);
+        // Comprobar si hay transacciones con monto mayor a 1000
+        for (int i = 0; i < Estadisticas.num_transacciones; i++) {
+            if (transacciones[i]->cantidad > 1000.0) {
+                registrar_anomalia(ESTADO_EXCEDE_LIMITE);
+            }
         }
     }
     return NULL;
@@ -45,60 +64,87 @@ void *hilo_transacciones_grandes(void *arg) {
 
 // Detección de intentos de login fallidos
 void *hilo_login_fallido(void *arg) {
-        
-    int intentos_previos = 0;
+    while(1){
+        pthread_mutex_lock(&mutex);
+        while (!nueva_verificacion) {
+            pthread_cond_wait(&cond, &mutex); // Esperar señal de nuevo chequeo
+        }
+        pthread_mutex_unlock(&mutex);
 
-    
-
-    // Comprobar si hay nuevos intentos de login fallidos
-    if (intentos_previos > Config.limite_login) {
-        registrar_anomalia(ESTADO_CONSTRASENA_INCORRECTA);
-        
+        // Comprobar si hay nuevos intentos de login fallidos
+        int intentos_previos = 0;
+        if (intentos_previos > Config.limite_login) {
+            registrar_anomalia(ESTADO_CONSTRASENA_INCORRECTA);
+            
+        }
     }
     return NULL;
 }
 
 // Detección de muchas secuencias inusuales en poco tiempo (3 transacciones en menos de 1 minuto)
 void *hilo_secuencia_inusual(void *arg) {
+    while(1){
+        pthread_mutex_lock(&mutex);
+        while (!nueva_verificacion) {
+            pthread_cond_wait(&cond, &mutex); // Esperar señal de nuevo chequeo
+        }
+        pthread_mutex_unlock(&mutex);
 
-    // Verificar si hay múltiples transacciones para una misma cuenta en un corto período
-    if (Estadisticas.num_transacciones < 3) return NULL;
-    else if (Estadisticas.num_transacciones >= 3) {
-        for (int i = 0; i < Estadisticas.usuarios; i++) {
-            int transacciones_rapidas = 0;
-            time_t tiempo_base = time(NULL);
-            
-            for (int j = 0; j < Estadisticas.num_transacciones; j++) {
-                if (strcmp(transacciones[j]->ncuentao, users[i]->ncuenta)==0) {
-                    time_t tiempo_actual = time(NULL);  // Obtener el tiempo de la transacción actual
+        // Verificar si hay múltiples transacciones para una misma cuenta en un corto período
+        if (Estadisticas.num_transacciones < 3) return NULL;
+        else if (Estadisticas.num_transacciones >= 3) {
+            for (int i = 0; i < Estadisticas.usuarios; i++) {
+                int transacciones_rapidas = 0;
+                time_t tiempo_base = time(NULL);
+                
+                for (int j = 0; j < Estadisticas.num_transacciones; j++) {
+                    if (strcmp(transacciones[j]->ncuentao, users[i]->ncuenta)==0) {
+                        time_t tiempo_actual = time(NULL);  // Obtener el tiempo de la transacción actual
 
-                    if ((tiempo_actual - tiempo_base) < 60000000) { // Si está dentro del último minuto
-                        transacciones_rapidas++;
-                        if (transacciones_rapidas >= 3) registrar_anomalia(ESTADO_SECUENCIA_INUSUAL);
-                    } else {
-                        // Reiniciar contador si la nueva transacción es después de 1 minuto
-                        tiempo_base = tiempo_actual;
-                        transacciones_rapidas = 1;
+                        if ((tiempo_actual - tiempo_base) < 60000000) { // Si está dentro del último minuto
+                            transacciones_rapidas++;
+                            if (transacciones_rapidas >= 3) registrar_anomalia(ESTADO_SECUENCIA_INUSUAL);
+                        } else {
+                            // Reiniciar contador si la nueva transacción es después de 1 minuto
+                            tiempo_base = tiempo_actual;
+                            transacciones_rapidas = 1;
+                        }
                     }
                 }
             }
-        }
-    }  
+        } 
+    } 
     return NULL;
 }
 
 // Detección de usuarios que no existen
 void *hilo_usuario_no_existe(void *arg) {
-        
-    // Verificar si hay transacciones para usuarios que no existen
-    for (int i = 0; i < Estadisticas.num_transacciones; i++) {
-        if (transacciones[i]->ncuentao == NULL) {
-            registrar_anomalia(ESTADO_USUARIO_NO_EXISTE);
+    while(1){
+        pthread_mutex_lock(&mutex);
+        while (!nueva_verificacion) {
+            pthread_cond_wait(&cond, &mutex); // Esperar señal de nuevo chequeo
+        }
+        pthread_mutex_unlock(&mutex);
+
+        // Verificar si hay transacciones para usuarios que no existen
+        for (int i = 0; i < Estadisticas.num_transacciones; i++) {
+            if (transacciones[i]->ncuentao == NULL) {
+                registrar_anomalia(ESTADO_USUARIO_NO_EXISTE);
+            }
         }
     }
     return NULL;
 }
 
+//------------------------------ MONITOR PRINCIPAL ------------------------------
+
+// Función para notificar a los hilos de revisar posibles anomalias
+void notificar_hilos() {
+    pthread_mutex_lock(&mutex);
+    nueva_verificacion = 1;
+    pthread_cond_broadcast(&cond); // Despierta a todos los hilos bloqueados
+    pthread_mutex_unlock(&mutex);
+}
 
 // Función monitor principal
 void monitor(int fd_alerta) {
@@ -129,11 +175,19 @@ void monitor(int fd_alerta) {
     pthread_create(&hilo_secuencia, NULL, hilo_secuencia_inusual, NULL);
     pthread_create(&hilo_no_existe, NULL, hilo_usuario_no_existe, NULL);
 
+    // Los hilos corren indefinidamente esperando a señales
+
+    while (1) {
+        printf("Posible anomalia detectada...\n");
+        printf("Espere a verificacion de monitor...\n");
+        notificar_hilos(); // Notificar a los hilos para revisar posibles anomalías
+    }
+
     // CODIGO PARA LEER TRANSACCIONES Y CUENTAS
-    pthread_join(hilo_fondos, NULL);
+    /*pthread_join(hilo_fondos, NULL);
     pthread_join(hilo_transacciones_grandes, NULL);
     pthread_join(hilo_login, NULL);
     pthread_join(hilo_secuencia, NULL);
-    pthread_join(hilo_no_existe, NULL);
+    pthread_join(hilo_no_existe, NULL);*/
 }
 
