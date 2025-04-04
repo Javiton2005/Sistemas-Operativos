@@ -1,4 +1,5 @@
 #include "funciones.h"
+#include <semaphore.h>
 
 void *MeterDineroHilo(void *valor){
   if(valor==NULL){
@@ -8,6 +9,7 @@ void *MeterDineroHilo(void *valor){
   IdValor *parametros = (IdValor *)valor;
   //SEM==========================================
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
+  sem_wait(semaforo);
   //Modificar info usuario=======================
   USER *user = leerCsv(parametros->id);
 

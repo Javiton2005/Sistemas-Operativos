@@ -11,17 +11,15 @@ void *_HiloSacarDinero(void *valor){
   IdValor *parametros= (IdValor *)valor;
   
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
-
+  sem_wait(semaforo);
   USER *user=leerCsv(parametros->id);
 
-  printf("user saldo %lf\n",user->saldo);
-  printf("Salto sacar: %lf\n",*(double*) parametros->valor);  
-  while (getchar()!='\n');
-  getchar();
+  
   if(user->saldo<(*(double*) (parametros->valor))){
     sem_post(semaforo);
     return NULL;
   }
+
   user->saldo-=(*(double*)(parametros->valor));
   /*TRANSACCION transaccion;*/
   /*time_t t;*/
