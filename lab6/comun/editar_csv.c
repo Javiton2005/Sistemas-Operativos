@@ -11,7 +11,7 @@ void *EditarCsv(void *usuario) {
 
     USER *user = (USER *)usuario;
     
-    FILE *csv = fopen(Config.archivo_cuentas, "rb"); // Modo lectura
+    FILE *csv = fopen(Config.archivo_cuentas, "r"); // Modo lectura
     if (!csv) {
         perror("Error al abrir el archivo original");
         exit(EXIT_FAILURE);

@@ -27,12 +27,12 @@ typedef struct _User{
   char *nombre;
   char *contrasena;
   char *ncuenta;
-  float saldo;
+  double saldo;
   int id;
 } USER;
 
 typedef struct _Transaccion{
-  float cantidad;
+  double cantidad;
   char *ncuentas;
   char *ncuentao;
   struct tm *fecha;

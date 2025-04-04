@@ -13,24 +13,28 @@ void *_HiloSacarDinero(void *valor){
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
 
   USER *user=leerCsv(parametros->id);
-  if(user->saldo<(*(float*) parametros->valor)){
+
+  printf("user saldo %lf\n",user->saldo);
+  printf("Salto sacar: %lf\n",*(double*) parametros->valor);  
+  while (getchar()!='\n');
+  getchar();
+  if(user->saldo<(*(double*) (parametros->valor))){
     sem_post(semaforo);
     return NULL;
   }
-  user->saldo-=(*(float*)(parametros->valor));
+  user->saldo-=(*(double*)(parametros->valor));
   /*TRANSACCION transaccion;*/
   /*time_t t;*/
-  /*transaccion.cantidad = (*(float*)(parametros->valor));*/
+  /*transaccion.cantidad = (*(double*)(parametros->valor));*/
   /*transaccion.ncuentas = user->ncuenta;*/
   /*transaccion.ncuentao = NULL;*/
   /*time(&t);*/
   /*transaccion.fecha = localtime(&t);*/
   /*transaccion.descripcion = "Retirada manual";*/
   /*EscribirLogTrans(transaccion);*/
-  EditarCsv(user); 
+  EditarCsv(user);
 
   sem_post(semaforo);
-  getchar();
   return NULL;
 }
 
@@ -38,13 +42,16 @@ void *_HiloSacarDinero(void *valor){
 void SacarDinero(int *idUser){
   
   pthread_t h1 ;
-  float cantidad;
+  double cantidad;
 
   system("clear");
   printf("Introduce la cantidad a sacar:");
-  scanf("%f",&cantidad);
-  IdValor parametros = {idUser,&cantidad}; 
+  scanf("%lf",&cantidad);
+  if(cantidad<0){
+    perror("No se pueden introducir numeros negativos");
+    return;
+  }
+  IdValor parametros = {idUser,(void *)&cantidad}; 
 
   pthread_create (&h1 , NULL , _HiloSacarDinero , &parametros );
-  pthread_join(h1,NULL);
 }

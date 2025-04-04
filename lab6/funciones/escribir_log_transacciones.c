@@ -5,7 +5,7 @@ void EscribirLogTrans(TRANSACCION trans){
 
   // Coje la fecha de la transaccion
   strftime(fecha, sizeof(fecha), "%d-%m-%Y %H:%M:%S", trans.fecha);
-  snprintf(mensaje, sizeof(mensaje),"%s %s %s %f %s\n", fecha, trans.ncuentas, trans.ncuentao, trans.cantidad, trans.descripcion);
+  snprintf(mensaje, sizeof(mensaje),"%s %s %s %lf %s\n", fecha, trans.ncuentas, trans.ncuentao, trans.cantidad, trans.descripcion);
   //SEM==========================================
   sem_t *sem = sem_open("/sem_log_trans", O_CREAT, 0644, 1);
   FILE *log = fopen(Config.archivo_log_tranferencias,"a");

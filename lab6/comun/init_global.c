@@ -1,4 +1,5 @@
 #include "comun.h"
+#include <stdio.h>
 
 struct _Estadisticas Estadisticas;
 struct _Config Config;
@@ -29,5 +30,5 @@ void InitGlobal(){
     else if (strstr(path, "ARCHIVO_TRANSFERENCIAS")) sscanf(path, "ARCHIVO_TRANSFERENCIAS=%s",Config.archivo_tranferencias);
     else if (strstr(path, "ARCHIVO_LOG_TRANSFERENCIAS")) sscanf(path, "ARCHIVO_LOG_TRANSFERENCIAS=%s",Config.archivo_log_tranferencias);
   } 
-
+  fclose(properties);
 }
