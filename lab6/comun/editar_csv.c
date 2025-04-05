@@ -3,15 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-void *EditarCsv(void *usuario) {
+void *EditarCsv(USER *usuario) {
     if (usuario == NULL) {
         perror("Error al pasar el usuario");
         exit(EXIT_FAILURE);
     }
 
-    USER *user = (USER *)usuario;
-    
-    FILE *csv = fopen(Config.archivo_cuentas, "r"); // Modo lectura
+    FILE *csv = fopen(Config.archivo_cuentas, "rb"); // Modo lectura
     if (!csv) {
         perror("Error al abrir el archivo original");
         exit(EXIT_FAILURE);
@@ -28,9 +26,9 @@ void *EditarCsv(void *usuario) {
     int contador = 0;
 
     while (fgets(buffer, sizeof(buffer), csv)) {
-        if (contador == user->id) {
+        if (contador == usuario->id) {
             // Reemplazar la línea del usuario
-            fprintf(temp, "%s;%s;%s;%.2lf\n", user->nombre, user->contrasena, user->ncuenta, user->saldo);
+            fprintf(temp, "%s;%s;%s;%.2lf\n", usuario->nombre, usuario->contrasena, usuario->ncuenta, usuario->saldo);
         } else {
             // Copiar la línea original al archivo temporal
             fprintf(temp, "%s", buffer);

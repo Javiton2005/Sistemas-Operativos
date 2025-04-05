@@ -10,6 +10,7 @@ void *_HiloSacarDinero(void *valor){
 
   IdValor *parametros= (IdValor *)valor;
   
+  char mensaje[256];
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
   sem_wait(semaforo);
   USER *user=leerCsv(parametros->id);
@@ -17,6 +18,11 @@ void *_HiloSacarDinero(void *valor){
   
   if(user->saldo<(*(double*) (parametros->valor))){
     sem_post(semaforo);
+    sem_close(semaforo);
+
+    // Crea el mensaje del para escribir en el log
+    snprintf(mensaje, sizeof(mensaje),"[Warning] Intento de retiro superior a la cantidad User id: %d",user->id);
+    EscribirEnLog(mensaje);
     return NULL;
   }
 
@@ -30,26 +36,46 @@ void *_HiloSacarDinero(void *valor){
   /*transaccion.fecha = localtime(&t);*/
   /*transaccion.descripcion = "Retirada manual";*/
   /*EscribirLogTrans(transaccion);*/
+  
   EditarCsv(user);
 
+
   sem_post(semaforo);
+  sem_close(semaforo);
+  
+  snprintf(mensaje, sizeof(mensaje),"Retiro de dinero realizado por el User: %d de cantidad %.2lf",user->id, *(double*)(parametros->valor));
+  free(parametros->valor); // Libera el double
+  free(parametros);        // Libera el struct
+
+  EscribirEnLog(mensaje);
   return NULL;
+
 }
 
 
 void SacarDinero(int *idUser){
   
   pthread_t h1 ;
-  double cantidad;
+  double *cantidad=malloc(sizeof(double));
 
+  if (!cantidad) {
+    perror("malloc falló");
+    return;
+  }
   system("clear");
-  printf("Introduce la cantidad a sacar:");
-  scanf("%lf",&cantidad);
+  printf("Introduce la cantidad a sacar: ");
+  scanf("%lf",cantidad);
   if(cantidad<0){
     perror("No se pueden introducir numeros negativos");
     return;
   }
-  IdValor parametros = {idUser,(void *)&cantidad}; 
+  IdValor *parametros = malloc(sizeof(IdValor));
+  if (!parametros) {
+    perror("malloc falló");
+    return;
+  }
+  parametros->id = idUser;
+  parametros->valor = cantidad;
 
-  pthread_create (&h1 , NULL , _HiloSacarDinero , &parametros );
+  pthread_create(&h1, NULL, _HiloSacarDinero, parametros);
 }

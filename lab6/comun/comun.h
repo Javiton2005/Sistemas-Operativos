@@ -62,5 +62,5 @@ void InitGlobal();
 void EscribirEnLog(char *frase);
 USER *leerCsv(int *idUser);
 USER *LeerCSVNcuenta(char *ncuenta);
-void *EditarCsv(void *usuario);
+void *EditarCsv(USER *usuario);
 #endif // Comun_H

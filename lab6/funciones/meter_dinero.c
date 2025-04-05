@@ -1,5 +1,5 @@
 #include "funciones.h"
-#include <semaphore.h>
+#include <stdio.h>
 
 void *MeterDineroHilo(void *valor){
   if(valor==NULL){
@@ -24,29 +24,46 @@ void *MeterDineroHilo(void *valor){
   /*transaccion.fecha = localtime(&t);*/
   /*transaccion.descripcion = "Ingreso manual\0";*/
   /*EscribirLogTrans(transaccion);*/
+
   EditarCsv(user);
+  
   //FIN SEM======================================
   sem_post(semaforo);
+  sem_close(semaforo);
   return(NULL);
 }
 
 void MeterDinero(int *idUser){
-  system("clear");
-  double cantidad;
+  
+  double *cantidad = malloc(sizeof(double));
+
+  if (!cantidad) {
+    perror("malloc falló");
+    return;
+  }
   pthread_t h;
+  
+  system("clear");
+
   //Introduccion de datos========================
-  printf("Cantidad a ingresar: \n");
-  scanf("%lf", &cantidad);
+  printf("Introduce la cantidad a ingresar: ");
+  scanf("%lf", cantidad);
   //Comprobacion inicial=========================
   if (cantidad < 0){
     printf("Formato incorrecto\n");
     return;
   }
-  if (cantidad > Config.limite_transferencia){
+ if (*cantidad > Config.limite_transferencia){
     printf("Cantidad excede el limite establecido en este banco\n");
     return;
   }
-  //Preparacion del hilo=========================
-  IdValor parametros = {idUser, &cantidad};
-  pthread_create(&h , NULL , MeterDineroHilo , &parametros);
+  IdValor *parametros = malloc(sizeof(IdValor));
+  if (!parametros) {
+    perror("malloc falló");
+    return;
+  }
+  parametros->id = idUser;
+  parametros->valor = cantidad;
+
+  pthread_create(&h , NULL , MeterDineroHilo , parametros);
 }

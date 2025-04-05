@@ -166,11 +166,11 @@ void monitor(int fd_alerta) {
         return;
     }
 
-    pthread_t hilo_fondos, hilo_transacciones_grandes, hilo_login, hilo_internacional, hilo_secuencia, hilo_no_existe;
+    pthread_t hilo_fondos, hilo_transacciones, hilo_login, hilo_internacional, hilo_secuencia, hilo_no_existe;
 
     // Crear hilos para anomalías
     pthread_create(&hilo_fondos, NULL, hilo_fondos_insuficientes, NULL);
-    pthread_create(&hilo_transacciones_grandes, NULL, hilo_transacciones_grandes, NULL);
+    pthread_create(&hilo_transacciones, NULL, hilo_transacciones_grandes, NULL);
     pthread_create(&hilo_login, NULL, hilo_login_fallido, NULL);
     pthread_create(&hilo_secuencia, NULL, hilo_secuencia_inusual, NULL);
     pthread_create(&hilo_no_existe, NULL, hilo_usuario_no_existe, NULL);

@@ -57,7 +57,7 @@ void login(USER **listaUsuarios){
     }
   }
   // Crea el mensaje del para escribir en ellog
-  snprintf(mensaje, sizeof(mensaje), "Intento inicio de sesion: Usuario:%s Contraseña:%s\n", nombre, contrasena);
+  snprintf(mensaje, sizeof(mensaje), "[Warning]Intento inicio de sesion: Usuario:%s Contraseña:%s", nombre, contrasena);
   EscribirEnLog(mensaje);
   printf("Las credenciales introducidas con coinciden con ningun usuario\n");
   return;
