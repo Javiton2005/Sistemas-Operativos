@@ -28,12 +28,11 @@ void InitGlobal(){
     else if (strstr(path, "LIMITE_TRANSFERENCIA")) sscanf(path, "LIMITE_TRANSFERENCIA=%d", &Config.limite_transferencia);
     else if (strstr(path, "UMBRAL_RETIROS")) sscanf(path, "UMBRAL_RETIROS=%d", &Config.umbral_retiros);
     else if (strstr(path, "UMBRAL_TRANSFERENCIAS")) sscanf(path, "UMBRAL_TRANSFERENCIAS=%d", &Config.umbral_transferencias);
-    else if (strstr(path, "NUM_HILOS")) sscanf(path, "NUM_HILOS=%d", &Config.num_hilos);
+    else if (strstr(path, "ARCHIVO_LOG_TRANSFERENCIAS")) sscanf(path, "ARCHIVO_LOG_TRANSFERENCIAS=%s",Config.archivo_log_transferencias);
     else if (strstr(path, "ARCHIVO_CUENTAS")) sscanf(path, "ARCHIVO_CUENTAS=%s", Config.archivo_cuentas);
     else if (strstr(path, "ARCHIVO_LOG")) sscanf(path, "ARCHIVO_LOG=%s",Config.archivo_log);
     else if (strstr(path, "LIMITE_INTENTOS_LOGIN")) sscanf(path, "LIMITE_INTENTOS_LOGIN=%d",&Config.limite_login);
     else if (strstr(path, "ARCHIVO_TRANSFERENCIAS")) sscanf(path, "ARCHIVO_TRANSFERENCIAS=%s",Config.archivo_tranferencias);
-    else if (strstr(path, "ARCHIVO_LOG_TRANSFERENCIAS")) sscanf(path, "ARCHIVO_LOG_TRANSFERENCIAS=%s",Config.archivo_log_tranferencias);
-  } 
+  }
   fclose(properties);
 }

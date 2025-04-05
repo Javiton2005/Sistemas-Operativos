@@ -49,7 +49,7 @@ extern struct _Config {
   char archivo_cuentas[50];
   char archivo_log[50];
   char archivo_tranferencias[50];
-  char archivo_log_tranferencias[50];
+  char archivo_log_transferencias[50];
   int limite_login;
 } Config;
 

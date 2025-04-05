@@ -21,13 +21,8 @@ void EscribirLogTrans(TRANSACCION *trans){
   sem_t *semaforo = sem_open("/sem_log_trans", O_CREAT, 0644, 1);
   sem_wait(semaforo);
 
-  FILE *log_trans = fopen(Config.archivo_log_tranferencias,"a");
+  FILE *log_trans = fopen(Config.archivo_log_transferencias,"a");
   if (!log_trans) {
-
-    printf("No se a abierto el log\n");
-    while (getchar()!='\n');
-    getchar();
-
     sem_post(semaforo);
     sem_close(semaforo);
     free(trans->descripcion);
@@ -36,10 +31,6 @@ void EscribirLogTrans(TRANSACCION *trans){
     free(trans);
     return;
   }
-
-  printf("\tMensaje:%s\n",mensaje);
-  while (getchar()!='\n');
-  getchar();
 
   fputs(mensaje, log_trans);
   fclose(log_trans);
