@@ -8,15 +8,20 @@ void *PagarTasasHilo(void *valor){
   USER *user=leerCsv(parametros->id);
   user->saldo = user->saldo - (*(double*)(parametros->valor));
   //Registrar transaccion========================
-  TRANSACCION transaccion;
-  time_t t;
-  transaccion.cantidad = (*(double*)(parametros->valor));
-  transaccion.ncuentas = user->ncuenta;
-  transaccion.ncuentao = NULL;
-  time(&t);
-  transaccion.fecha = localtime(&t);
-  transaccion.descripcion = "Pago de tasa";
+  TRANSACCION *transaccion=malloc(sizeof(TRANSACCION));
+  if(!transaccion){
+    sem_post(semaforo);
+    sem_close(semaforo);
+    free(parametros->valor); // Libera el double
+    free(parametros);        // Libera el struct
+    exit(-1);
+  }
+  transaccion->cantidad = (*(double*)(parametros->valor));
+  transaccion->ncuentas = strdup(user->ncuenta); // si ya es string
+  transaccion->ncuentao = NULL;
+  transaccion->descripcion = strdup("Pago de tasas");
   EscribirLogTrans(transaccion);
+
   EditarCsv(user);
   sem_post(semaforo);
   //FIN SEM =====================================
@@ -56,4 +61,5 @@ void PagarTasas(int *idUser){
   //Preparacion del hilo=========================
   IdValor parametros = {idUser, (void *)&c};
   pthread_create(&h , NULL , PagarTasasHilo , &parametros); 
+  return;
 }

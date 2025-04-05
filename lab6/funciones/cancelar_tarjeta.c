@@ -9,19 +9,26 @@ void *CancelarTarjetaHilo(void *valor){
   user->ncuenta = (parametros->valor);
   EditarCsv(user);
   sem_post(semaforo);
+  sem_close(semaforo);
   //FIN SEM =====================================
+  free(parametros->valor);
+  free(parametros);
+  free(user);
   return(NULL);
 }
 
 void CancelarTarjeta(int *idUser){
-  char *n;
+  char *n = malloc(255);
   pthread_t h;
   //Introduccion de datos========================
-  printf("Ingrese el nuevo numero de cuenta quiera tener: \n");
+  printf("Ingrese el nuevo numero de cuenta que quiera tener(9 caracteres): \n");
   scanf("%s",n);
   //Comprobacion inicial=========================
-  if(!atoi(n)) return;
+  if ((strlen(n) != 9) || (atoi(n)<=0)){
+    printf("Formato incorrecto\n");
+    return;
+  }
   //Preparacion del hilo=========================
-  IdValor parametros = {idUser, &n};
+  IdValor parametros = {idUser, n};
   pthread_create(&h , NULL , CancelarTarjetaHilo , &parametros);
 }
