@@ -12,4 +12,5 @@ NUM_HILOS=4
 ARCHIVO_CUENTAS=./ficheros/db.csv
 ARCHIVO_LOG=./ficheros/banco.log
 ARCHIVO_TRANSFERENCIAS=./ficheros/transacciones.csv
+#/home/javier/Documentos/boveda/Clase/Sistemas-Operativos/lab6/ficheros/transacciones.log
 ARCHIVO_LOG_TRANSFERENCIAS=./ficheros/transacciones.log

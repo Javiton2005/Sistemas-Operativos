@@ -19,7 +19,7 @@ void Transaccion(int *idUser);
 void PagarTasas(int *idUser);
 void CancelarTarjeta(int *idUser);
 
-void EscribirLogTrans(TRANSACCION trans);
+void EscribirLogTrans(TRANSACCION *trans);
 
 /*
    0 "Sacar Dinero",
