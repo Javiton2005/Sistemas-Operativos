@@ -10,15 +10,18 @@ void *TransaccionHilo(void *valor){
   user->saldo = user->saldo - (*(double*)(parametros->valor));
   usero->saldo = usero->saldo + (*(double*)(parametros->valor));
   //Registrar transaccion========================
-  TRANSACCION transaccion;
-  time_t t;
-  transaccion.cantidad = (*(double*)(parametros->valor));
-  transaccion.ncuentas = user->ncuenta;
-  transaccion.ncuentao = usero->ncuenta;
-  char *d = malloc(26);
-  d = "Transaccion entre cuentas\0";
-  time(&t);
-  transaccion.fecha = localtime(&t);
+  TRANSACCION *transaccion=malloc(sizeof(TRANSACCION));
+  if(!transaccion){
+    sem_post(semaforo);
+    sem_close(semaforo);
+    free(parametros->valor); // Libera el double
+    free(parametros);        // Libera el struct
+    exit(-1);
+  }
+  transaccion->cantidad = (*(double*)(parametros->valor));
+  transaccion->ncuentas = strdup(user->ncuenta); // si ya es string
+  transaccion->ncuentao = NULL;
+  transaccion->descripcion = strdup("Transferencia entre cuentas");
   EscribirLogTrans(transaccion);
   EditarCsv(user);
   EditarCsv(usero);
@@ -40,22 +43,34 @@ void Transaccion(int *idUser){
   //Comprobacion inicial=========================
   if (c < 0){
     printf("Formato incorrecto\n");
+    sleep(2);
     return;
   }
   if (c > Config.limite_transferencia){
     printf("Cantidad excede el limite establecido en este banco\n");
+    sleep(2);
+    return;
   }
+  printf("gucci pa2\n");
   //Preparacion del hilo=========================
-  IdValor *parametros;
+  IdValor *parametros = malloc(2 * sizeof(IdValor)); // Allocate memory for 2 IdValor structs
+  if (!parametros) {
+    printf("Error al asignar memoria para parametros\n");
+    return;
+  }
   IdValor parametro0 = {idUser, &c};
-  parametros[0]=parametro0;
+  parametros[0] = parametro0;
+  printf("gucci pa3\n");
   //SEM==========================================
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
+  sem_wait(semaforo);
   USER *usero = LeerCSVNcuenta(nc); //User objetivo
   sem_post(semaforo);
   //FIN SEM======================================
+  printf("gucci pa4\n");
   IdValor parametro1 = {&usero->id, &c};
   parametros[1]=parametro1;
+  printf("gucci pa1\n");
   pthread_create(&h , NULL , TransaccionHilo , parametros);
   return;
 }
