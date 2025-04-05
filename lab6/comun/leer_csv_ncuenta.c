@@ -10,9 +10,7 @@ USER *LeerCSVNcuenta(char *ncuenta){
     exit(-1);
   }
   db = fopen(Config.archivo_cuentas, "rb");
-  printf("nashe\n");
   fgets(line, sizeof(line), db);
-  printf("nashe2\n");
   //Bucle para buscar al usuario en funcion de su numero de cuenta
   while((fgets(line, 255, db))!=NULL){
     i++;
@@ -25,7 +23,6 @@ USER *LeerCSVNcuenta(char *ncuenta){
       fclose(db);
       return(user);
     }
-    printf("nashe3\n");
   }
   free(user);
   fclose(db);

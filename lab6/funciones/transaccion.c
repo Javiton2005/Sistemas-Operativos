@@ -19,15 +19,22 @@ void *TransaccionHilo(void *valor){
     exit(-1);
   }
   transaccion->cantidad = (*(double*)(parametros->valor));
-  transaccion->ncuentas = strdup(user->ncuenta); // si ya es string
-  transaccion->ncuentao = NULL;
+  transaccion->ncuentas = strdup(user->ncuenta);
+  transaccion->ncuentao = strdup(usero->ncuenta);
   transaccion->descripcion = strdup("Transferencia entre cuentas");
   EscribirLogTrans(transaccion);
   EditarCsv(user);
   EditarCsv(usero);
   sem_post(semaforo);
+  sem_close(semaforo);
   //FIN SEM======================================
+  free(transaccion->descripcion);
+  free(transaccion->ncuentas);
+  free(transaccion->ncuentao);
+  free(transaccion);
   free(parametros);
+  free(usero);
+  free(user);
   return(NULL);
 }
 
@@ -51,26 +58,23 @@ void Transaccion(int *idUser){
     sleep(2);
     return;
   }
-  printf("gucci pa2\n");
   //Preparacion del hilo=========================
   IdValor *parametros = malloc(2 * sizeof(IdValor)); // Allocate memory for 2 IdValor structs
   if (!parametros) {
     printf("Error al asignar memoria para parametros\n");
+    sleep(2);
     return;
   }
   IdValor parametro0 = {idUser, &c};
   parametros[0] = parametro0;
-  printf("gucci pa3\n");
   //SEM==========================================
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
   sem_wait(semaforo);
   USER *usero = LeerCSVNcuenta(nc); //User objetivo
   sem_post(semaforo);
   //FIN SEM======================================
-  printf("gucci pa4\n");
   IdValor parametro1 = {&usero->id, &c};
   parametros[1]=parametro1;
-  printf("gucci pa1\n");
   pthread_create(&h , NULL , TransaccionHilo , parametros);
   return;
 }
