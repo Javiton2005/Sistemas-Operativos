@@ -39,7 +39,7 @@ void *_HiloSacarDinero(void *valor){
   transaccion->ncuentas = strdup(user->ncuenta); // si ya es string
   transaccion->ncuentao = NULL;
   transaccion->descripcion = strdup("Retirada manual");
-  EscribirLogTrans(transaccion);
+  //EscribirLogTrans(transaccion);
 
   EditarCsv(user);
 
