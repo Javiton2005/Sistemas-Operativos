@@ -44,9 +44,11 @@ void *TransaccionHilo(void *valor){
   notificar_hilos();
   snprintf(mensaje, sizeof(mensaje),"Transferencia de dinero realizado por el User: %d de cantidad %.2lf al User: %d",user->id, *(double*)(parametros->valor),usero->id);
   EscribirEnLog(mensaje);
+  free(parametros[1].id);
   free(parametros);
   free(usero);
   free(user);
+
   return(NULL);
 }
 
@@ -83,8 +85,8 @@ void Transaccion(int *idUser){
   parametros[0].id=idUser;
 
   idUsero = LeerCSVNcuenta(nc); //User objetivo
-  if(*idUsero==-1){
-    perror("No se a encontrado al usuario\n");
+  if(!idUsero){
+    printf("No se a encontrado al usuario\n");
     printf("Presiona enter para salir\n");
     while (getchar()!='\n');
     getchar();

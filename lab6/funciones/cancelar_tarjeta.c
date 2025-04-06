@@ -1,4 +1,5 @@
 #include "funciones.h"
+#include <stdio.h>
 
 void *CancelarTarjetaHilo(void *valor){
   IdValor *parametros = (IdValor*)valor;
@@ -28,6 +29,12 @@ void CancelarTarjeta(int *idUser){
   //Comprobacion inicial=========================
   if ((strlen(n) != 9) || (atoi(n)<=0)){
     printf("Formato incorrecto\n");
+    return;
+  }
+  if(LeerCSVNcuenta(n)){
+    printf("Use numero de cuenta ya esta usado:");
+    while (getchar()!='\n');
+    getchar();
     return;
   }
   //Preparacion del hilo=========================
