@@ -27,7 +27,6 @@ void registrar_anomalia(int codigo_anomalia) {
 
 // Detección de fondos insuficientes
 void *hilo_fondos_insuficientes(void *arg) {       
-    printf("*\n"); 
     while(1){
         pthread_mutex_lock(&mutex);
         while (!nueva_verificacion) {
@@ -47,7 +46,6 @@ void *hilo_fondos_insuficientes(void *arg) {
 
 // Detección de transacciones demasiado grandes
 void *hilo_transacciones_grandes(void *arg) {     
-    printf("**\n");
     while(1){
         pthread_mutex_lock(&mutex);
         while (!nueva_verificacion) {
@@ -68,15 +66,12 @@ void *hilo_transacciones_grandes(void *arg) {
 // Detección de muchas secuencias inusuales en poco tiempo (3 transacciones en menos de 1 minuto)
 
 void *hilo_secuencia_inusual(void *arg) {
-    printf("***\n");
     while (1) {
         pthread_mutex_lock(&mutex);
         while (!nueva_verificacion) {
             pthread_cond_wait(&cond, &mutex); // Espera hasta que lo despierten
-            printf("()\n");
         }
         pthread_mutex_unlock(&mutex);
-        printf("(*)\n");
 
         if (Estadisticas.num_transacciones >= 3) {
             for (int i = 0; i < Estadisticas.usuarios; i++) {
@@ -96,9 +91,7 @@ void *hilo_secuencia_inusual(void *arg) {
 
                             if (diferencia < 60) { // Menos de un minuto
                                 transacciones_rapidas++;
-                                printf("(*)2\n");
                                 if (transacciones_rapidas >= 3) {
-                                    printf("(*)3\n");
                                     registrar_anomalia(ESTADO_SECUENCIA_INUSUAL);
                                     break; // Salir si ya se detectó para este usuario
                                 }
@@ -123,7 +116,6 @@ void *hilo_secuencia_inusual(void *arg) {
 
 // Detección de usuarios que no existen
 void *hilo_usuario_no_existe(void *arg) {
-    printf("****\n");
     while(1){
         pthread_mutex_lock(&mutex);
         while (!nueva_verificacion) {
@@ -145,7 +137,6 @@ void *hilo_usuario_no_existe(void *arg) {
 
 // Función para notificar a los hilos de revisar posibles anomalias
 void notificar_hilos() {
-    printf("-\n");
     pthread_mutex_lock(&mutex);
     nueva_verificacion = 1;
 
@@ -154,7 +145,6 @@ void notificar_hilos() {
         printf("Error al crear la lista de transacciones.\n");
         return;
     }
-    printf("---\n");
 
     while (transacciones[Estadisticas.num_transacciones] != NULL) {
         Estadisticas.num_transacciones++;
