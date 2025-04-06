@@ -62,25 +62,6 @@ void *hilo_transacciones_grandes(void *arg) {
     return NULL;
 }
 
-// Detección de intentos de login fallidos
-void *hilo_login_fallido(void *arg) {
-    while(1){
-        pthread_mutex_lock(&mutex);
-        while (!nueva_verificacion) {
-            pthread_cond_wait(&cond, &mutex); // Esperar señal de nuevo chequeo
-        }
-        pthread_mutex_unlock(&mutex);
-
-        // Comprobar si hay nuevos intentos de login fallidos
-        int intentos_previos = 0;
-        if (intentos_previos > Config.limite_login) {
-            registrar_anomalia(ESTADO_CONSTRASENA_INCORRECTA);
-            
-        }
-    }
-    return NULL;
-}
-
 // Detección de muchas secuencias inusuales en poco tiempo (3 transacciones en menos de 1 minuto)
 void *hilo_secuencia_inusual(void *arg) {
     while(1){
@@ -166,12 +147,11 @@ void monitor(int fd_alerta) {
         return;
     }
 
-    pthread_t hilo_fondos, hilo_transacciones, hilo_login, hilo_internacional, hilo_secuencia, hilo_no_existe;
+    pthread_t hilo_fondos, hilo_transacciones, hilo_internacional, hilo_secuencia, hilo_no_existe;
 
     // Crear hilos para anomalías
     pthread_create(&hilo_fondos, NULL, hilo_fondos_insuficientes, NULL);
     pthread_create(&hilo_transacciones, NULL, hilo_transacciones_grandes, NULL);
-    pthread_create(&hilo_login, NULL, hilo_login_fallido, NULL);
     pthread_create(&hilo_secuencia, NULL, hilo_secuencia_inusual, NULL);
     pthread_create(&hilo_no_existe, NULL, hilo_usuario_no_existe, NULL);
 
@@ -186,7 +166,6 @@ void monitor(int fd_alerta) {
     // CODIGO PARA LEER TRANSACCIONES Y CUENTAS
     /*pthread_join(hilo_fondos, NULL);
     pthread_join(hilo_transacciones_grandes, NULL);
-    pthread_join(hilo_login, NULL);
     pthread_join(hilo_secuencia, NULL);
     pthread_join(hilo_no_existe, NULL);*/
 }
