@@ -35,12 +35,13 @@ void *TransaccionHilo(void *valor){
   transaccion->ncuentas = strdup(user->ncuenta);
   transaccion->ncuentao = strdup(usero->ncuenta);
   transaccion->descripcion = "Transferencia entre cuentas";
-  //EscribirLogTrans(transaccion);
+  EscribirLogTrans(transaccion);
   EditarCsv(user);
   EditarCsv(usero);
   sem_post(semaforo);
   sem_close(semaforo);
   //FIN SEM======================================
+  notificar_hilos();
   snprintf(mensaje, sizeof(mensaje),"Transferencia de dinero realizado por el User: %d de cantidad %.2lf al User: %d",user->id, *(double*)(parametros->valor),usero->id);
   EscribirEnLog(mensaje);
   free(parametros);

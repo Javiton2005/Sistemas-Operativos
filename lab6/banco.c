@@ -31,18 +31,11 @@ void manejar_anomalia(char *mensaje) {
     case ESTADO_LOGIN_FALLIDO:
       printf("BANCO: Login fallido detectado.\n");
       break;
-    case ESTADO_CONSTRASENA_INCORRECTA:
-      printf("BANCO: Contraseña incorrecta detectada.\n");
-      sleep(1000);
-      break;
     case ESTADO_SECUENCIA_INUSUAL:
       printf("BANCO: Secuencia inusual detectada.\n");
       break;
     case ESTADO_USUARIO_NO_EXISTE:
       printf("BANCO: Usuario no existe detectado.\n");
-      break;
-    case ESTADO_EXCEDE_LIMITE:
-      printf("BANCO: Excede el limite de transferencia.\n");
       break;
     default:
       printf("BANCO: Anomalía desconocida.\n");

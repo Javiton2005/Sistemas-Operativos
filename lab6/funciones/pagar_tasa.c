@@ -25,6 +25,8 @@ void *PagarTasasHilo(void *valor){
   EditarCsv(user);
   sem_post(semaforo);
   //FIN SEM =====================================
+  notificar_hilos(); // Llamada a monitor para verificar anomalías
+
   return(NULL);
 }
 

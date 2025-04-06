@@ -33,9 +33,11 @@ void *MeterDineroHilo(void *valor){
 
   EditarCsv(user);
   
-  //FIN SEM======================================
   sem_post(semaforo);
   sem_close(semaforo);
+  //FIN SEM======================================
+
+  notificar_hilos(); // Llamada a monitor para verificar anomalías
 
   snprintf(mensaje, sizeof(mensaje),"Ingreso de dinero realizado por el User: %d de cantidad %.2lf",user->id, *(double*)(parametros->valor));
   free(parametros->valor); // Libera el double
