@@ -41,6 +41,7 @@ void PagarTasas(int *idUser){
   s = malloc(256);
   FILE *tasa;
   //Introduccion de datos========================
+  system("clear");
   printf("Ruta del archivo de la tasa: \n");
   scanf("%s", ruta);
   //Comprobacion inicial=========================
