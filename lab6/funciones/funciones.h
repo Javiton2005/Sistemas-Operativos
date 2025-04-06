@@ -2,6 +2,8 @@
   #define FUNCIONES
 
 #include "../comun/comun.h"
+#include "../monitor/monitor.h"
+
 extern char *funcionesMenu[];
 
 typedef struct _idValor{
@@ -20,6 +22,7 @@ void PagarTasas(int *idUser);
 void CancelarTarjeta(int *idUser);
 
 void EscribirLogTrans(TRANSACCION *trans);
+void RegistrarTransaccion(TRANSACCION *transaccion);
 
 /*
    0 "Sacar Dinero",

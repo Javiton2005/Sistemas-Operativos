@@ -20,6 +20,7 @@ void *PagarTasasHilo(void *valor){
   transaccion->ncuentas = strdup(user->ncuenta); // si ya es string
   transaccion->ncuentao = NULL;
   transaccion->descripcion = strdup("Pago de tasas");
+  RegistrarTransaccion(transaccion);
   EscribirLogTrans(transaccion);
 
   EditarCsv(user);

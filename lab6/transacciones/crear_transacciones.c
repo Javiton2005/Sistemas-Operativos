@@ -24,12 +24,12 @@ TRANSACCION *crearTransaccion(char *linea, int nLinea) {
             case 3:
               // Extraer día, mes, año, hora, minutos y segundos con sscanf
               if (sscanf(palabra, "%d-%d-%d %d:%d:%d",
-                       &transaccion->fecha->tm_mday,  // Día
-                       &transaccion->fecha->tm_mon,   // Mes
-                       &transaccion->fecha->tm_year,  // Año
-                       &transaccion->fecha->tm_hour,  // Hora
-                       &transaccion->fecha->tm_min,   // Minuto
-                       &transaccion->fecha->tm_sec) != 6) { // Segundo
+                       &transaccion->fecha.tm_mday,  // Día
+                       &transaccion->fecha.tm_mon,   // Mes
+                       &transaccion->fecha.tm_year,  // Año
+                       &transaccion->fecha.tm_hour,  // Hora
+                       &transaccion->fecha.tm_min,   // Minuto
+                       &transaccion->fecha.tm_sec) != 6) { // Segundo
                 perror("Error al convertir la fecha\n");
                 exit(-1);
             }
@@ -43,4 +43,3 @@ TRANSACCION *crearTransaccion(char *linea, int nLinea) {
 
     return transaccion;
 }
-

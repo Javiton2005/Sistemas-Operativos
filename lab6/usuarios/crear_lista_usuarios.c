@@ -21,6 +21,10 @@ USER **CrearListaUsuarios(char *fichero){
   USER **listaUsuarios=NULL; // Lista de usuarios que se retornara
   char *linea=NULL;
   FILE *archivo=fopen(fichero, "rb"); // Abre el fichero
+  if (!archivo) {
+    printf("Error al abrir el archivo de transacciones.\n");
+    exit(-1);
+  }
   char caracter;
   int usuarios=1;
   int caracteres=0;

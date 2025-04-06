@@ -14,4 +14,6 @@ void *hilo_login_fallido(void *arg);
 void *hilo_secuencia_inusual(void *arg);
 void *hilo_usuario_no_existe(void *arg);
 
+void notificar_hilos();
+
 #endif // MONITOR_H

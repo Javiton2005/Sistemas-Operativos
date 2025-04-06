@@ -1,6 +1,4 @@
 #include "funciones.h"
-#include <semaphore.h>
-#include <stdio.h>
 
 void *TransaccionHilo(void *valor){
   IdValor *parametros = (IdValor*)valor;
@@ -35,6 +33,8 @@ void *TransaccionHilo(void *valor){
   transaccion->ncuentas = strdup(user->ncuenta);
   transaccion->ncuentao = strdup(usero->ncuenta);
   transaccion->descripcion = "Transferencia entre cuentas";
+  RegistrarTransaccion(transaccion);
+
   EscribirLogTrans(transaccion);
   EditarCsv(user);
   EditarCsv(usero);
