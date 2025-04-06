@@ -65,7 +65,7 @@ int main(){
     close(pipe_alerta[1]); // Cerrar el descriptor de lectura del pipe
 
     while (salir != '*') {
-      //system("clear");
+      system("clear");
       listaUsuarios = CrearListaUsuarios(Config.archivo_cuentas);
       if(listaUsuarios==NULL){
         printf("Error en la creaccion de Lista de Usuarios");
