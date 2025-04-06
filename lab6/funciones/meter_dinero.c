@@ -7,6 +7,7 @@ void *MeterDineroHilo(void *valor){
     exit(-1);
   }
   IdValor *parametros = (IdValor *)valor;
+  char mensaje[256];
   //SEM==========================================
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
   sem_wait(semaforo);
@@ -15,21 +16,32 @@ void *MeterDineroHilo(void *valor){
 
   user->saldo +=(*(double*)(parametros->valor));
   //Registrar transaccion========================
-  /*TRANSACCION transaccion;*/
-  /*time_t t;*/
-  /*transaccion.cantidad = (*(double*)(parametros->valor));*/
-  /*transaccion.ncuentas = user->ncuenta;*/
-  /*transaccion.ncuentao = NULL;*/
-  /*time(&t);*/
-  /*transaccion.fecha = localtime(&t);*/
-  /*transaccion.descripcion = "Ingreso manual\0";*/
-  /*EscribirLogTrans(transaccion);*/
+  TRANSACCION *transaccion=malloc(sizeof(TRANSACCION));
+  if(!transaccion){
+    sem_post(semaforo);
+    sem_close(semaforo);
+    free(parametros->valor); // Libera el double
+    free(parametros);        // Libera el struct
+    exit(-1);
+  }
+
+  transaccion->cantidad = (*(double*)(parametros->valor));
+  transaccion->ncuentas = strdup(user->ncuenta);
+  transaccion->ncuentao = NULL;
+  transaccion->descripcion = "Ingreso manual";
+  EscribirLogTrans(transaccion);
 
   EditarCsv(user);
   
   //FIN SEM======================================
   sem_post(semaforo);
   sem_close(semaforo);
+
+  snprintf(mensaje, sizeof(mensaje),"Ingreso de dinero realizado por el User: %d de cantidad %.2lf",user->id, *(double*)(parametros->valor));
+  free(parametros->valor); // Libera el double
+  free(parametros);  
+  
+  EscribirEnLog(mensaje);
   return(NULL);
 }
 

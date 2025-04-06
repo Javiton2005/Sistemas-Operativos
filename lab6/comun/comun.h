@@ -61,6 +61,7 @@ extern struct _Estadisticas {
 void InitGlobal();
 void EscribirEnLog(char *frase);
 USER *leerCsv(int *idUser);
-USER *LeerCSVNcuenta(char *ncuenta);
+
+int *LeerCSVNcuenta(char *ncuenta);
 void *EditarCsv(USER *usuario);
 #endif // Comun_H

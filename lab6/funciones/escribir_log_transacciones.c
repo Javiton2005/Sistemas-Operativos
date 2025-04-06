@@ -14,7 +14,7 @@ void EscribirLogTrans(TRANSACCION *trans){
   if(trans->ncuentao)
     snprintf(mensaje, sizeof(mensaje),"%s %s %s %.2lf %s\n", fecha, trans->ncuentas, trans->ncuentao, trans->cantidad, trans->descripcion);
   else{
-    snprintf(mensaje, sizeof(mensaje),"%s %s NULL %lf %s\n", fecha, trans->ncuentas, trans->cantidad, trans->descripcion);
+    snprintf(mensaje, sizeof(mensaje),"%s %s NULL %.2lf %s\n", fecha, trans->ncuentas, trans->cantidad, trans->descripcion);
   }
 
   //SEM==========================================
@@ -25,7 +25,6 @@ void EscribirLogTrans(TRANSACCION *trans){
   if (!log_trans) {
     sem_post(semaforo);
     sem_close(semaforo);
-    free(trans->descripcion);
     free(trans->ncuentas);
     if (trans->ncuentao) free(trans->ncuentao);
     free(trans);
@@ -39,7 +38,6 @@ void EscribirLogTrans(TRANSACCION *trans){
   sem_close(semaforo);
   //FIN SEM======================================
   // Liberar memoria
-  free(trans->descripcion);
   free(trans->ncuentas);
   if (trans->ncuentao) free(trans->ncuentao);
   free(trans);

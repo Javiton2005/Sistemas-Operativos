@@ -1,12 +1,25 @@
 #include "funciones.h"
+#include <semaphore.h>
+#include <stdio.h>
 
 void *TransaccionHilo(void *valor){
   IdValor *parametros = (IdValor*)valor;
+  char mensaje[256];
   //SEM==========================================
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
+
+  //printf("ID 2:%d",*parametros[1].id);
   //Modificar info usuario=======================
   USER *user = leerCsv((parametros[0].id));
   USER *usero = leerCsv((parametros[1].id));
+  if(user->saldo<(*(double*) (parametros->valor))){
+    sem_post(semaforo);
+    sem_close(semaforo);
+    // Crea el mensaje del para escribir en el log
+    snprintf(mensaje, sizeof(mensaje),"[Warning] Intento de transferencia superior a la cantidad User id: %d",user->id);
+    EscribirEnLog(mensaje);
+    return NULL;
+  }
   user->saldo = user->saldo - (*(double*)(parametros->valor));
   usero->saldo = usero->saldo + (*(double*)(parametros->valor));
   //Registrar transaccion========================
@@ -21,17 +34,15 @@ void *TransaccionHilo(void *valor){
   transaccion->cantidad = (*(double*)(parametros->valor));
   transaccion->ncuentas = strdup(user->ncuenta);
   transaccion->ncuentao = strdup(usero->ncuenta);
-  transaccion->descripcion = strdup("Transferencia entre cuentas");
-  EscribirLogTrans(transaccion);
+  transaccion->descripcion = "Transferencia entre cuentas";
+  //EscribirLogTrans(transaccion);
   EditarCsv(user);
   EditarCsv(usero);
   sem_post(semaforo);
   sem_close(semaforo);
   //FIN SEM======================================
-  free(transaccion->descripcion);
-  free(transaccion->ncuentas);
-  free(transaccion->ncuentao);
-  free(transaccion);
+  snprintf(mensaje, sizeof(mensaje),"Transferencia de dinero realizado por el User: %d de cantidad %.2lf al User: %d",user->id, *(double*)(parametros->valor),usero->id);
+  EscribirEnLog(mensaje);
   free(parametros);
   free(usero);
   free(user);
@@ -40,20 +51,22 @@ void *TransaccionHilo(void *valor){
 
 void Transaccion(int *idUser){
   char nc[255];
-  double c;
+  double *c = malloc(sizeof(double));
   pthread_t h;
+  int *idUsero;
+  system("clear");
   //Introduccion de datos========================
-  printf("Nº de cuenta al que se le quiera hacer la transacción: \n");
+  printf("Nº de cuenta al que se le quiera hacer la transacción: ");
   scanf("%s", nc);
-  printf("¿Que cantidad quiere transferir? \n");
-  scanf("%lf", &c);
+  printf("¿Que cantidad quiere transferir? ");
+  scanf("%lf", c);
   //Comprobacion inicial=========================
   if (c < 0){
     printf("Formato incorrecto\n");
     sleep(2);
     return;
   }
-  if (c > Config.limite_transferencia){
+  if (*c > Config.limite_transferencia){
     printf("Cantidad excede el limite establecido en este banco\n");
     sleep(2);
     return;
@@ -65,16 +78,20 @@ void Transaccion(int *idUser){
     sleep(2);
     return;
   }
-  IdValor parametro0 = {idUser, &c};
-  parametros[0] = parametro0;
-  //SEM==========================================
-  sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
-  sem_wait(semaforo);
-  USER *usero = LeerCSVNcuenta(nc); //User objetivo
-  sem_post(semaforo);
-  //FIN SEM======================================
-  IdValor parametro1 = {&usero->id, &c};
-  parametros[1]=parametro1;
+  parametros[0].valor=c;
+  parametros[0].id=idUser;
+
+  idUsero = LeerCSVNcuenta(nc); //User objetivo
+  if(*idUsero==-1){
+    perror("No se a encontrado al usuario\n");
+    printf("Presiona enter para salir\n");
+    while (getchar()!='\n');
+    getchar();
+    return;
+  }
+
+  parametros[1].id=idUsero;
+  parametros[1].valor=c;
   pthread_create(&h , NULL , TransaccionHilo , parametros);
   return;
 }

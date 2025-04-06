@@ -36,9 +36,9 @@ void *_HiloSacarDinero(void *valor){
     exit(-1);
   }
   transaccion->cantidad = (*(double*)(parametros->valor));
-  transaccion->ncuentas = strdup(user->ncuenta); // si ya es string
+  transaccion->ncuentas = strdup(user->ncuenta);
   transaccion->ncuentao = NULL;
-  transaccion->descripcion = strdup("Retirada manual");
+  transaccion->descripcion = "Retirada manual";
   EscribirLogTrans(transaccion);
 
   EditarCsv(user);
@@ -52,8 +52,8 @@ void *_HiloSacarDinero(void *valor){
   free(parametros);        // Libera el struct
 
   EscribirEnLog(mensaje);
+  free(user);
   return NULL;
-
 }
 
 
