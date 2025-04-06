@@ -35,7 +35,6 @@
 06-04-2025 11:56:31 Transferencia de dinero realizado por el User: 1 de cantidad 5.00 al User: 3
 06-04-2025 11:56:52 Transferencia de dinero realizado por el User: 1 de cantidad 5.00 al User: 3
 06-04-2025 11:57:10 Transferencia de dinero realizado por el User: 1 de cantidad 5.00 al User: 3
-<<<<<<< HEAD
 06-04-2025 12:56:47 [Warning]Intento inicio de sesion: Usuario:Jaime Contraseña:43523
 06-04-2025 12:57:07 Usuario:jaime ha hecho log in con la contraseña 43523
 06-04-2025 12:57:27 Ingreso de dinero realizado por el User: 3 de cantidad 1456.00
@@ -43,18 +42,12 @@
 06-04-2025 12:58:02 Usuario:jaime ha hecho log in con la contraseña 43523
 06-04-2025 12:58:40 Transferencia de dinero realizado por el User: 3 de cantidad 200.00 al User: 1
 06-04-2025 12:58:57 Transferencia de dinero realizado por el User: 3 de cantidad 1200.00 al User: 1
-=======
-06-04-2025 12:09:32 Usuario:javier ha hecho log in con la contraseña 12345
-06-04-2025 12:09:46 Retiro de dinero realizado por el User: 1 de cantidad 20.00
-06-04-2025 12:09:52 Ingreso de dinero realizado por el User: 1 de cantidad 20.00
-06-04-2025 12:10:05 Transferencia de dinero realizado por el User: 1 de cantidad 20.00 al User: 3
-06-04-2025 18:17:54 Usuario:javier ha hecho log in con la contraseña 12345
-06-04-2025 18:18:31 Transferencia de dinero realizado por el User: 1 de cantidad 5.00 al User: 3
-06-04-2025 18:18:41 Transferencia de dinero realizado por el User: 1 de cantidad 5.00 al User: 3
-06-04-2025 18:20:28 Usuario:javier ha hecho log in con la contraseña 12345
-06-04-2025 18:20:48 Usuario:javier ha hecho log in con la contraseña 12345
-06-04-2025 18:21:00 Usuario:javier ha hecho log in con la contraseña 12345
-06-04-2025 18:22:05 Usuario:javier ha hecho log in con la contraseña 12345
-06-04-2025 18:22:43 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
-06-04-2025 18:22:55 Retiro de dinero realizado por el User: 1 de cantidad 60.00
->>>>>>> 9ab6349 (arreglado retoques)
+
+06-04-2025 18:39:22 Usuario:javier ha hecho log in con la contraseña 12345
+06-04-2025 18:39:34 Transferencia de dinero realizado por el User: 1 de cantidad 3.00 al User: 3
+06-04-2025 19:17:28 Usuario:javier ha hecho log in con la contraseña 12345
+06-04-2025 19:17:44 Transferencia de dinero realizado por el User: 1 de cantidad 5.00 al User: 3
+06-04-2025 19:17:47 Transferencia de dinero realizado por el User: 1 de cantidad 6.00 al User: 3
+06-04-2025 19:17:51 Transferencia de dinero realizado por el User: 1 de cantidad 7.00 al User: 3
+06-04-2025 19:18:07 Transferencia de dinero realizado por el User: 1 de cantidad 8.00 al User: 3
+06-04-2025 19:18:59 [Warning]Intento inicio de sesion: Usuario:q Contraseña:q

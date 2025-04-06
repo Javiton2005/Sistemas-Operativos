@@ -13,12 +13,12 @@
 06-04-2025 10:53:30 611405427 632467235 5.00 Transferencia entre cuentas
 06-04-2025 11:20:04 611405427 NULL 100.00 Ingreso manual
 06-04-2025 11:22:53 611405427 NULL 5.00 Retirada manual
-<<<<<<< HEAD
-06-04-2025 12:57:27 123456789 NULL 1456.00 Ingreso manual
-06-04-2025 12:57:35 123456789 NULL 300.00 Retirada manual
-=======
 06-04-2025 12:09:46 611405427 NULL 20.00 Retirada manual
 06-04-2025 12:09:52 611405427 NULL 20.00 Ingreso manual
 06-04-2025 18:22:43 659476579 NULL 10.00 Ingreso manual
 06-04-2025 18:22:55 659476579 NULL 60.00 Retirada manual
->>>>>>> 9ab6349 (arreglado retoques)
+06-04-2025 18:39:34 611405427 123456789 3.00 Transferencia entre cuentas
+06-04-2025 19:17:44 611405427 123456789 5.00 Transferencia entre cuentas
+06-04-2025 19:17:47 611405427 123456789 6.00 Transferencia entre cuentas
+06-04-2025 19:17:51 611405427 123456789 7.00 Transferencia entre cuentas
+06-04-2025 19:18:07 611405427 123456789 8.00 Transferencia entre cuentas

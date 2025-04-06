@@ -19,7 +19,7 @@ void RegistrarTransaccion(TRANSACCION *transaccion) {
     return;
   }
 
-  fprintf(archivo, "%lf;%s;%s;%s\n", transaccion->cantidad, transaccion->ncuentas, transaccion->ncuentao, fecha);
+  fprintf(archivo, "%.2lf;%s;%s;%s\n", transaccion->cantidad, transaccion->ncuentas, transaccion->ncuentao, fecha);
   fclose(archivo);
   return;
 }

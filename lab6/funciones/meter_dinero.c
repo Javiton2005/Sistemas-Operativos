@@ -29,6 +29,7 @@ void *MeterDineroHilo(void *valor){
   transaccion->ncuentas = strdup(user->ncuenta);
   transaccion->ncuentao = NULL;
   transaccion->descripcion = "Ingreso manual";
+  RegistrarTransaccion(transaccion);
   EscribirLogTrans(transaccion);
 
   EditarCsv(user);
