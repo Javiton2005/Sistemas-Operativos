@@ -36,6 +36,9 @@ void MenuOpciones(int *idUser){
       CancelarTarjeta(idUser);
       break;
     case 8:
+      sem_unlink("/semaforo_dbcsv");
+      sem_unlink("/semaforo_log");
+      sem_unlink("/sem_log_trans");
       exit(1);
       break;
     default:

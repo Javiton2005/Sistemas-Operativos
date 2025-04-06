@@ -21,8 +21,9 @@ void *CancelarTarjetaHilo(void *valor){
 void CancelarTarjeta(int *idUser){
   char *n = malloc(255);
   pthread_t h;
+  system("clear");
   //Introduccion de datos========================
-  printf("Ingrese el nuevo numero de cuenta que quiera tener(9 caracteres): \n");
+  printf("Ingrese el nuevo numero de cuenta que quiera tener(9 caracteres): ");
   scanf("%s",n);
   //Comprobacion inicial=========================
   if ((strlen(n) != 9) || (atoi(n)<=0)){
@@ -30,6 +31,8 @@ void CancelarTarjeta(int *idUser){
     return;
   }
   //Preparacion del hilo=========================
-  IdValor parametros = {idUser, n};
-  pthread_create(&h , NULL , CancelarTarjetaHilo , &parametros);
+  IdValor *parametros = malloc(sizeof(IdValor));
+  parametros->id=idUser;
+  parametros->valor=n;
+  pthread_create(&h , NULL , CancelarTarjetaHilo , parametros);
 }
