@@ -1,4 +1,5 @@
 #include "monitor.h"
+#include <stdio.h>
 #include <string.h>
 
 
@@ -63,38 +64,53 @@ void *hilo_transacciones_grandes(void *arg) {
 }
 
 // Detección de muchas secuencias inusuales en poco tiempo (3 transacciones en menos de 1 minuto)
+
 void *hilo_secuencia_inusual(void *arg) {
-    while(1){
+    while (1) {
         pthread_mutex_lock(&mutex);
         while (!nueva_verificacion) {
-            pthread_cond_wait(&cond, &mutex); // Esperar señal de nuevo chequeo
+            pthread_cond_wait(&cond, &mutex); // Espera hasta que lo despierten
         }
         pthread_mutex_unlock(&mutex);
 
-        // Verificar si hay múltiples transacciones para una misma cuenta en un corto período
-        if (Estadisticas.num_transacciones < 3) return NULL;
-        else if (Estadisticas.num_transacciones >= 3) {
+        if (Estadisticas.num_transacciones >= 3) {
             for (int i = 0; i < Estadisticas.usuarios; i++) {
                 int transacciones_rapidas = 0;
-                time_t tiempo_base = time(NULL);
-                
-                for (int j = 0; j < Estadisticas.num_transacciones; j++) {
-                    if (strcmp(transacciones[j]->ncuentao, users[i]->ncuenta)==0) {
-                        time_t tiempo_actual = time(NULL);  // Obtener el tiempo de la transacción actual
+                time_t tiempo_base = 0;
 
-                        if ((tiempo_actual - tiempo_base) < 60000000) { // Si está dentro del último minuto
-                            transacciones_rapidas++;
-                            if (transacciones_rapidas >= 3) registrar_anomalia(ESTADO_SECUENCIA_INUSUAL);
-                        } else {
-                            // Reiniciar contador si la nueva transacción es después de 1 minuto
+                for (int j = 0; j < Estadisticas.num_transacciones; j++) {
+                    if (strcmp(transacciones[j]->ncuentao, users[i]->ncuenta) == 0) {
+                        struct tm fecha_tm = transacciones[j]->fecha;
+                        time_t tiempo_actual = mktime(&fecha_tm); // Convertir a time_t
+
+                        if (tiempo_base == 0) {
                             tiempo_base = tiempo_actual;
                             transacciones_rapidas = 1;
+                        } else {
+                            double diferencia = difftime(tiempo_actual, tiempo_base);
+
+                            if (diferencia < 60) { // Menos de un minuto
+                                transacciones_rapidas++;
+                                if (transacciones_rapidas >= 3) {
+                                    registrar_anomalia(ESTADO_SECUENCIA_INUSUAL);
+                                    break; // Salir si ya se detectó para este usuario
+                                }
+                            } else {
+                                // Reiniciar ventana de tiempo
+                                tiempo_base = tiempo_actual;
+                                transacciones_rapidas = 1;
+                            }
                         }
                     }
                 }
             }
-        } 
-    } 
+        }
+
+        pthread_mutex_lock(&mutex);
+        nueva_verificacion = 0;
+        pthread_mutex_unlock(&mutex);
+    }
+
     return NULL;
 }
 
@@ -123,6 +139,23 @@ void *hilo_usuario_no_existe(void *arg) {
 void notificar_hilos() {
     pthread_mutex_lock(&mutex);
     nueva_verificacion = 1;
+
+    transacciones = CrearListaTransacciones(Config.archivo_tranferencias);
+    if (!transacciones) {
+        printf("Error al crear la lista de transacciones.\n");
+        return;
+    }
+
+    while (transacciones[Estadisticas.num_transacciones] != NULL) {
+        Estadisticas.num_transacciones++;
+    }
+
+    users = CrearListaUsuarios(Config.archivo_cuentas);
+    if (!users) {
+        printf("Error al crear la lista de cuentas.\n");
+        return;
+    }
+    
     pthread_cond_broadcast(&cond); // Despierta a todos los hilos bloqueados
     pthread_mutex_unlock(&mutex);
 }
@@ -130,7 +163,7 @@ void notificar_hilos() {
 // Función monitor principal
 void monitor(int fd_alerta) {
     fd_pipe[1] = fd_alerta; // Pipe para enviar mensajes al banco
-
+    
     transacciones = CrearListaTransacciones(Config.archivo_tranferencias);
     if (!transacciones) {
         printf("Error al crear la lista de transacciones.\n");
@@ -169,4 +202,3 @@ void monitor(int fd_alerta) {
     pthread_join(hilo_secuencia, NULL);
     pthread_join(hilo_no_existe, NULL);*/
 }
-

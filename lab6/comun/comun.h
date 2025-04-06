@@ -35,7 +35,7 @@ typedef struct _Transaccion{
   double cantidad;
   char *ncuentas;
   char *ncuentao;
-  struct tm *fecha;
+  struct tm fecha;
   char *descripcion;
 } TRANSACCION;
 

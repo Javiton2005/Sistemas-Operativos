@@ -1,5 +1,5 @@
 #ifndef TRANSACCIONES_H
-#define TRANSACCIONES_H
+  #define TRANSACCIONES_H
 
 #include "../comun/comun.h"
 
