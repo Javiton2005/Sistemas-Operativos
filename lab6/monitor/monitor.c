@@ -201,7 +201,6 @@ void monitor(int fd_alerta) {
     // Los hilos corren indefinidamente esperando a señales
 
     while (1) {
-        sleep(30); // Esperar 5 segundos antes de verificar nuevamente
         notificar_hilos(); // Notificar a los hilos para revisar posibles anomalías
     }
 
