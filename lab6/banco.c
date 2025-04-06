@@ -37,9 +37,6 @@ void manejar_anomalia(char *mensaje) {
     case ESTADO_USUARIO_NO_EXISTE:
       printf("BANCO: Usuario no existe detectado.\n");
       break;
-    default:
-      printf("BANCO: Anomalía desconocida.\n");
-      break; // No se si el break causara un error
   }
 }
 

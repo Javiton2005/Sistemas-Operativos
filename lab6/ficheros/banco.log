@@ -85,3 +85,118 @@
 06-04-2025 20:17:38 Transferencia de dinero realizado por el User: 1 de cantidad 5.00 al User: 3
 06-04-2025 20:17:44 Transferencia de dinero realizado por el User: 1 de cantidad 5.00 al User: 3
 06-04-2025 20:17:56 [Warning]Intento inicio de sesion: Usuario:w Contraseña:w
+06-04-2025 20:23:43 [Warning]Intento inicio de sesion: Usuario:* Contraseña:jaime
+06-04-2025 20:39:36 [Warning]Intento inicio de sesion: Usuario:jaime Contraseña:53423
+06-04-2025 20:39:45 Usuario:jaime ha hecho log in con la contraseña 43523
+06-04-2025 20:39:48 Retiro de dinero realizado por el User: 3 de cantidad 3.00
+06-04-2025 20:40:03 Ingreso de dinero realizado por el User: 3 de cantidad 3.00
+06-04-2025 20:40:25 Transferencia de dinero realizado por el User: 3 de cantidad 4.00 al User: 1
+06-04-2025 20:40:29 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:40:33 Transferencia de dinero realizado por el User: 3 de cantidad 6.00 al User: 1
+06-04-2025 20:40:38 Transferencia de dinero realizado por el User: 3 de cantidad 6.00 al User: 1
+06-04-2025 20:41:40 Usuario:jaime ha hecho log in con la contraseña 43523
+06-04-2025 20:41:44 Ingreso de dinero realizado por el User: 3 de cantidad 43.00
+06-04-2025 20:41:51 Retiro de dinero realizado por el User: 3 de cantidad 1.00
+06-04-2025 20:42:00 Ingreso de dinero realizado por el User: 3 de cantidad 100.00
+06-04-2025 20:42:07 Ingreso de dinero realizado por el User: 3 de cantidad 1000.00
+06-04-2025 20:42:12 Ingreso de dinero realizado por el User: 3 de cantidad 1001.00
+06-04-2025 20:42:18 Ingreso de dinero realizado por el User: 3 de cantidad 10000.00
+06-04-2025 20:42:35 Ingreso de dinero realizado por el User: 3 de cantidad 10000.00
+06-04-2025 20:42:41 [Warning] Intento de retiro superior a la cantidad User id: 3
+06-04-2025 20:42:47 Ingreso de dinero realizado por el User: 3 de cantidad 2.00
+06-04-2025 20:42:52 Retiro de dinero realizado por el User: 3 de cantidad 20000.00
+06-04-2025 20:42:58 Retiro de dinero realizado por el User: 3 de cantidad 1000.00
+06-04-2025 20:43:01 Ingreso de dinero realizado por el User: 3 de cantidad 1.00
+06-04-2025 20:43:14 Retiro de dinero realizado por el User: 3 de cantidad 1105.00
+06-04-2025 20:45:14 Usuario:jaime ha hecho log in con la contraseña 43523
+06-04-2025 20:45:46 Usuario:jaime ha hecho log in con la contraseña 43523
+06-04-2025 20:46:04 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:46:07 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:46:16 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:46:20 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:46:28 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:46:34 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:47:06 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:47:10 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:54:15 Usuario:jaime ha hecho log in con la contraseña 43523
+06-04-2025 20:54:27 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:54:30 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:54:32 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:54:35 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:55:03 ANOMALÍA 4
+
+06-04-2025 20:57:15 Usuario:jaime ha hecho log in con la contraseña 43523
+06-04-2025 20:57:20 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:57:24 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:57:26 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:57:36 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:57:41 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 4
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 4
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:57:43 ANOMALÍA 6
+
+06-04-2025 20:59:45 Usuario:jaime ha hecho log in con la contraseña 43523
+06-04-2025 20:59:49 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:59:52 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 20:59:53 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:00:25 Usuario:jaime ha hecho log in con la contraseña 43523
+06-04-2025 21:00:29 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:00:32 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:00:34 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:00:36 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:00:39 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:02:32 Usuario:jaime ha hecho log in con la contraseña 43523
+06-04-2025 21:02:35 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:02:37 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:02:39 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:02:41 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:02:44 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:04:06 Usuario:jaime ha hecho log in con la contraseña 43523
+06-04-2025 21:04:10 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:04:13 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:04:17 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:04:20 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:04:22 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:04:25 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:09:30 Usuario:jaime ha hecho log in con la contraseña 43523
+06-04-2025 21:09:34 Transferencia de dinero realizado por el User: 3 de cantidad 5.00 al User: 1
+06-04-2025 21:09:38 Transferencia de dinero realizado por el User: 3 de cantidad 10.00 al User: 1
+06-04-2025 21:09:43 [Warning] Intento de transferencia superior a la cantidad User id: 3
+06-04-2025 21:09:51 [Warning] Intento de transferencia superior a la cantidad User id: 3
+06-04-2025 21:09:58 [Warning] Intento de transferencia superior a la cantidad User id: 3
