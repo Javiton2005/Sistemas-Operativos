@@ -34,6 +34,7 @@ void *TransaccionHilo(void *valor){
   transaccion->ncuentao = strdup(usero->ncuenta);
   transaccion->descripcion = "Transferencia entre cuentas";
   RegistrarTransaccion(transaccion);
+
   EscribirLogTrans(transaccion);
   EditarCsv(user);
   EditarCsv(usero);
