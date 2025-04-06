@@ -91,7 +91,7 @@ int main(){
         manejar_anomalia(buffer);
       }
 
-      printf("Para salir presiona *: ");
+      printf("Presione \\n o para salir presiona *: ");
       while (getchar() != '\n'); // Limpiamos el buffer de entrada
       salir=getchar();
     }

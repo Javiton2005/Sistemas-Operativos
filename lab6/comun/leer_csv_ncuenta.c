@@ -31,8 +31,8 @@ int *LeerCSVNcuenta(char *ncuenta){
     }
     *i+=1;
   }
+  free(i);
   free(user);
   fclose(db);
-  *i=-1;
-  return(i);
+  return(NULL);
 }
