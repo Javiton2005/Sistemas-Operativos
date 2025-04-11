@@ -11,8 +11,8 @@
 #include "usuarios/usuarios.h"
 #include "login/login.h"
 #include "monitor/monitor.h"
-#include <stdio.h>
-#include <unistd.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -42,6 +42,8 @@ void manejar_anomalia(char *mensaje) {
 
 int main(){
 
+  key_t key = ftok("shmfile", 64);
+
   USER **listaUsuarios=NULL;
   char salir='a';
   InitGlobal();
@@ -54,6 +56,10 @@ int main(){
 
   pid_t pid = fork(); // Crear un proceso hijo
 
+  listaUsuarios = CrearListaUsuarios(Config.archivo_cuentas);
+  
+  int shmid=shmget(key, sizeof(USER)*Estadisticas.usuarios, 0666|IPC_CREAT);
+  
   if (pid < 0) { // Comprobar si ha habido error
     perror("Error en fork");
     exit(EXIT_FAILURE);
@@ -66,7 +72,7 @@ int main(){
 
     while (salir != '*') {
       system("clear");
-      listaUsuarios = CrearListaUsuarios(Config.archivo_cuentas);
+
       if(listaUsuarios==NULL){
         printf("Error en la creaccion de Lista de Usuarios");
         exit(-1);

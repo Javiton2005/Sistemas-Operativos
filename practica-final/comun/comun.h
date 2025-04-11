@@ -51,6 +51,7 @@ extern struct _Config {
   char archivo_tranferencias[50];
   char archivo_log_transferencias[50];
   int limite_login;
+  char clave[50];
 } Config;
 
 extern struct _Estadisticas {
