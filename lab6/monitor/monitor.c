@@ -19,7 +19,6 @@ void registrar_anomalia(int codigo_anomalia) {
     char mensaje[50];
     sprintf(mensaje,"ANOMALÍA %d\n", codigo_anomalia);
     EscribirEnLog(mensaje);
-    
     write(fd_pipe[1], mensaje, sizeof(mensaje)); // Enviar mensaje al banco
 }
 
@@ -27,7 +26,6 @@ void registrar_anomalia(int codigo_anomalia) {
 
 // Detección de fondos insuficientes
 void *hilo_fondos_insuficientes(void *arg) {       
-    printf("*\n"); 
     while(1){
         pthread_mutex_lock(&mutex);
         while (!nueva_verificacion) {
@@ -41,13 +39,14 @@ void *hilo_fondos_insuficientes(void *arg) {
                 registrar_anomalia(ESTADO_FONDOS_INSUFICIENTES);
             }
         }
+
+        sleep(1); // Simular tiempo de procesamiento
     }
     return NULL;
 }
 
 // Detección de transacciones demasiado grandes
 void *hilo_transacciones_grandes(void *arg) {     
-    printf("**\n");
     while(1){
         pthread_mutex_lock(&mutex);
         while (!nueva_verificacion) {
@@ -61,22 +60,20 @@ void *hilo_transacciones_grandes(void *arg) {
                 registrar_anomalia(ESTADO_EXCEDE_LIMITE);
             }
         }
+
+        sleep(1); // Simular tiempo de procesamiento
     }
     return NULL;
 }
 
 // Detección de muchas secuencias inusuales en poco tiempo (3 transacciones en menos de 1 minuto)
-
 void *hilo_secuencia_inusual(void *arg) {
-    printf("***\n");
     while (1) {
         pthread_mutex_lock(&mutex);
         while (!nueva_verificacion) {
             pthread_cond_wait(&cond, &mutex); // Espera hasta que lo despierten
-            printf("()\n");
         }
         pthread_mutex_unlock(&mutex);
-        printf("(*)\n");
 
         if (Estadisticas.num_transacciones >= 3) {
             for (int i = 0; i < Estadisticas.usuarios; i++) {
@@ -96,9 +93,7 @@ void *hilo_secuencia_inusual(void *arg) {
 
                             if (diferencia < 60) { // Menos de un minuto
                                 transacciones_rapidas++;
-                                printf("(*)2\n");
                                 if (transacciones_rapidas >= 3) {
-                                    printf("(*)3\n");
                                     registrar_anomalia(ESTADO_SECUENCIA_INUSUAL);
                                     break; // Salir si ya se detectó para este usuario
                                 }
@@ -113,9 +108,7 @@ void *hilo_secuencia_inusual(void *arg) {
             }
         }
 
-        pthread_mutex_lock(&mutex);
-        nueva_verificacion = 0;
-        pthread_mutex_unlock(&mutex);
+        sleep(1); // Simular tiempo de procesamiento
     }
 
     return NULL;
@@ -123,7 +116,6 @@ void *hilo_secuencia_inusual(void *arg) {
 
 // Detección de usuarios que no existen
 void *hilo_usuario_no_existe(void *arg) {
-    printf("****\n");
     while(1){
         pthread_mutex_lock(&mutex);
         while (!nueva_verificacion) {
@@ -137,6 +129,8 @@ void *hilo_usuario_no_existe(void *arg) {
                 registrar_anomalia(ESTADO_USUARIO_NO_EXISTE);
             }
         }
+
+        sleep(1); // Simular tiempo de procesamiento
     }
     return NULL;
 }
@@ -145,16 +139,15 @@ void *hilo_usuario_no_existe(void *arg) {
 
 // Función para notificar a los hilos de revisar posibles anomalias
 void notificar_hilos() {
-    printf("-\n");
     pthread_mutex_lock(&mutex);
-    nueva_verificacion = 1;
+    
+    Estadisticas.num_transacciones = 0;
 
     transacciones = CrearListaTransacciones(Config.archivo_tranferencias);
     if (!transacciones) {
         printf("Error al crear la lista de transacciones.\n");
         return;
     }
-    printf("---\n");
 
     while (transacciones[Estadisticas.num_transacciones] != NULL) {
         Estadisticas.num_transacciones++;
@@ -165,7 +158,7 @@ void notificar_hilos() {
         printf("Error al crear la lista de cuentas.\n");
         return;
     }
-    
+    nueva_verificacion = 1;
     pthread_cond_broadcast(&cond); // Despierta a todos los hilos bloqueados
     pthread_mutex_unlock(&mutex);
 }
@@ -173,22 +166,6 @@ void notificar_hilos() {
 // Función monitor principal
 void monitor(int fd_alerta) {
     fd_pipe[1] = fd_alerta; // Pipe para enviar mensajes al banco
-    
-    transacciones = CrearListaTransacciones(Config.archivo_tranferencias);
-    if (!transacciones) {
-        printf("Error al crear la lista de transacciones.\n");
-        return;
-    }
-
-    while (transacciones[Estadisticas.num_transacciones] != NULL) {
-        Estadisticas.num_transacciones++;
-    }
-
-    users = CrearListaUsuarios(Config.archivo_cuentas);
-    if (!users) {
-        printf("Error al crear la lista de cuentas.\n");
-        return;
-    }
 
     pthread_t hilo_fondos, hilo_transacciones, hilo_internacional, hilo_secuencia, hilo_no_existe;
 
@@ -201,7 +178,15 @@ void monitor(int fd_alerta) {
     // Los hilos corren indefinidamente esperando a señales
 
     while (1) {
+        printf("MONITOR: Nueva ronda de analisis de anomalias\n");
         notificar_hilos(); // Notificar a los hilos para revisar posibles anomalías
+
+        // Resetear la variable de chequeo para siguientes verificaciones
+        pthread_mutex_lock(&mutex);
+        nueva_verificacion = 0;
+        pthread_mutex_unlock(&mutex);
+
+        sleep(10); // Esperar 10 segundos antes de la siguiente verificación
     }
 
     // CODIGO PARA LEER TRANSACCIONES Y CUENTAS
