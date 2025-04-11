@@ -1,0 +1,15 @@
+# Límites de Operaciones
+LIMITE_RETIRO=5000
+LIMITE_TRANSFERENCIA=10000
+LIMITE_INTENTOS_LOGIN=3
+
+# Umbrales de Detección de Anomalías
+UMBRAL_RETIROS=3
+UMBRAL_TRANSFERENCIAS=5
+
+# Parámetros de Ejecución
+NUM_HILOS=4
+ARCHIVO_CUENTAS=./ficheros/db.csv
+ARCHIVO_LOG=./ficheros/banco.log
+ARCHIVO_TRANSFERENCIAS=./ficheros/transacciones.csv
+ARCHIVO_LOG_TRANSFERENCIAS=./ficheros/transacciones.log
