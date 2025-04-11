@@ -58,7 +58,30 @@ int main(){
 
   listaUsuarios = CrearListaUsuarios(Config.archivo_cuentas);
   
-  int shmid=shmget(key, sizeof(USER)*Estadisticas.usuarios, 0666|IPC_CREAT);
+  int memid=shm_open(Config.clave, O_CREAT | O_RDWR, 0666);
+  if (memid == -1) {
+    perror("Error al crear la memoria compartida");
+    exit(EXIT_FAILURE);
+  }
+  if (ftruncate(memid, sizeof(USER) * Estadisticas.usuarios) == -1) {
+    perror("Error al truncar la memoria compartida");
+    exit(EXIT_FAILURE);
+  }
+  USER **usuario = (USER **)mmap(NULL, sizeof(USER) * Estadisticas.usuarios, PROT_READ | PROT_WRITE, MAP_SHARED, memid, 0);
+  if (usuario == NULL) {
+    perror("Error al mapear la memoria compartida");
+    exit(EXIT_FAILURE);
+  }
+  // Copiar la lista de usuarios a la memoria compartida
+  for (int i = 0; i < Estadisticas.usuarios; i++) {
+    if (listaUsuarios[i] != NULL) {
+      usuario[i]->id = listaUsuarios[i]->id;
+      strcpy(usuario[i]->nombre, listaUsuarios[i]->nombre);
+      strcpy(usuario[i]->contrasena, listaUsuarios[i]->contrasena);
+      strcpy(usuario[i]->ncuenta, listaUsuarios[i]->ncuenta);
+      usuario[i]->saldo = listaUsuarios[i]->saldo;
+    }
+  }
   
   if (pid < 0) { // Comprobar si ha habido error
     perror("Error en fork");

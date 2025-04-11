@@ -13,6 +13,13 @@
 #include <stddef.h>
 #include <pthread.h>
 #include <semaphore.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 #define ESTADO_APROBADA 0
 #define ESTADO_FONDOS_INSUFICIENTES 1

@@ -6,8 +6,15 @@ void InfoCuenta(int *idUser){
   if (idUser<0) {
     return;
   }
-  
-  USER *user=leerCsv(idUser); 
+  int memid = shm_open(Config.clave, O_CREAT | O_RDWR, 0666);
+  USER **usuario = (USER **)mmap(NULL, sizeof(USER) * Estadisticas.usuarios, PROT_READ | PROT_WRITE, MAP_SHARED, memid, 0);
+  USER *user;
+  for (int i = 0; i < Estadisticas.usuarios; i++) {
+    if (usuario[i]->id == *idUser) {
+      user = usuario[i];
+      break;
+    }
+  }
 
   system("clear");
   printf("Info de la cuenta:\n"); 
