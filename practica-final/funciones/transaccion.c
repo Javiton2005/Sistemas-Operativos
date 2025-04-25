@@ -41,7 +41,6 @@ void *TransaccionHilo(void *valor){
   sem_post(semaforo);
   sem_close(semaforo);
   //FIN SEM======================================
-  notificar_hilos();
   snprintf(mensaje, sizeof(mensaje),"Transferencia de dinero realizado por el User: %d de cantidad %.2lf al User: %d",user->id, *(double*)(parametros->valor),usero->id);
   EscribirEnLog(mensaje);
   free(parametros[1].id);

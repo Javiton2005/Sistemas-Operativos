@@ -58,16 +58,17 @@ int main(){
 
   listaUsuarios = CrearListaUsuarios(Config.archivo_cuentas);
   
-  int memid=shm_open(Config.clave, O_CREAT | O_RDWR, 0666);
-  if (memid == -1) {
-    perror("Error al crear la memoria compartida");
-    exit(EXIT_FAILURE);
-  }
-  if (ftruncate(memid, sizeof(USER) * Estadisticas.usuarios) == -1) {
-    perror("Error al truncar la memoria compartida");
-    exit(EXIT_FAILURE);
-  }
-  USER **usuario = (USER **)mmap(NULL, sizeof(USER) * Estadisticas.usuarios, PROT_READ | PROT_WRITE, MAP_SHARED, memid, 0);
+  // int memid=shm_open(Config.clave, O_CREAT | O_RDWR, 0666);
+  // if (memid == -1) {
+  //   perror("Error al crear la memoria compartida");
+  //   exit(EXIT_FAILURE);
+  // }
+  // if (ftruncate(memid, sizeof(USER) * Estadisticas.usuarios) == -1) {
+  //   perror("Error al truncar la memoria compartida");
+  //   exit(EXIT_FAILURE);
+  // }
+  //USER **usuario = (USER **)mmap(NULL, sizeof(USER) * Estadisticas.usuarios, PROT_READ | PROT_WRITE, MAP_SHARED, memid, 0);
+  /*USER **usuario = (USER **) malloc(sizeof(USER *) * Estadisticas.usuarios);
   if (usuario == NULL) {
     perror("Error al mapear la memoria compartida");
     exit(EXIT_FAILURE);
@@ -81,14 +82,14 @@ int main(){
       strcpy(usuario[i]->ncuenta, listaUsuarios[i]->ncuenta);
       usuario[i]->saldo = listaUsuarios[i]->saldo;
     }
-  }
+  }*/
   
   if (pid < 0) { // Comprobar si ha habido error
     perror("Error en fork");
     exit(EXIT_FAILURE);
   } else if (pid == 0) {
     close(pipe_alerta[0]); // Cerrar el descriptor de escritura del pipe
-    monitor(pipe_alerta[1]); // Lanzar el proceso monitor
+    //monitor(pipe_alerta[1]); // Lanzar el proceso monitor
     exit(0);
   } else {
     close(pipe_alerta[1]); // Cerrar el descriptor de lectura del pipe
