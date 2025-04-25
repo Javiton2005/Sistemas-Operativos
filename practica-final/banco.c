@@ -81,7 +81,7 @@ int main(){
       strcpy(usuario[i]->ncuenta, listaUsuarios[i]->ncuenta);
       usuario[i]->saldo = listaUsuarios[i]->saldo;
     }
-  }*/
+  }
   
   if (pid < 0) { // Comprobar si ha habido error
     perror("Error en fork");
