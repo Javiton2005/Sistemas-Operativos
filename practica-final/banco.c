@@ -10,7 +10,6 @@
 #include "comun/comun.h"
 #include "usuarios/usuarios.h"
 #include "login/login.h"
-#include "monitor/monitor.h"
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/types.h>
@@ -88,7 +87,12 @@ int main(){
     exit(EXIT_FAILURE);
   } else if (pid == 0) {
     close(pipe_alerta[0]); // Cerrar el descriptor de escritura del pipe
-    //monitor(pipe_alerta[1]); // Lanzar el proceso monitor
+
+    char comando[256];
+    char pipe[5];
+    sprintf(pipe, "%d",  pipe_alerta[1]);
+    snprintf(comando, sizeof(comando), "./monitor \"%s\" ", pipe);
+    execlp("gnome-terminal", "gnome-terminal", "--", "sh", "-c",  comando, (char *)NULL);
     exit(0);
   } else {
     close(pipe_alerta[1]); // Cerrar el descriptor de lectura del pipe
