@@ -21,7 +21,14 @@ void EscribirLogTrans(TRANSACCION *trans){
   sem_t *semaforo = sem_open("/sem_log_trans", O_CREAT, 0644, 1);
   sem_wait(semaforo);
 
-  FILE *log_trans = fopen(Config.archivo_log_transferencias,"a");
+  // Crea dir transacciones
+  char PathCuentaSalida[50];
+  snprintf(PathCuentaSalida, sizeof(PathCuentaSalida), "./transacciones/%s/transacciones.log", trans->ncuentas);
+
+  // Abre (y si no existe lo crea) el archivo de log para escribir transaccion salida
+  FILE *log_trans = fopen(PathCuentaSalida, "a");
+
+  // En caso de fallo se resetea semaforos y se libera memoria
   if (!log_trans) {
     sem_post(semaforo);
     sem_close(semaforo);
@@ -31,8 +38,32 @@ void EscribirLogTrans(TRANSACCION *trans){
     return;
   }
 
+  FILE *log_trans2 = NULL;
+
+  if (trans->ncuentao != NULL) {
+    // Crea dir transacciones
+    char PathCuentaObjetivo[50];
+    snprintf(PathCuentaObjetivo, sizeof(PathCuentaObjetivo), "./transacciones/%s/transacciones.log", trans->ncuentao);
+
+    FILE *log_trans2 = fopen(PathCuentaObjetivo, "a");
+
+    if (log_trans2) {
+      sem_post(semaforo);
+      sem_close(semaforo);
+      free(trans->ncuentas);
+      if (trans->ncuentao) free (trans->ncuentao);
+      free (trans);
+      return;
+    }
+  }
+
   fputs(mensaje, log_trans);
   fclose(log_trans);
+
+  if (trans->ncuentao != NULL) {
+    fputs(mensaje, log_trans2);
+    fclose(log_trans2);
+  }
 
   sem_post(semaforo);
   sem_close(semaforo);
