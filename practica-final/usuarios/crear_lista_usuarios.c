@@ -30,7 +30,7 @@ USER **CrearListaUsuarios(char *fichero){
   int caracteres=0;
   
   while ((caracter = fgetc(archivo)) != '\n' && caracter != EOF); // Se salta la primera linea
-   
+
   while (1) {
     caracter=fgetc(archivo); // lee el fichero hasta el final carcater por caracter
 

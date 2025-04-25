@@ -42,7 +42,7 @@ void manejar_anomalia(char *mensaje) {
 int main(){
 
   key_t key = ftok("shmfile", 64);
-  char *nombre = strdup("Banco", nombre);
+  char *nombre = strdup("Banco");
   USER **listaUsuarios=NULL;
   char salir='a';
   InitGlobal();
@@ -72,15 +72,14 @@ int main(){
     exit(EXIT_FAILURE);
   }
   // Copiar la lista de usuarios a la memoria compartida
-  for (int i = 0; i < Estadisticas.usuarios; i++) {
-    if (listaUsuarios[i] != NULL) {
-      usuario[i]->id = listaUsuarios[i]->id;
-      strcpy(usuario[i]->nombre, listaUsuarios[i]->nombre);
-      strcpy(usuario[i]->contrasena, listaUsuarios[i]->contrasena);
-      strcpy(usuario[i]->ncuenta, listaUsuarios[i]->ncuenta);
-      usuario[i]->saldo = listaUsuarios[i]->saldo;
-    }
-  }
+
+  /*for (int i = 0; i < Estadisticas.usuarios; i++) {*/
+  /*  usuario[i]->id = listaUsuarios[i]->id;*/
+  /*  strcpy(usuario[i]->nombre, listaUsuarios[i]->nombre);*/
+  /*  strcpy(usuario[i]->contrasena, listaUsuarios[i]->contrasena);*/
+  /*  strcpy(usuario[i]->ncuenta, listaUsuarios[i]->ncuenta);*/
+  /*  usuario[i]->saldo = listaUsuarios[i]->saldo;*/
+  /*}*/
   
   if (pid < 0) { // Comprobar si ha habido error
     perror("Error en fork");

@@ -34,10 +34,12 @@ void login(USER **listaUsuarios, int memid){
       if (pid == 0) {  // Proceso hijo
         // Convertimos edad y dinero a cadenas
         char idStr[5];
-        sprintf(idStr, "%d %d", listaUsuarios[i]->id, memid);
+        sprintf(idStr, "%d", listaUsuarios[i]->id);
         
+        char memidStr[20];
+        sprintf(memidStr, "%d", memid);
         char comando[256];
-        snprintf(comando, sizeof(comando), "./usuario \"%s\" ", idStr);
+        snprintf(comando, sizeof(comando), "./usuario \"%s\" \"%s\"", idStr, memidStr);
 
         if (access("/bin/gnome-terminal", X_OK) == 0) { //Comprueba si la terminal gnome existe, si es asi la ejecuta y si no ejecuta kitty
           execlp("gnome-terminal", "gnome-terminal", "--", "sh", "-c",  comando, (char *)NULL);
