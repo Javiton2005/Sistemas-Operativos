@@ -81,14 +81,14 @@ int main(){
       strcpy(usuario[i]->ncuenta, listaUsuarios[i]->ncuenta);
       usuario[i]->saldo = listaUsuarios[i]->saldo;
     }
-  }
+  }*/
   
   if (pid < 0) { // Comprobar si ha habido error
     perror("Error en fork");
     exit(EXIT_FAILURE);
   } else if (pid == 0) {
     close(pipe_alerta[0]); // Cerrar el descriptor de escritura del pipe
-    monitor(pipe_alerta[1]); // Lanzar el proceso monitor
+    //monitor(pipe_alerta[1]); // Lanzar el proceso monitor
     exit(0);
   } else {
     close(pipe_alerta[1]); // Cerrar el descriptor de lectura del pipe

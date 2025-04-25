@@ -47,8 +47,6 @@ void *_HiloSacarDinero(void *valor){
 
   sem_post(semaforo);
   sem_close(semaforo);
-
-  notificar_hilos(); // Llamada a monitor para verificar anomalías
   
   snprintf(mensaje, sizeof(mensaje),"Retiro de dinero realizado por el User: %d de cantidad %.2lf",user->id, *(double*)(parametros->valor));
   free(parametros->valor); // Libera el double
