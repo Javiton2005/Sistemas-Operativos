@@ -43,7 +43,7 @@ void manejar_anomalia(char *mensaje) {
 int main(){
 
   key_t key = ftok("shmfile", 64);
-
+  char *nombre = strdup("Banco", nombre);
   USER **listaUsuarios=NULL;
   char salir='a';
   InitGlobal();
@@ -58,7 +58,7 @@ int main(){
 
   listaUsuarios = CrearListaUsuarios(Config.archivo_cuentas);
   
-  int memid=shm_open(Config.clave, O_CREAT | O_RDWR, 0666);
+  int memid=shm_open(nombre, O_CREAT | O_RDWR, 0666);
   if (memid == -1) {
     perror("Error al crear la memoria compartida");
     exit(EXIT_FAILURE);
@@ -101,7 +101,7 @@ int main(){
         exit(-1);
       }
 
-      login(listaUsuarios); // Lanzar el proceso login (JAIME: LO HE PUESTO PARA QUE SE EJECUTE EL LOGIN BORRARLO SI LO HACEIS DE OTRA FORMA)
+      login(listaUsuarios, memid); // Lanzar el proceso login (JAIME: LO HE PUESTO PARA QUE SE EJECUTE EL LOGIN BORRARLO SI LO HACEIS DE OTRA FORMA)
       
       // Leer anomalias desde el pipe
 

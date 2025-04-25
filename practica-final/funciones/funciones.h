@@ -11,7 +11,7 @@ typedef struct _idValor{
   void *valor;
 }IdValor;
 
-void MenuOpciones(int *idUser);
+void MenuOpciones(int *idUser, int memid);
 
 void SacarDinero(int *idUser);
 void MeterDinero(int *idUser);

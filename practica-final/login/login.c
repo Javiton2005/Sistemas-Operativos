@@ -9,7 +9,7 @@
 
 
 
-void login(USER **listaUsuarios){
+void login(USER **listaUsuarios, int memid){
 
   char nombre[50];
   char contrasena[50];
@@ -34,7 +34,7 @@ void login(USER **listaUsuarios){
       if (pid == 0) {  // Proceso hijo
         // Convertimos edad y dinero a cadenas
         char idStr[5];
-        sprintf(idStr, "%d", listaUsuarios[i]->id);
+        sprintf(idStr, "%d %d", listaUsuarios[i]->id, memid);
         
         char comando[256];
         snprintf(comando, sizeof(comando), "./usuario \"%s\" ", idStr);
