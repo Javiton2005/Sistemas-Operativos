@@ -178,7 +178,6 @@ void monitor(int fd_alerta) {
     // Los hilos corren indefinidamente esperando a señales
 
     while (1) {
-        printf("MONITOR: Nueva ronda de analisis de anomalias\n");
         notificar_hilos(); // Notificar a los hilos para revisar posibles anomalías
 
         // Resetear la variable de chequeo para siguientes verificaciones

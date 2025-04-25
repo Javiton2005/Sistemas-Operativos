@@ -164,3 +164,80 @@
 06-04-2025 23:11:28 ANOMALÍA 6
 
 06-04-2025 23:11:28 ANOMALÍA 6
+23-04-2025 07:45:17 Usuario:javier ha hecho log in con la contraseña 12345
+23-04-2025 07:46:18 ANOMALÍA 6
+
+23-04-2025 07:46:18 ANOMALÍA 6
+
+23-04-2025 07:46:18 ANOMALÍA 4
+
+23-04-2025 07:49:32 [Warning]Intento inicio de sesion: Usuario:* Contraseña:*
+23-04-2025 07:51:06 Usuario:javier ha hecho log in con la contraseña 12345
+23-04-2025 07:55:10 [Warning]Intento inicio de sesion: Usuario:* Contraseña:*
+23-04-2025 07:55:28 Usuario:javier ha hecho log in con la contraseña 12345
+23-04-2025 07:55:35 Retiro de dinero realizado por el User: 1 de cantidad 50.00
+23-04-2025 07:56:36 ANOMALÍA 4
+
+23-04-2025 07:58:12 [Warning]Intento inicio de sesion: Usuario:panch Contraseña:12345
+23-04-2025 07:58:46 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 07:59:00 Retiro de dinero realizado por el User: 2 de cantidad 3.00
+23-04-2025 07:59:07 Ingreso de dinero realizado por el User: 2 de cantidad 3.00
+23-04-2025 08:05:47 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:07:01 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:08:54 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:11:54 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:12:01 Retiro de dinero realizado por el User: 2 de cantidad 3.00
+23-04-2025 08:12:04 Ingreso de dinero realizado por el User: 2 de cantidad 3.00
+23-04-2025 08:13:09 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:13:56 Ingreso de dinero realizado por el User: 2 de cantidad 1000.00
+23-04-2025 08:14:06 Retiro de dinero realizado por el User: 2 de cantidad 1000.00
+23-04-2025 08:16:23 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:20:45 ANOMALÍA 4
+
+23-04-2025 08:22:05 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:25:10 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:27:47 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:29:01 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:31:08 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:33:34 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:34:50 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:36:08 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:37:56 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:41:29 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:44:36 [Warning]Intento inicio de sesion: Usuario:panchon Contraseña:5321
+23-04-2025 08:44:42 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:47:06 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:50:41 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:51:35 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:52:12 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:56:42 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:57:02 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:57:15 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 08:57:43 Retiro de dinero realizado por el User: 2 de cantidad 3.00
+23-04-2025 08:57:47 Ingreso de dinero realizado por el User: 2 de cantidad 3.00
+23-04-2025 09:01:25 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:04:42 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:05:58 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:07:27 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:09:25 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:10:07 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:11:41 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:12:51 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:13:31 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:14:24 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:17:01 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:19:34 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:20:43 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:21:54 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:23:13 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:24:23 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:29:27 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:30:00 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:30:53 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:33:37 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:34:37 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:36:09 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:37:16 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:38:00 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:39:27 Usuario:panchon ha hecho log in con la contraseña 54321
+23-04-2025 09:40:51 Usuario:panchon ha hecho log in con la contraseña 54321

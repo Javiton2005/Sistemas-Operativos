@@ -59,7 +59,6 @@ int main(){
     exit(EXIT_FAILURE);
   } else if (pid == 0) {
     close(pipe_alerta[0]); // Cerrar el descriptor de escritura del pipe
-    monitor(pipe_alerta[1]); // Lanzar el proceso monitor
     exit(0);
   } else {
     close(pipe_alerta[1]); // Cerrar el descriptor de lectura del pipe

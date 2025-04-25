@@ -1,12 +1,14 @@
 #include "funciones.h"
 
 void *PagarTasasHilo(void *valor){
+  char mensaje[256];
   IdValor *parametros = (IdValor*)valor;
   //SEM =========================================
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
+  sem_wait(semaforo);
   //Modificar info usuario=======================
   USER *user=leerCsv(parametros->id);
-  user->saldo = user->saldo - (*(double*)(parametros->valor));
+  user->saldo -= (*(double*)(parametros->valor));
   //Registrar transaccion========================
   TRANSACCION *transaccion=malloc(sizeof(TRANSACCION));
   if(!transaccion){
@@ -19,12 +21,18 @@ void *PagarTasasHilo(void *valor){
   transaccion->cantidad = (*(double*)(parametros->valor));
   transaccion->ncuentas = strdup(user->ncuenta); // si ya es string
   transaccion->ncuentao = NULL;
-  transaccion->descripcion = strdup("Pago de tasas");
+  transaccion->descripcion = "Pago de tasas";
   RegistrarTransaccion(transaccion);
   EscribirLogTrans(transaccion);
-
+  //============================================
   EditarCsv(user);
   sem_post(semaforo);
+  sem_close(semaforo);
+  snprintf(mensaje, sizeof(mensaje),"Pago de tasa realizado por el User: %d de cantidad %.2lf",user->id, *(double*)(parametros->valor));
+  EscribirEnLog(mensaje);
+  free(user);
+  free(parametros->valor); // Libera el double
+  free(parametros);        // Libera el struct
   //FIN SEM =====================================
   notificar_hilos(); // Llamada a monitor para verificar anomalías
 
@@ -33,11 +41,10 @@ void *PagarTasasHilo(void *valor){
 
 void PagarTasas(int *idUser){
   int nc;
-  char *ruta;
+  char ruta[255];
   char *s;
-  double c;
+  double *c = malloc(sizeof(double));
   pthread_t h;
-  ruta = malloc(256);
   s = malloc(256);
   FILE *tasa;
   //Introduccion de datos========================
@@ -47,23 +54,33 @@ void PagarTasas(int *idUser){
   //Comprobacion inicial=========================
   if ((tasa = fopen(ruta, "rb"))==NULL){
     printf("Fichero de tasa no existe\n");
+    sleep(2);
+    free(s);
     return;
   }
+  s[strcspn(s, "\n")] = 0; // Eliminar el salto de línea
   fgets(s, 256, tasa);
   fclose(tasa);
-  c = atof(s);
-  free(ruta);
+  *c = atoi(s);
   free(s);
-  if (c < 0){
+  if (*c < 0){
     printf("Formato incorrecto\n");
+    sleep(2);
     return;
   }
-  if (c > Config.limite_transferencia){
+  if (*c > Config.limite_transferencia){
     printf("Cantidad excede el limite establecido en este banco\n");
+    sleep(2);
     return;
   }
   //Preparacion del hilo=========================
-  IdValor parametros = {idUser, (void *)&c};
-  pthread_create(&h , NULL , PagarTasasHilo , &parametros); 
+  IdValor *parametros = malloc(sizeof(IdValor));
+  if (!parametros) {
+    perror("malloc falló");
+    return;
+  }
+  parametros->id = idUser;
+  parametros->valor = c;
+  pthread_create(&h , NULL , PagarTasasHilo , parametros); 
   return;
 }

@@ -40,12 +40,5 @@ USER *crearUsuario(char *linea, int id){
     indice++;
   }
   user->id=id;
-
-  // Crea el directorio con el numero de la cuenta
-  char path[255];
-  snprintf(path, sizeof(path), "./transacciones/%d", user->ncuenta);
-  mkdrir(path, 0600); // 0[propietario][grupo usuario][otros usuarios]
-  // 600 = solo propietario puede escribir y leer 
-
   return user;
 }
