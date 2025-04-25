@@ -17,7 +17,7 @@ void registrar_anomalia(int codigo_anomalia) {
     char mensaje[50];
     sprintf(mensaje,"ANOMALÍA %d\n", codigo_anomalia);
     EscribirEnLog(mensaje);
-    
+    printf("ANOMALÍA %d\n", codigo_anomalia);
     write(fd_pipe[1], mensaje, sizeof(mensaje)); // Enviar mensaje al banco
 }
 

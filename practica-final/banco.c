@@ -57,7 +57,7 @@ int main(){
 
   listaUsuarios = CrearListaUsuarios(Config.archivo_cuentas);
   
-  /*int memid=shm_open(nombre, O_CREAT | O_RDWR, 0666);
+  int memid=shm_open(nombre, O_CREAT | O_RDWR, 0666);
   if (memid == -1) {
     perror("Error al crear la memoria compartida");
     exit(EXIT_FAILURE);
