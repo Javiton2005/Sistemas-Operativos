@@ -12,9 +12,9 @@
 #include <stdio.h>
 
 
-USER *crearUsuario(char *linea, int id){
+USER crearUsuario(char *linea, int id){
 
-  USER *user=malloc(sizeof(USER)); // Aloca memoria para un nuevo usuario
+  USER user; // Aloca memoria para un nuevo usuario
   
   int indice = 0;
   char *output;
@@ -25,24 +25,24 @@ USER *crearUsuario(char *linea, int id){
       palabra = "N/A";
     switch (indice) { // Guarda el valor en la estructura de user
       case 0:
-        user->nombre = palabra;
+        user.nombre = palabra;
         break;
       case 1:
-        user->contrasena=palabra;
+        user.contrasena=palabra;
         break;
       case 2:
-        user->ncuenta = palabra;
+        user.ncuenta = palabra;
         break;
       case 3:
-        user->saldo = atoi(palabra);
+        user.saldo = atoi(palabra);
         break;
     }
     indice++;
   }
-  user->id=id;
+  user.id=id;
 
   char path[50];
-  snprintf(path, sizeof(path), "./transacciones/%s", user->ncuenta);
+  snprintf(path, sizeof(path), "./transacciones/%s", user.ncuenta);
   mkdir(path, 0600); // Crea el directorio para las transacciones del usuario
   // 0600 permisos de lectura y escritura solo para el propietario
   // 0[propietario][grupo usuario][otros usuarios]

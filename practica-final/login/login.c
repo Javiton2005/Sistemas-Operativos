@@ -9,7 +9,7 @@
 
 
 
-void login(USER **listaUsuarios, int memid){
+void login(TABLA_USUARIOS *listaUsuarios, int memid){
 
   char nombre[50];
   char contrasena[50];
@@ -26,15 +26,15 @@ void login(USER **listaUsuarios, int memid){
   printf("Inserta Contraseña de la cuenta: ");
   scanf("%s", contrasena);
    
-  for(int i =0;i<Estadisticas.usuarios;i++){
+  for(int i =0;i<listaUsuarios->num_usuarios;i++){
     //printf("Comparado con: %s, %s",listaUsuarios[i]->nombre,listaUsuarios[i]->contrasena);
     // Si las credenciales conciden entra en el stament
-    if (strcmp(nombre, listaUsuarios[i]->nombre)==0 && strcmp(contrasena, listaUsuarios[i]->contrasena)==0) {
+    if (strcmp(nombre, listaUsuarios->usuarios[i].nombre)==0 && strcmp(contrasena, listaUsuarios->usuarios[i].contrasena)==0) {
       pid_t pid = fork(); // Se duplica para que el hijo pueda morir sin que el proceso padre pueda seguir ejecutando
       if (pid == 0) {  // Proceso hijo
         // Convertimos edad y dinero a cadenas
         char idStr[5];
-        sprintf(idStr, "%d", listaUsuarios[i]->id);
+        sprintf(idStr, "%d", listaUsuarios->usuarios[i].id);
         
         char memidStr[20];
         sprintf(memidStr, "%d", memid);
@@ -53,7 +53,7 @@ void login(USER **listaUsuarios, int memid){
       }
 
       // Crea el mensaje del para escribir en ellog
-      snprintf(mensaje, sizeof(mensaje),"Usuario:%s ha hecho log in con la contraseña %s", listaUsuarios[i]->nombre,listaUsuarios[i]->contrasena);
+      snprintf(mensaje, sizeof(mensaje),"Usuario:%s ha hecho log in con la contraseña %s", listaUsuarios->usuarios[i].nombre,listaUsuarios->usuarios[i].contrasena);
       EscribirEnLog(mensaje);
       return;
     }

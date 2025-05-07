@@ -43,7 +43,6 @@ int main(){
 
   key_t key = ftok("shmfile", 64);
   char *nombre = strdup("Banco");
-  USER **listaUsuarios=NULL;
   char salir='a';
   InitGlobal();
   int pipe_alerta[2]; // Descriptores de lectura y escritura del pipe
@@ -53,24 +52,21 @@ int main(){
     exit(EXIT_FAILURE);
   }
 
-  pid_t pid = fork(); // Crear un proceso hijo
 
-  listaUsuarios = CrearListaUsuarios(Config.archivo_cuentas);
-  
-  int memid=shm_open(nombre, O_CREAT | O_RDWR, 0666);
-  if (memid == -1) {
+  int shm_id = shmget(IPC_PRIVATE, sizeof(TABLA_USUARIOS), IPC_CREAT | 0666);
+  if (shm_id == -1) {
     perror("Error al crear la memoria compartida");
     exit(EXIT_FAILURE);
   }
-  if (ftruncate(memid, sizeof(USER) * Estadisticas.usuarios) == -1) {
-    perror("Error al truncar la memoria compartida");
-    exit(EXIT_FAILURE);
-  }
-  USER **usuario = (USER **)mmap(NULL, sizeof(USER) * Estadisticas.usuarios, PROT_READ | PROT_WRITE, MAP_SHARED, memid, 0);
-  if (usuario == NULL) {
+
+  TABLA_USUARIOS *tabla = (TABLA_USUARIOS*)shmat(shm_id, NULL, 0);
+  if (tabla == NULL) {
     perror("Error al mapear la memoria compartida");
     exit(EXIT_FAILURE);
   }
+  tabla = CrearListaUsuarios(Config.archivo_cuentas); // Crear la lista de usuarios
+  pid_t pid = fork(); // Crear un proceso hijo
+
   // Copiar la lista de usuarios a la memoria compartida
 
   /*for (int i = 0; i < Estadisticas.usuarios; i++) {*/
@@ -99,12 +95,12 @@ int main(){
     while (salir != '*') {
       system("clear");
 
-      if(listaUsuarios==NULL){
+      if(tabla==NULL){
         printf("Error en la creaccion de Lista de Usuarios");
         exit(-1);
       }
 
-      login(listaUsuarios, memid); // Lanzar el proceso login (JAIME: LO HE PUESTO PARA QUE SE EJECUTE EL LOGIN BORRARLO SI LO HACEIS DE OTRA FORMA)
+      login(tabla, shm_id); // Lanzar el proceso login (JAIME: LO HE PUESTO PARA QUE SE EJECUTE EL LOGIN BORRARLO SI LO HACEIS DE OTRA FORMA)
       
       // Leer anomalias desde el pipe
 

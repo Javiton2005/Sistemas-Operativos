@@ -13,12 +13,12 @@
 #include "usuarios.h"
 #include <stdio.h>
 
-USER **CrearListaUsuarios(char *fichero){
+TABLA_USUARIOS *CrearListaUsuarios(char *fichero){
   if (fichero==NULL) { // Si no pasan fichero retorna null y un error;
     printf("No se a dado un fichero\n");
     return(NULL);
   }
-  USER **listaUsuarios=NULL; // Lista de usuarios que se retornara
+  TABLA_USUARIOS *listaUsuarios=malloc(sizeof(TABLA_USUARIOS)); // Lista de usuarios que se retornara
   char *linea=NULL;
   FILE *archivo=fopen(fichero, "rb"); // Abre el fichero
   if (!archivo) {
@@ -42,22 +42,14 @@ USER **CrearListaUsuarios(char *fichero){
     
     if (caracter=='\n' || caracter ==EOF) {
       linea[caracteres]='\0';
-      USER *usuario = crearUsuario(linea,usuarios);
-      //free(linea);
-      listaUsuarios=realloc(listaUsuarios, (usuarios)*sizeof(USER *));
-      if(listaUsuarios==NULL){
-        perror("error al alocar memoria");
-        exit(-1);
-      }
-
-      listaUsuarios[usuarios-1]=usuario;
+      USER usuario = crearUsuario(linea,usuarios);
+      listaUsuarios->usuarios[usuarios-1]=usuario;
       usuarios++;
-      
       caracteres=0;
     }
   }
   free(linea);
   fclose(archivo);
-  Estadisticas.usuarios=usuarios-1;
+  listaUsuarios->num_usuarios=usuarios-1;
   return listaUsuarios;
 }

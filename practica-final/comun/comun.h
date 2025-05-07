@@ -29,6 +29,7 @@
 #define ESTADO_USUARIO_NO_EXISTE 5
 #define ESTADO_EXCEDE_LIMITE 6
 #define ESTADO_CONSTRASENA_INCORRECTA 7
+#define MAX_USUARIOS 100
 
 typedef struct _User{
   char *nombre;
@@ -36,7 +37,18 @@ typedef struct _User{
   char *ncuenta;
   double saldo;
   int id;
+  int bloqueado;
 } USER;
+
+typedef struct _TablaUsuarios{
+  USER usuarios[MAX_USUARIOS];
+  int num_usuarios;
+} TABLA_USUARIOS;
+
+typedef struct {
+  int prioridad;
+  USER operacion;
+} Operacion;
 
 typedef struct _Transaccion{
   double cantidad;
@@ -62,7 +74,6 @@ extern struct _Config {
 } Config;
 
 extern struct _Estadisticas {
-  int usuarios;
   int num_transacciones;
 } Estadisticas;
 

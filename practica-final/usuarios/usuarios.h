@@ -3,8 +3,8 @@
 
 #include "../comun/comun.h"
 
-USER *crearUsuario(char *linea, int id);
+USER crearUsuario(char *linea, int id);
 
-USER **CrearListaUsuarios(char *fichero);
+TABLA_USUARIOS *CrearListaUsuarios(char *fichero);
 
 #endif // USUARIOS_H

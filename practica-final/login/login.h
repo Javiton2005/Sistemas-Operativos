@@ -4,6 +4,6 @@
 #include "../comun/comun.h"
 #include "../funciones/funciones.h"
 
-void login(USER **listaUsuarios, int memid);
+void login(TABLA_USUARIOS *listaUsuarios, int memid);
 
 #endif // LOGIN_H
