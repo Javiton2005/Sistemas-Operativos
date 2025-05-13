@@ -9,8 +9,6 @@ void InitGlobal(){
   FILE *properties;
   char path[100];
   int fileIndex=0;
-
-  Estadisticas.usuarios = 0;
   
   properties=fopen("./properties.txt", "rb");
 
