@@ -1,10 +1,13 @@
 #include "comun/comun.h"
 #include "usuarios/usuarios.h"
 #include "transacciones/transacciones.h"
+#include <cstdio>
+#include <cstdlib>
 #include <pthread.h>
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
+#include <strings.h>
 #include <time.h>
 #include <unistd.h>
 #define TIMEOUT_SEC 1
@@ -12,6 +15,7 @@
 #define FIFO_CERRAR "/tmp/mi_fifo_cerrar"
 volatile bool detener_hilos_logs = false;
 int *listaUsuarios;
+struct tm **ultimasTransacciones;
 long *posiciones;
 int nusers;
 struct timeval timeout;
@@ -22,20 +26,22 @@ void registrar_anomalia(int codigo_anomalia) {
     char mensaje[50];
     sprintf(mensaje,"ANOMALÍA %d\n", codigo_anomalia);
     EscribirEnLog(mensaje);
-    printf("ANOMALÍA %d\n", codigo_anomalia);
+    printf("ANOMALÍA n:%d\n", codigo_anomalia);
 }
 
 //------------------------------ FUNCIONES DE LOS HILOS PARA DETECTAR ANOMALÍAS ------------------------------
 
-// Detección de fondos insuficientes
-void *hilo_fondos_insuficientes(void *arg) {       
-  printf("Hilo fondos insuficientes\n");
-  return NULL;
+void liberarMemoria(){
+  
+  free(listaUsuarios);
+  free(posiciones); 
+  for (int i =0; i<nusers;i++) {
+    free(ultimasTransacciones[i]);
+  }
+  return;
 }
-
 // Detección de transacciones demasiado grandes
 void *hilo_transacciones_grandes(void *arg) {
-  printf("Hilo transacciones grandes %d\n",nusers);  
   FILE *archivo;
   char nombre_archivo[50];
   char linea[256];
@@ -49,10 +55,19 @@ void *hilo_transacciones_grandes(void *arg) {
       continue;
     }
     else {
+      fseek(archivo, posiciones[i] , SEEK_SET);
       while (fgets(linea, 256, archivo)){
+        printf("%s",linea);
+        TRANSACCION *transaccion = crearTransaccion(linea);
+        if(transaccion->cantidad>Config.limite_transferencia && transaccion->cantidad>Config.limite_retiro)
+          registrar_anomalia(ESTADO_EXCEDE_LIMITE); 
+        ultimasTransacciones[i][0]=ultimasTransacciones[i][1];
+        ultimasTransacciones[i][1]=ultimasTransacciones[i][2];
+        ultimasTransacciones[i][2]=transaccion->fecha;
         
+        free(transaccion);
       }
-      printf("Se a abierto el fichero %s\n",nombre_archivo);
+      posiciones[i]=ftell(archivo);
     }
     fclose(archivo);
   }
@@ -62,8 +77,31 @@ void *hilo_transacciones_grandes(void *arg) {
 
 // Detección de muchas secuencias inusuales en poco tiempo (3 transacciones en menos de 1 minuto)
 
+bool es_fecha_valida(struct tm *fecha) {
+    return !(fecha->tm_year == 0 && fecha->tm_mon == 0 && fecha->tm_mday == 0);
+}
+
 void *hilo_secuencia_inusual(void *arg) {
-  printf("Hilo secuencia inusual\n");  
+  for (int i = 0; i < nusers; i++) {
+
+    if (!es_fecha_valida(&ultimasTransacciones[i][0]) ||
+        !es_fecha_valida(&ultimasTransacciones[i][2])) {
+        continue; // No hay 3 fechas válidas aún
+    }
+
+    time_t t1 = mktime(&ultimasTransacciones[i][0]);
+    time_t t3 = mktime(&ultimasTransacciones[i][2]);  // tercera transacción
+
+    double diferencia = difftime(t3, t1);  // en segundos
+
+    if (diferencia < 60.0) {
+      // "Vaciar" la lista sin liberar memoria
+      for (int j = 0; j < 3; j++) {
+        memset(&ultimasTransacciones[i][j], 0, sizeof(struct tm));
+      }
+      registrar_anomalia(ESTADO_SECUENCIA_INUSUAL);
+    }
+  }
   return NULL;
 }
 
@@ -91,23 +129,29 @@ void *hilo_comprobar_login(void *arg){
           pthread_mutex_lock(&mutex);
           int index = numero_user - 1001;
           if (index >= nusers) {
-              int nuevo_tam = index + 1;
-              int *nuevo = realloc(listaUsuarios, nuevo_tam * sizeof(int));
-              if (!nuevo) {
-                  perror("Error en realloc");
-                  break;
-              }
-              posiciones = realloc(posiciones, nuevo_tam * sizeof(long));
-              if (!posiciones) {
-                  perror("Error en realloc");
-                  break;
-              }
-              // Inicializa nuevos elementos a 0
-              for (int i = nusers; i < nuevo_tam; i++) {
-                  nuevo[i] = 0;
-              }
-              listaUsuarios = nuevo;
-              nusers = nuevo_tam;
+            int nuevo_tam = index + 1;
+            int *nuevo = realloc(listaUsuarios, nuevo_tam * sizeof(int));
+            if (!nuevo) {
+                perror("Error en realloc");
+                break;
+            }
+            posiciones = realloc(posiciones, nuevo_tam * sizeof(long));
+
+            ultimasTransacciones = realloc(ultimasTransacciones, nuevo_tam*sizeof(struct tm*));
+            
+            if (!posiciones && ultimasTransacciones) {
+                perror("Error en realloc");
+                break;
+            }
+            // Inicializa nuevos elementos a 0
+            for (int i = nusers; i < nuevo_tam; i++) {
+              
+              ultimasTransacciones[i] = malloc(3 * sizeof(struct tm));
+              posiciones[i]=0;
+              nuevo[i] = 0;
+            }
+            listaUsuarios = nuevo;
+            nusers = nuevo_tam;
           }
           listaUsuarios[index]++;
           pthread_mutex_unlock(&mutex);
@@ -127,6 +171,7 @@ void *hilo_comprobar_login(void *arg){
 
   return NULL;
 }
+
 
 void *hilo_comprobar_logout(void *arg){
   int *fd_lectura_cerrar=(int *) arg;
@@ -151,6 +196,14 @@ void *hilo_comprobar_logout(void *arg){
           pthread_mutex_lock(&mutex);
           int index = numero_user - 1001;
           listaUsuarios[index]--;
+          char nombre_archivo[50];
+          sprintf(nombre_archivo, "./ficheros/%d/transacciones.log", numero_user);
+          FILE *archivo = fopen(nombre_archivo, "w");
+          if(!archivo){
+            perror("error al abrir el archivo");
+            liberarMemoria();
+          }
+          fprintf(archivo, "%d", index);  // Escribe el número como texto
           pthread_mutex_unlock(&mutex);
           printf("Usuario con id %d se fue quedan %d veces\n", numero_user, listaUsuarios[index]);
         } else if (bytes_leidos == -1) {
@@ -166,15 +219,14 @@ void *hilo_comprobar_logout(void *arg){
   return NULL;
 }
 
-void hilos(pthread_t *hilo_fondos, pthread_t *hilo_transacciones,  pthread_t *hilo_secuencia){
+
+void hilos(pthread_t *hilo_transacciones,  pthread_t *hilo_secuencia){
   
   // Crear hilos para anomalías
-  pthread_create(hilo_fondos, NULL, hilo_fondos_insuficientes, NULL);
   pthread_create(hilo_transacciones, NULL, hilo_transacciones_grandes, NULL);
   pthread_create(hilo_secuencia, NULL, hilo_secuencia_inusual, NULL);
 
   // CODIGO PARA LEER TRANSACCIONES Y CUENTAS
-  pthread_join(*hilo_fondos, NULL);
   pthread_join(*hilo_transacciones, NULL);
   pthread_join(*hilo_secuencia, NULL);
 }
@@ -185,11 +237,11 @@ void hilos(pthread_t *hilo_fondos, pthread_t *hilo_transacciones,  pthread_t *hi
 int main(int argc, char *argv[]) {
 
   InitGlobal();
-  nusers=1;
+  nusers=0;
   pthread_mutex_init(&mutex, NULL);
   listaUsuarios=calloc(1,sizeof(int));
-
-  pthread_t hilo_fondos, hilo_transacciones, hilo_secuencia, hilo_login,hilo_cerrar;
+  ultimasTransacciones=calloc(1, sizeof(struct tm*));
+  pthread_t hilo_transacciones, hilo_secuencia, hilo_login,hilo_cerrar;
   
   int fd_lectura_cerrar;
   int fd_lectura_inicio;
@@ -234,10 +286,10 @@ int main(int argc, char *argv[]) {
   }
   
   pthread_create(&hilo_login, NULL, hilo_comprobar_login, &fd_lectura_inicio);
-  pthread_create(&hilo_cerrar, NULL, hilo_comprobar_login, &fd_lectura_cerrar);
+  pthread_create(&hilo_cerrar, NULL, hilo_comprobar_logout, &fd_lectura_cerrar);
 
   while (!detener_hilos_logs) {
-    hilos(&hilo_fondos, &hilo_transacciones, &hilo_secuencia);
+    hilos(&hilo_transacciones, &hilo_secuencia);
   }
   
   pthread_join(hilo_login, NULL);

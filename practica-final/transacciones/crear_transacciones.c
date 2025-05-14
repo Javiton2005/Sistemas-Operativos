@@ -1,6 +1,6 @@
 #include "transacciones.h"
 // Función para crear una transacción a partir de una línea del CSV
-TRANSACCION *crearTransaccion(char *linea, int nLinea) {
+TRANSACCION *crearTransaccion(char *linea) {
     
     TRANSACCION *transaccion = malloc(sizeof(TRANSACCION));
     
