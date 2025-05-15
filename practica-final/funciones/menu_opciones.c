@@ -1,9 +1,10 @@
 #include "funciones.h"
+#include <stdio.h>
 void MenuOpciones(int *idUser){
   if (idUser==NULL) {
     perror("Error al pasar id de User");
     exit(-1);
-  } 
+  }
   int seleccion=-1;
   system("clear");
   for (int i =0; funcionesMenu[i]!=NULL; i++) {
@@ -35,6 +36,21 @@ void MenuOpciones(int *idUser){
       CancelarTarjeta(idUser);
       break;
     case 8:
+      while ((Config.fd_escritura_cerrar = open(FIFO_CERRAR, O_WRONLY)) == -1) {
+        perror("Banco: Error al abrir el FIFO para escritura. Intentando de nuevo...");
+        sleep(1); // Esperar un poco antes de reintentar
+      }
+      printf("%d",atoi(tabla->usuarios[*idUser-1].ncuenta));
+
+      while (getchar()!='\n') {
+      
+      }
+      getchar();
+      int usuario=atoi(tabla->usuarios[*idUser-1].ncuenta);
+      if (write(Config.fd_escritura_cerrar, &usuario, sizeof(int)) == -1) {
+        perror("Banco: Error al escribir en el FIFO");
+        break; // Salir del bucle si hay un error de escritura
+      }
       sem_unlink("/semaforo_dbcsv");
       sem_unlink("/semaforo_log");
       sem_unlink("/sem_log_trans");

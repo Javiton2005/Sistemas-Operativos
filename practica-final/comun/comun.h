@@ -25,6 +25,9 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#define FIFO_CERRAR "/tmp/mi_fifo_cerrar"
+#define FIFO_INICIO "/tmp/mi_fifo_inicio"
+
 #define ESTADO_APROBADA 0
 #define ESTADO_FONDOS_INSUFICIENTES 1
 #define ESTADO_TRANSACCION_GRANDE 2
@@ -77,6 +80,8 @@ extern struct _Config {
   char archivo_log_transferencias[50];
   int limite_login;
   char clave[50];
+  int fd_escritura_cerrar;
+  int fd_escritura_inicio;
 } Config;
 
 extern struct _Estadisticas {

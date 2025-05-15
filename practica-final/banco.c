@@ -10,6 +10,7 @@
 #include "comun/comun.h"
 #include "usuarios/usuarios.h"
 #include "login/login.h"
+#include <stdio.h>
 
 
 void manejar_anomalia(char *mensaje) {
@@ -42,6 +43,7 @@ int main(){
   char *nombre = strdup("Banco");
   char salir='a';
   InitGlobal();
+  printf("Inicia\n");
   int pipe_alerta[2]; // Descriptores de lectura y escritura del pipe
 
   if (pipe(pipe_alerta) == -1) { // Crear el pipe

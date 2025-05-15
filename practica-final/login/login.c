@@ -30,6 +30,15 @@ void login(TABLA_USUARIOS *listaUsuarios, int memid){
     //printf("Comparado con: %s, %s",listaUsuarios[i]->nombre,listaUsuarios[i]->contrasena);
     // Si las credenciales conciden entra en el stament
     if (strncmp(nombre, listaUsuarios->usuarios[i].nombre, MAX_NOMBRE)==0 && strncmp(contrasena, listaUsuarios->usuarios[i].contrasena, MAX_NOMBRE)==0) {
+      while ((Config.fd_escritura_inicio = open(FIFO_INICIO, O_WRONLY)) == -1) {
+        perror("Banco: Error al abrir el FIFO para escritura. Intentando de nuevo...");
+        sleep(1); // Esperar un poco antes de reintentar
+      }
+      int numerocuenta=atoi(listaUsuarios->usuarios[i].ncuenta);
+      if (write(Config.fd_escritura_inicio, &numerocuenta, sizeof(int)) == -1) {
+          perror("Banco: Error al escribir en el FIFO");
+          break; // Salir del bucle si hay un err(EXIT_FAILURE, "%s");or de escritura
+      } 
       pid_t pid = fork(); // Se duplica para que el hijo pueda morir sin que el proceso padre pueda seguir ejecutando
       if (pid == 0) {  // Proceso hijo
 

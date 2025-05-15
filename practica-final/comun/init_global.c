@@ -9,13 +9,15 @@ void InitGlobal(){
   FILE *properties;
   char path[100];
   int fileIndex=0;
+
+  Estadisticas.usuarios = 0;
   
   properties=fopen("./properties.txt", "rb");
 
   sem_unlink("/semaforo_dbcsv");
   sem_unlink("/semaforo_log");
   sem_unlink("/sem_log_trans");
-
+  
   if(properties==NULL){
     perror("No se a podido abrir el fichero prproperties.txt");
     return;

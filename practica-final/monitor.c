@@ -9,8 +9,7 @@
 #include <time.h>
 #include <unistd.h>
 #define TIMEOUT_SEC 1
-#define FIFO_INICIO "/tmp/mi_fifo_inicio"
-#define FIFO_CERRAR "/tmp/mi_fifo_cerrar"
+
 volatile bool detener_hilos_logs = false;
 int *listaUsuarios;
 struct tm **ultimasTransacciones;
@@ -55,7 +54,6 @@ void *hilo_transacciones_grandes(void *arg) {
     else {
       fseek(archivo, posiciones[i] , SEEK_SET);
       while (fgets(linea, 256, archivo)){
-        printf("%s",linea);
         TRANSACCION *transaccion = crearTransaccion(linea);
         if(transaccion->cantidad>Config.limite_transferencia && transaccion->cantidad>Config.limite_retiro)
           registrar_anomalia(ESTADO_EXCEDE_LIMITE); 
@@ -148,8 +146,20 @@ void *hilo_comprobar_login(void *arg){
               posiciones[i]=0;
               nuevo[i] = 0;
             }
+            char nombre_archivo[50];
+            sprintf(nombre_archivo, "./ficheros/%d/config.conf", numero_user);
+            FILE *archivo = fopen(nombre_archivo, "rb");
+            if(!archivo){
+              perror("error al abrir el archivo");
+              liberarMemoria();
+            }
+            fread(nombre_archivo, sizeof(char), 50, archivo);
+            posiciones[index]=atoi(nombre_archivo);
+            printf("%ld\n",posiciones[index]);
             listaUsuarios = nuevo;
+            fclose(archivo);
             nusers = nuevo_tam;
+
           }
           listaUsuarios[index]++;
           pthread_mutex_unlock(&mutex);
@@ -195,13 +205,15 @@ void *hilo_comprobar_logout(void *arg){
           int index = numero_user - 1001;
           listaUsuarios[index]--;
           char nombre_archivo[50];
-          sprintf(nombre_archivo, "./ficheros/%d/transacciones.log", numero_user);
-          FILE *archivo = fopen(nombre_archivo, "w");
+          sprintf(nombre_archivo, "./ficheros/%d/config.conf", numero_user);
+          FILE *archivo = fopen(nombre_archivo, "wb");
           if(!archivo){
             perror("error al abrir el archivo");
             liberarMemoria();
           }
-          fprintf(archivo, "%d", index);  // Escribe el número como texto
+          printf("Posicion del usuario es: %ld\n",posiciones[index]);
+          fprintf(archivo, "%ld", posiciones[index]);
+          fclose(archivo);
           pthread_mutex_unlock(&mutex);
           printf("Usuario con id %d se fue quedan %d veces\n", numero_user, listaUsuarios[index]);
         } else if (bytes_leidos == -1) {
@@ -293,5 +305,6 @@ int main(int argc, char *argv[]) {
   pthread_join(hilo_login, NULL);
   pthread_join(hilo_cerrar, NULL);
   
+
   return 0;
 }
