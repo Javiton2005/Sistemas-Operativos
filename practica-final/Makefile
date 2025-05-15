@@ -15,13 +15,11 @@ SRCS_BANCO := $(wildcard $(SRCDIR)/banco.c) \
 		$(wildcard $(SRCDIR)/transacciones/*.c) \
         $(wildcard $(SRCDIR)/comun/*.c) \
         $(wildcard $(SRCDIR)/login/*.c) \
-        $(wildcard $(SRCDIR)/monitoro/*.c)
 
 SRCS_USUARIO := $(wildcard $(SRCDIR)/usuario.c) \
         $(wildcard $(SRCDIR)/comun/*.c) \
         $(wildcard $(SRCDIR)/funciones/*.c) \
 				$(wildcard $(SRCDIR)/usuarios/*.c) \
-				$(wildcard $(SRCDIR)/monitoro/*.c) \
 				$(wildcard $(SRCDIR)/transacciones/*.c)
 
 SRCS_MONITOR := $(wildcard $(SRCDIR)/monitor.c) \
