@@ -1,8 +1,6 @@
 #include "comun/comun.h"
 #include "usuarios/usuarios.h"
 #include "transacciones/transacciones.h"
-#include <cstdio>
-#include <cstdlib>
 #include <pthread.h>
 #include <stdio.h>
 #include <errno.h>

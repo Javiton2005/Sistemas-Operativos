@@ -105,6 +105,12 @@ int main(){
     }
 
     wait(NULL); // Esperar a que el proceso monitor.c termine
+    
+    // Desadjuntar la memoria compartida
+    if (shmdt(tabla) == -1) perror("Error al desadjuntar la memoria compartida");
+    // Eliminar el segmento de memoria compartida
+    if (shmctl(shm_id, IPC_RMID, NULL) == -1) perror("Error al eliminar la memoria compartida");
+
   }
   
   return 1;
