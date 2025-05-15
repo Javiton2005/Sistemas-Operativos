@@ -2,7 +2,6 @@
   #define FUNCIONES
 
 #include "../comun/comun.h"
-#include "../monitoro/monitor.h"
 
 extern char *funcionesMenu[];
 extern TABLA_USUARIOS *tabla;
