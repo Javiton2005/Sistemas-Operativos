@@ -60,11 +60,10 @@ int main(){
     perror("Error al mapear la memoria compartida");
     exit(EXIT_FAILURE);
   }
+  memset(tabla, 0, sizeof(TABLA_USUARIOS)); // Inicializar la tabla de usuarios
 
-  CrearListaUsuarios(&tabla, Config.archivo_cuentas); // Crear la lista de usuarios
+  CrearListaUsuarios(tabla, Config.archivo_cuentas); // Crear la lista de usuarios
 
-  printf("%s\n", tabla->usuarios[0].nombre);
-  sleep(3);
 
   pid_t pid = fork(); // Crear un proceso hijo
 
@@ -78,7 +77,7 @@ int main(){
     char pipe[5];
     sprintf(pipe, "%d",  pipe_alerta[1]);
     snprintf(comando, sizeof(comando), "./monitor \"%s\" ", pipe);
-    //execlp("gnome-terminal", "gnome-terminal", "--", "sh", "-c",  comando, (char *)NULL);
+    execlp("gnome-terminal", "gnome-terminal", "--", "sh", "-c",  comando, (char *)NULL);
     exit(0);
   } else {
     close(pipe_alerta[1]); // Cerrar el descriptor de lectura del pipe

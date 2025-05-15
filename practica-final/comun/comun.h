@@ -34,11 +34,13 @@
 #define ESTADO_EXCEDE_LIMITE 6
 #define ESTADO_CONSTRASENA_INCORRECTA 7
 #define MAX_USUARIOS 100
+#define MAX_NOMBRE 50
+#define MAX_CUENTA 10
 
 typedef struct _User{
-  char *nombre;
-  char *contrasena;
-  char *ncuenta;
+  char nombre[MAX_NOMBRE];
+  char contrasena[MAX_NOMBRE];
+  char ncuenta[MAX_CUENTA];
   double saldo;
   int id;
   int bloqueado;

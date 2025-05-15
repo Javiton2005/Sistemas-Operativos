@@ -13,13 +13,13 @@
 #include "usuarios.h"
 #include <stdio.h>
 
-void CrearListaUsuarios(TABLA_USUARIOS **tabla, char *fichero) {
+void CrearListaUsuarios(TABLA_USUARIOS *tabla, char *fichero) {
   if (fichero == NULL) { // Si no pasan fichero retorna un error
     printf("No se ha dado un fichero\n");
     return;
   }
 
-  if (*tabla == NULL) { // Verifica que la memoria compartida ya esté asignada
+  if (tabla == NULL) { // Verifica que la memoria compartida ya esté asignada
     printf("Error: la memoria compartida no está inicializada\n");
     exit(-1);
   }
@@ -48,7 +48,7 @@ void CrearListaUsuarios(TABLA_USUARIOS **tabla, char *fichero) {
 
     if (caracter == '\n' || caracter == EOF) {
       linea[caracteres] = '\0';
-      (*tabla)->usuarios[usuarios] = crearUsuario(linea, usuarios + 1); // Crea el usuario directamente en la memoria compartida
+      crearUsuario(linea, usuarios + 1, &tabla->usuarios[usuarios]); // Crea el usuario directamente en la memoria compartida
       usuarios++;
       caracteres = 0;
     }
@@ -56,5 +56,5 @@ void CrearListaUsuarios(TABLA_USUARIOS **tabla, char *fichero) {
 
   free(linea);
   fclose(archivo);
-  (*tabla)->num_usuarios = usuarios; // Actualiza el número de usuarios en la tabla
+  tabla->num_usuarios = usuarios; // Actualiza el número de usuarios en la tabla
 }

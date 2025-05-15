@@ -10,8 +10,8 @@ void ConsultarSaldo(int *idUser){
 
   system("clear"); 
   printf("Saldo de la cuenta:\n");
-  printf("El saldo de la cuenta de %s\n",tabla->usuarios[*idUser].nombre);
-  printf("Saldo: %.2lf\n", tabla->usuarios[*idUser].saldo);
+  printf("El saldo de la cuenta de %s\n",tabla->usuarios[*idUser - 1].nombre);
+  printf("Saldo: %.2lf\n", tabla->usuarios[*idUser - 1].saldo);
   printf("\nPresiona cualquier tecla para salir");
   while (getchar()!='\n'){}
   

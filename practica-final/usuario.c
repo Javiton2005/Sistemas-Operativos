@@ -12,7 +12,7 @@ int main(int argc, char *argv[]){
     perror("Error al mapear la memoria compartida");
     exit(EXIT_FAILURE);
   }
-  printf("Usuario %d\n", tabla->usuarios[idUser].id);
+  printf("Usuario %s\n", tabla->usuarios[idUser-1].nombre);
   printf("Dale a una tecla para continuar\n");
   getchar();
   while (getchar()!='\n'){}

@@ -11,8 +11,8 @@
 
 void login(TABLA_USUARIOS *listaUsuarios, int memid){
 
-  char nombre[50];
-  char contrasena[50];
+  char nombre[MAX_NOMBRE];
+  char contrasena[MAX_NOMBRE];
   FILE *banco;
   char mensaje[256];
   time_t t;
@@ -25,21 +25,16 @@ void login(TABLA_USUARIOS *listaUsuarios, int memid){
 
   printf("Inserta Contraseña de la cuenta: ");
   scanf("%s", contrasena);
-   
+
   for(int i =0;i<listaUsuarios->num_usuarios;i++){
     //printf("Comparado con: %s, %s",listaUsuarios[i]->nombre,listaUsuarios[i]->contrasena);
     // Si las credenciales conciden entra en el stament
-    if (strcmp(nombre, listaUsuarios->usuarios[i].nombre)==0 && strcmp(contrasena, listaUsuarios->usuarios[i].contrasena)==0) {
+    if (strncmp(nombre, listaUsuarios->usuarios[i].nombre, MAX_NOMBRE)==0 && strncmp(contrasena, listaUsuarios->usuarios[i].contrasena, MAX_NOMBRE)==0) {
       pid_t pid = fork(); // Se duplica para que el hijo pueda morir sin que el proceso padre pueda seguir ejecutando
       if (pid == 0) {  // Proceso hijo
-        // Convertimos edad y dinero a cadenas
-        char idStr[5];
-        sprintf(idStr, "%d", listaUsuarios->usuarios[i].id);
-        
-        char memidStr[20];
-        sprintf(memidStr, "%d", memid);
+
         char comando[256];
-        snprintf(comando, sizeof(comando), "./usuario \"%s\" \"%s\"", idStr, memidStr);
+        snprintf(comando, sizeof(comando), "./usuario \"%d\" \"%d\"", listaUsuarios->usuarios[i].id, memid);
 
         if (access("/bin/gnome-terminal", X_OK) == 0) { //Comprueba si la terminal gnome existe, si es asi la ejecuta y si no ejecuta kitty
           execlp("gnome-terminal", "gnome-terminal", "--", "sh", "-c",  comando, (char *)NULL);

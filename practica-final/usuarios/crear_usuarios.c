@@ -12,40 +12,36 @@
 #include <stdio.h>
 
 
-USER crearUsuario(char *linea, int id){
-
-  USER user; // Aloca memoria para un nuevo usuario
+void crearUsuario(char *linea, int id, USER *user) {
   
   int indice = 0;
-  char *output;
-  while((output=strsep(&linea, ";"))!= NULL){ // LLama a la funcion que devuelve una palabra
-
-    char *palabra = strdup(output); // Duplica el valor de output una variable palabra
-    if(*palabra == '\0') // Si la palabra es null o 0 lo sustituye por un N/A
-      palabra = "N/A";
+  char *palabra;
+  while((palabra=strsep(&linea, ";"))!= NULL){ // LLama a la funcion que devuelve una palabra
+    if(*palabra == '\0') palabra = "N/A";
     switch (indice) { // Guarda el valor en la estructura de user
       case 0:
-        user.nombre = palabra;
+        strncpy(user->nombre, palabra, MAX_NOMBRE);
+        user->nombre[MAX_NOMBRE - 1] = '\0'; // Asegura que la cadena esté terminada en null
         break;
       case 1:
-        user.contrasena=palabra;
+        strncpy(user->contrasena, palabra, MAX_NOMBRE);
+        user->contrasena[MAX_NOMBRE - 1] = '\0';
         break;
       case 2:
-        user.ncuenta = palabra;
+        strncpy(user->ncuenta, palabra, MAX_CUENTA);
+        user->ncuenta[MAX_CUENTA - 1] = '\0';
         break;
       case 3:
-        user.saldo = atoi(palabra);
+        user->saldo = atoi(palabra);
         break;
     }
     indice++;
   }
-  user.id=id;
+  user->id=id;
 
   char path[50];
-  snprintf(path, sizeof(path), "./transacciones/%s", user.ncuenta);
+  snprintf(path, sizeof(path), "./transacciones/%s", user->ncuenta);
   mkdir(path, 0600); // Crea el directorio para las transacciones del usuario
   // 0600 permisos de lectura y escritura solo para el propietario
   // 0[propietario][grupo usuario][otros usuarios]
-
-  return user;
 }

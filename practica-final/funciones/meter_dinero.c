@@ -12,7 +12,7 @@ void *MeterDineroHilo(void *valor){
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
   sem_wait(semaforo);
   //Modificar info usuario=======================
-  tabla->usuarios[*(parametros->id)].saldo += *(double*)(parametros->valor);
+  tabla->usuarios[*(parametros->id) - 1].saldo += *(double*)(parametros->valor);
   //Registrar transaccion========================
   TRANSACCION *transaccion=malloc(sizeof(TRANSACCION));
   if(!transaccion){
@@ -24,7 +24,7 @@ void *MeterDineroHilo(void *valor){
   }
 
   transaccion->cantidad = (*(double*)(parametros->valor));
-  transaccion->ncuentas = strdup(tabla->usuarios[*(parametros->id)].ncuenta);
+  transaccion->ncuentas = strdup(tabla->usuarios[*(parametros->id) - 1].ncuenta);
   transaccion->ncuentao = NULL;
   transaccion->descripcion = "Ingreso manual";
   RegistrarTransaccion(transaccion);
@@ -34,7 +34,7 @@ void *MeterDineroHilo(void *valor){
   sem_close(semaforo);
   //FIN SEM======================================
 
-  snprintf(mensaje, sizeof(mensaje),"Ingreso de dinero realizado por el User: %d de cantidad %.2lf", tabla->usuarios[*(parametros->id)].id, *(double*)(parametros->valor));
+  snprintf(mensaje, sizeof(mensaje),"Ingreso de dinero realizado por el User: %d de cantidad %.2lf", tabla->usuarios[*(parametros->id) - 1].id, *(double*)(parametros->valor));
   free(parametros->valor); // Libera el double
   free(parametros);  
   

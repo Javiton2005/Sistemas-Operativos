@@ -5,7 +5,7 @@ void *PagarTasasHilo(void *valor){
   //SEM =========================================
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
   //Modificar info usuario=======================
-  tabla->usuarios[*(parametros->id)].saldo -= (*(double*)(parametros->valor));
+  tabla->usuarios[*(parametros->id) - 1].saldo -= (*(double*)(parametros->valor));
   //Registrar transaccion========================
   TRANSACCION *transaccion=malloc(sizeof(TRANSACCION));
   if(!transaccion){
@@ -16,7 +16,7 @@ void *PagarTasasHilo(void *valor){
     exit(-1);
   }
   transaccion->cantidad = (*(double*)(parametros->valor));
-  transaccion->ncuentas = strdup(tabla->usuarios[*(parametros->id)].ncuenta); // si ya es string
+  transaccion->ncuentas = strdup(tabla->usuarios[*(parametros->id) - 1].ncuenta); // si ya es string
   transaccion->ncuentao = NULL;
   transaccion->descripcion = strdup("Pago de tasas");
   RegistrarTransaccion(transaccion);
