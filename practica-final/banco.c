@@ -10,10 +10,7 @@
 #include "comun/comun.h"
 #include "usuarios/usuarios.h"
 #include "login/login.h"
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+
 
 void manejar_anomalia(char *mensaje) {
   printf("BANCO: %s", mensaje);
@@ -58,25 +55,19 @@ int main(){
     perror("Error al crear la memoria compartida");
     exit(EXIT_FAILURE);
   }
-
   TABLA_USUARIOS *tabla = (TABLA_USUARIOS*)shmat(shm_id, NULL, 0);
   if (tabla == NULL) {
     perror("Error al mapear la memoria compartida");
     exit(EXIT_FAILURE);
   }
-  tabla = CrearListaUsuarios(Config.archivo_cuentas); // Crear la lista de usuarios
+
+  CrearListaUsuarios(&tabla, Config.archivo_cuentas); // Crear la lista de usuarios
+
+  printf("%s\n", tabla->usuarios[0].nombre);
+  sleep(3);
+
   pid_t pid = fork(); // Crear un proceso hijo
 
-  // Copiar la lista de usuarios a la memoria compartida
-
-  /*for (int i = 0; i < Estadisticas.usuarios; i++) {*/
-  /*  usuario[i]->id = listaUsuarios[i]->id;*/
-  /*  strcpy(usuario[i]->nombre, listaUsuarios[i]->nombre);*/
-  /*  strcpy(usuario[i]->contrasena, listaUsuarios[i]->contrasena);*/
-  /*  strcpy(usuario[i]->ncuenta, listaUsuarios[i]->ncuenta);*/
-  /*  usuario[i]->saldo = listaUsuarios[i]->saldo;*/
-  /*}*/
-  
   if (pid < 0) { // Comprobar si ha habido error
     perror("Error en fork");
     exit(EXIT_FAILURE);
@@ -87,7 +78,7 @@ int main(){
     char pipe[5];
     sprintf(pipe, "%d",  pipe_alerta[1]);
     snprintf(comando, sizeof(comando), "./monitor \"%s\" ", pipe);
-    execlp("gnome-terminal", "gnome-terminal", "--", "sh", "-c",  comando, (char *)NULL);
+    //execlp("gnome-terminal", "gnome-terminal", "--", "sh", "-c",  comando, (char *)NULL);
     exit(0);
   } else {
     close(pipe_alerta[1]); // Cerrar el descriptor de lectura del pipe

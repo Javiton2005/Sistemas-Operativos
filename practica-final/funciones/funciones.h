@@ -5,13 +5,15 @@
 #include "../monitoro/monitor.h"
 
 extern char *funcionesMenu[];
+extern TABLA_USUARIOS *tabla;
 
 typedef struct _idValor{
   int *id;
   void *valor;
 }IdValor;
 
-void MenuOpciones(int *idUser, int memid);
+
+void MenuOpciones(int *idUser);
 
 void SacarDinero(int *idUser);
 void MeterDinero(int *idUser);

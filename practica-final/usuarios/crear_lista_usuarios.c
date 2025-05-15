@@ -13,43 +13,48 @@
 #include "usuarios.h"
 #include <stdio.h>
 
-TABLA_USUARIOS *CrearListaUsuarios(char *fichero){
-  if (fichero==NULL) { // Si no pasan fichero retorna null y un error;
-    printf("No se a dado un fichero\n");
-    return(NULL);
+void CrearListaUsuarios(TABLA_USUARIOS **tabla, char *fichero) {
+  if (fichero == NULL) { // Si no pasan fichero retorna un error
+    printf("No se ha dado un fichero\n");
+    return;
   }
-  TABLA_USUARIOS *listaUsuarios=malloc(sizeof(TABLA_USUARIOS)); // Lista de usuarios que se retornara
-  char *linea=NULL;
-  FILE *archivo=fopen(fichero, "rb"); // Abre el fichero
-  if (!archivo) {
-    printf("Error al abrir el archivo de transacciones.\n");
+
+  if (*tabla == NULL) { // Verifica que la memoria compartida ya esté asignada
+    printf("Error: la memoria compartida no está inicializada\n");
     exit(-1);
   }
+
+  char *linea = NULL;
+  FILE *archivo = fopen(fichero, "rb"); // Abre el fichero
+  if (!archivo) {
+    printf("Error al abrir el archivo de cuentas.\n");
+    exit(-1);
+  }
+
   char caracter;
-  int usuarios=1;
-  int caracteres=0;
-  
-  while ((caracter = fgetc(archivo)) != '\n' && caracter != EOF); // Se salta la primera linea
+  int usuarios = 0;
+  int caracteres = 0;
+
+  while ((caracter = fgetc(archivo)) != '\n' && caracter != EOF); // Se salta la primera línea
 
   while (1) {
-    caracter=fgetc(archivo); // lee el fichero hasta el final carcater por caracter
+    caracter = fgetc(archivo); // Lee el fichero carácter por carácter
 
-    if(caracter==EOF) break;
-    linea=realloc(linea, caracteres+1); // Realoca memoria para la linea para añadir el caracter
+    if (caracter == EOF) break;
+    linea = realloc(linea, caracteres + 1); // Realoca memoria para la línea
 
-    linea[caracteres]=caracter; // Añade el caracter en la posicion indicada
+    linea[caracteres] = caracter; // Añade el carácter a la línea
     caracteres++;
-    
-    if (caracter=='\n' || caracter ==EOF) {
-      linea[caracteres]='\0';
-      USER usuario = crearUsuario(linea,usuarios);
-      listaUsuarios->usuarios[usuarios-1]=usuario;
+
+    if (caracter == '\n' || caracter == EOF) {
+      linea[caracteres] = '\0';
+      (*tabla)->usuarios[usuarios] = crearUsuario(linea, usuarios + 1); // Crea el usuario directamente en la memoria compartida
       usuarios++;
-      caracteres=0;
+      caracteres = 0;
     }
   }
+
   free(linea);
   fclose(archivo);
-  listaUsuarios->num_usuarios=usuarios-1;
-  return listaUsuarios;
+  (*tabla)->num_usuarios = usuarios; // Actualiza el número de usuarios en la tabla
 }

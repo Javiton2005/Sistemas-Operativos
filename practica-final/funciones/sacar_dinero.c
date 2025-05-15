@@ -13,19 +13,17 @@ void *_HiloSacarDinero(void *valor){
   char mensaje[256];
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
   sem_wait(semaforo);
-  USER *user=leerCsv(parametros->id);
 
-  
-  if(user->saldo<(*(double*) (parametros->valor))){
+  if(tabla->usuarios[*(parametros->id)].saldo<(*(double*) (parametros->valor))){
     sem_post(semaforo);
     sem_close(semaforo);
 
     // Crea el mensaje del para escribir en el log
-    snprintf(mensaje, sizeof(mensaje),"[Warning] Intento de retiro superior a la cantidad User id: %d",user->id);
+    snprintf(mensaje, sizeof(mensaje),"[Warning] Intento de retiro superior a la cantidad User id: %d",tabla->usuarios[*(parametros->id)].id);
     EscribirEnLog(mensaje);
     return NULL;
   }
-  user->saldo-=(*(double*)(parametros->valor));
+  tabla->usuarios[*(parametros->id)].saldo-=(*(double*)(parametros->valor));
   
   TRANSACCION *transaccion=malloc(sizeof(TRANSACCION));
   if(!transaccion){
@@ -36,24 +34,20 @@ void *_HiloSacarDinero(void *valor){
     exit(-1);
   }
   transaccion->cantidad = (*(double*)(parametros->valor));
-  transaccion->ncuentas = strdup(user->ncuenta);
+  transaccion->ncuentas = strdup(tabla->usuarios[*(parametros->id)].ncuenta);
   transaccion->ncuentao = NULL;
   transaccion->descripcion = "Retirada manual";
   RegistrarTransaccion(transaccion);
   EscribirLogTrans(transaccion);
 
-  EditarCsv(user);
-
-
   sem_post(semaforo);
   sem_close(semaforo);
   
-  snprintf(mensaje, sizeof(mensaje),"Retiro de dinero realizado por el User: %d de cantidad %.2lf",user->id, *(double*)(parametros->valor));
+  snprintf(mensaje, sizeof(mensaje),"Retiro de dinero realizado por el User: %d de cantidad %.2lf",tabla->usuarios[*(parametros->id)].id, *(double*)(parametros->valor));
   free(parametros->valor); // Libera el double
   free(parametros);        // Libera el struct
 
   EscribirEnLog(mensaje);
-  free(user);
   return NULL;
 }
 

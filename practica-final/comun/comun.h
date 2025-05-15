@@ -20,6 +20,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #define ESTADO_APROBADA 0
 #define ESTADO_FONDOS_INSUFICIENTES 1
@@ -75,6 +79,7 @@ extern struct _Config {
 
 extern struct _Estadisticas {
   int num_transacciones;
+  int usuarios;
 } Estadisticas;
 
 void InitGlobal();

@@ -32,7 +32,7 @@ TRANSACCION **CrearListaTransacciones(char *fichero) {
 
         if (caracter == '\n' || caracter == EOF) {
             linea[caracteres] = '\0';
-            TRANSACCION *transaccion = crearTransaccion(linea, transacciones); 
+            TRANSACCION *transaccion = crearTransaccion(linea); 
             listaTransacciones = realloc(listaTransacciones, (transacciones + 1) * sizeof(TRANSACCION *));
             if(listaTransacciones==NULL){
               perror("error al alocar memoria");

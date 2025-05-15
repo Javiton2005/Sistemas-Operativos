@@ -8,18 +8,16 @@ void *TransaccionHilo(void *valor){
 
   //printf("ID 2:%d",*parametros[1].id);
   //Modificar info usuario=======================
-  USER *user = leerCsv((parametros[0].id));
-  USER *usero = leerCsv((parametros[1].id));
-  if(user->saldo<(*(double*) (parametros->valor))){
+  if(tabla[*(parametros[0].id)].usuarios->saldo<(*(double*) (parametros->valor))){
     sem_post(semaforo);
     sem_close(semaforo);
     // Crea el mensaje del para escribir en el log
-    snprintf(mensaje, sizeof(mensaje),"[Warning] Intento de transferencia superior a la cantidad User id: %d",user->id);
+    snprintf(mensaje, sizeof(mensaje),"[Warning] Intento de transferencia superior a la cantidad User id: %d",tabla[*(parametros[0].id)].usuarios->id);
     EscribirEnLog(mensaje);
     return NULL;
   }
-  user->saldo = user->saldo - (*(double*)(parametros->valor));
-  usero->saldo = usero->saldo + (*(double*)(parametros->valor));
+  tabla->usuarios[*(parametros[0].id)].saldo = tabla->usuarios[*(parametros[0].id)].saldo - (*(double*)(parametros->valor));
+  tabla->usuarios[*(parametros[1].id)].saldo = tabla->usuarios[*(parametros[1].id)].saldo + (*(double*)(parametros->valor));
   //Registrar transaccion========================
   TRANSACCION *transaccion=malloc(sizeof(TRANSACCION));
   if(!transaccion){
@@ -30,23 +28,20 @@ void *TransaccionHilo(void *valor){
     exit(-1);
   }
   transaccion->cantidad = (*(double*)(parametros->valor));
-  transaccion->ncuentas = strdup(user->ncuenta);
-  transaccion->ncuentao = strdup(usero->ncuenta);
+  transaccion->ncuentas = strdup(tabla->usuarios[*(parametros[0].id)].ncuenta);
+  transaccion->ncuentao = strdup(tabla->usuarios[*(parametros[1].id)].ncuenta);
   transaccion->descripcion = "Transferencia entre cuentas";
   RegistrarTransaccion(transaccion);
 
   EscribirLogTrans(transaccion);
-  EditarCsv(user);
-  EditarCsv(usero);
   sem_post(semaforo);
   sem_close(semaforo);
   //FIN SEM======================================
-  snprintf(mensaje, sizeof(mensaje),"Transferencia de dinero realizado por el User: %d de cantidad %.2lf al User: %d",user->id, *(double*)(parametros->valor),usero->id);
+  snprintf(mensaje, sizeof(mensaje),"Transferencia de dinero realizado por el User: %d de cantidad %.2lf al User: %d",tabla->usuarios[*(parametros[0].id)].id, *(double*)(parametros->valor),tabla->usuarios[*(parametros[1].id)].id);
   EscribirEnLog(mensaje);
   free(parametros[1].id);
+  free(parametros[0].valor);
   free(parametros);
-  free(usero);
-  free(user);
 
   return(NULL);
 }

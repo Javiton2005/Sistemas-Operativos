@@ -5,6 +5,6 @@
 
 USER crearUsuario(char *linea, int id);
 
-TABLA_USUARIOS *CrearListaUsuarios(char *fichero);
+void CrearListaUsuarios(TABLA_USUARIOS **tabla, char *fichero);
 
 #endif // USUARIOS_H

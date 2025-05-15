@@ -7,15 +7,12 @@ void *CancelarTarjetaHilo(void *valor){
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
   sem_wait(semaforo);
   //Modificar info usuario=======================
-  USER *user = leerCsv(parametros->id);
-  user->ncuenta = (parametros->valor);
-  EditarCsv(user);
+  tabla->usuarios[*(parametros->id)].ncuenta = (char*)parametros->valor;
   sem_post(semaforo);
   sem_close(semaforo);
   //FIN SEM =====================================
   free(parametros->valor);
   free(parametros);
-  free(user);
   return(NULL);
 }
 

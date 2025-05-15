@@ -1,6 +1,5 @@
 #include "funciones.h"
-
-void MenuOpciones(int *idUser, int memid){
+void MenuOpciones(int *idUser){
   if (idUser==NULL) {
     perror("Error al pasar id de User");
     exit(-1);
