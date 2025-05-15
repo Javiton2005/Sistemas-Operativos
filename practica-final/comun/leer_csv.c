@@ -24,7 +24,7 @@ USER *leerCsv(int *idLinea){
     fgets(linea, sizeof(linea), fichero);
   }
 
-  usuario=crearUsuario(linea,*idLinea);
+  //usuario=crearUsuario(linea,*idLinea);
   fclose(fichero);
   if(usuario!=NULL)
     return usuario;

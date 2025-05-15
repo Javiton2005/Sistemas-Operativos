@@ -22,9 +22,9 @@ int *LeerCSVNcuenta(char *ncuenta){
   //Bucle para buscar al usuario en funcion de su numero de cuenta
   while(fgets(line, sizeof(line), db)!=NULL){
     char *ptr=line;
-    user->nombre = strsep(&ptr, ";");
-    user->contrasena = strsep(&ptr, ";");
-    user->ncuenta = strsep(&ptr, ";");
+    //user->nombre = strsep(&ptr, ";");
+    //user->contrasena = strsep(&ptr, ";");
+    //user->ncuenta = strsep(&ptr, ";");
     if (strcmp(user->ncuenta, ncuenta)==0){
       fclose(db);
       return(i);
