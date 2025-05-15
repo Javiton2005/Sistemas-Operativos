@@ -1,14 +1,14 @@
 #include "funciones.h"
+#include <stdio.h>
 
 void *TransaccionHilo(void *valor){
   IdValor *parametros = (IdValor*)valor;
   char mensaje[256];
   //SEM==========================================
   sem_t *semaforo = sem_open("/semaforo_dbcsv", O_CREAT, 0644, 1);
-
   //printf("ID 2:%d",*parametros[1].id);
   //Modificar info usuario=======================
-  if(tabla[*(parametros[0].id)].usuarios->saldo<(*(double*) (parametros->valor))){
+  if(tabla[*(parametros[0].id)-1].usuarios->saldo<(*(double*) (parametros->valor))){
     sem_post(semaforo);
     sem_close(semaforo);
     // Crea el mensaje del para escribir en el log
@@ -16,8 +16,10 @@ void *TransaccionHilo(void *valor){
     EscribirEnLog(mensaje);
     return NULL;
   }
-  tabla->usuarios[*(parametros[0].id)].saldo = tabla->usuarios[*(parametros[0].id)].saldo - (*(double*)(parametros->valor));
-  tabla->usuarios[*(parametros[1].id)].saldo = tabla->usuarios[*(parametros[1].id)].saldo + (*(double*)(parametros->valor));
+
+
+  tabla->usuarios[*(parametros[0].id)-1].saldo = tabla->usuarios[*(parametros[0].id)-1].saldo - (*(double*)(parametros->valor));
+  tabla->usuarios[*(parametros[1].id)-1].saldo = tabla->usuarios[*(parametros[1].id)-1].saldo + (*(double*)(parametros->valor));
   //Registrar transaccion========================
   TRANSACCION *transaccion=malloc(sizeof(TRANSACCION));
   if(!transaccion){
@@ -28,16 +30,17 @@ void *TransaccionHilo(void *valor){
     exit(-1);
   }
   transaccion->cantidad = (*(double*)(parametros->valor));
-  transaccion->ncuentas = strdup(tabla->usuarios[*(parametros[0].id)].ncuenta);
-  transaccion->ncuentao = strdup(tabla->usuarios[*(parametros[1].id)].ncuenta);
+  transaccion->ncuentas = strdup(tabla->usuarios[*(parametros[0].id)-1].ncuenta);
+  transaccion->ncuentao = strdup(tabla->usuarios[*(parametros[1].id)-1].ncuenta);
   transaccion->descripcion = "Transferencia entre cuentas";
-  RegistrarTransaccion(transaccion);
+  RegistrarTransaccion(transaccion, *(parametros[0].id));
+  RegistrarTransaccion(transaccion, *(parametros[1].id));
 
   EscribirLogTrans(transaccion);
   sem_post(semaforo);
   sem_close(semaforo);
   //FIN SEM======================================
-  snprintf(mensaje, sizeof(mensaje),"Transferencia de dinero realizado por el User: %d de cantidad %.2lf al User: %d",tabla->usuarios[*(parametros[0].id)].id, *(double*)(parametros->valor),tabla->usuarios[*(parametros[1].id)].id);
+  snprintf(mensaje, sizeof(mensaje),"Transferencia de dinero realizado por el User: %d de cantidad %.2lf al User: %d",tabla->usuarios[*(parametros[0].id)].id, *(double*)(parametros->valor),tabla->usuarios[*(parametros[1].id)-1].id);
   EscribirEnLog(mensaje);
   free(parametros[1].id);
   free(parametros[0].valor);
@@ -63,11 +66,7 @@ void Transaccion(int *idUser){
     sleep(2);
     return;
   }
-  if (*c > Config.limite_transferencia){
-    printf("Cantidad excede el limite establecido en este banco\n");
-    sleep(2);
-    return;
-  }
+
   //Preparacion del hilo=========================
   IdValor *parametros = malloc(2 * sizeof(IdValor)); // Allocate memory for 2 IdValor structs
   if (!parametros) {

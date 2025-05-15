@@ -19,7 +19,7 @@ void *PagarTasasHilo(void *valor){
   transaccion->ncuentas = strdup(tabla->usuarios[*(parametros->id) - 1].ncuenta); // si ya es string
   transaccion->ncuentao = NULL;
   transaccion->descripcion = strdup("Pago de tasas");
-  RegistrarTransaccion(transaccion);
+  RegistrarTransaccion(transaccion,*parametros->id);
   EscribirLogTrans(transaccion);
 
   sem_post(semaforo);

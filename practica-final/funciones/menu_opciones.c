@@ -6,7 +6,7 @@ void MenuOpciones(int *idUser){
     exit(-1);
   }
   int seleccion=-1;
-  system("clear");
+  //system("clear");
   for (int i =0; funcionesMenu[i]!=NULL; i++) {
     printf("%d:%s\n", i+1,funcionesMenu[i]);
   }
@@ -40,12 +40,6 @@ void MenuOpciones(int *idUser){
         perror("Banco: Error al abrir el FIFO para escritura. Intentando de nuevo...");
         sleep(1); // Esperar un poco antes de reintentar
       }
-      printf("%d",atoi(tabla->usuarios[*idUser-1].ncuenta));
-
-      while (getchar()!='\n') {
-      
-      }
-      getchar();
       int usuario=atoi(tabla->usuarios[*idUser-1].ncuenta);
       if (write(Config.fd_escritura_cerrar, &usuario, sizeof(int)) == -1) {
         perror("Banco: Error al escribir en el FIFO");

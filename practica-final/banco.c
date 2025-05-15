@@ -43,7 +43,6 @@ int main(){
   char *nombre = strdup("Banco");
   char salir='a';
   InitGlobal();
-  printf("Inicia\n");
   int pipe_alerta[2]; // Descriptores de lectura y escritura del pipe
 
   if (pipe(pipe_alerta) == -1) { // Crear el pipe

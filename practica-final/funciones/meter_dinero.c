@@ -27,7 +27,7 @@ void *MeterDineroHilo(void *valor){
   transaccion->ncuentas = strdup(tabla->usuarios[*(parametros->id) - 1].ncuenta);
   transaccion->ncuentao = NULL;
   transaccion->descripcion = "Ingreso manual";
-  RegistrarTransaccion(transaccion);
+  RegistrarTransaccion(transaccion,*parametros->id);
   EscribirLogTrans(transaccion);
   
   sem_post(semaforo);
@@ -60,10 +60,6 @@ void MeterDinero(int *idUser){
   //Comprobacion inicial=========================
   if (cantidad < 0){
     printf("Formato incorrecto\n");
-    return;
-  }
- if (*cantidad > Config.limite_transferencia){
-    printf("Cantidad excede el limite establecido en este banco\n");
     return;
   }
   IdValor *parametros = malloc(sizeof(IdValor));

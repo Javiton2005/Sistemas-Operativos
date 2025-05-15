@@ -1,7 +1,8 @@
 #include "funciones.h"
 
-void RegistrarTransaccion(TRANSACCION *transaccion) {
+void RegistrarTransaccion(TRANSACCION *transaccion,int idUser) {
   char fecha[30];
+  char nombre_archivo[50];
   time_t t;
   struct tm *tm_info;
   t = time(NULL); 
@@ -12,11 +13,10 @@ void RegistrarTransaccion(TRANSACCION *transaccion) {
     fprintf(stderr, "Error: transaccion es NULL\n");
     return;
   }
-
-  FILE *archivo = fopen(Config.archivo_tranferencias, "a");
-  if (archivo == NULL) {
-    perror("Error al abrir el archivo");
-    return;
+  sprintf(nombre_archivo, "./ficheros/%d/transacciones.log", 1000 + idUser);
+  FILE *archivo  = fopen(nombre_archivo, "a");
+  if(archivo==NULL){
+    printf("No se ha podido abrir el fichero %s\n",nombre_archivo);
   }
 
   fprintf(archivo, "%.2lf;%s;%s;%s\n", transaccion->cantidad, transaccion->ncuentas, transaccion->ncuentao, fecha);

@@ -37,7 +37,7 @@ void *_HiloSacarDinero(void *valor){
   transaccion->ncuentas = strdup(tabla->usuarios[*(parametros->id) - 1].ncuenta);
   transaccion->ncuentao = NULL;
   transaccion->descripcion = "Retirada manual";
-  RegistrarTransaccion(transaccion);
+  RegistrarTransaccion(transaccion,*parametros->id);
   EscribirLogTrans(transaccion);
 
   sem_post(semaforo);

@@ -13882,3 +13882,78 @@
 15-05-2025 20:29:06 Usuario:javier ha hecho log in con la contraseña 12345
 15-05-2025 20:30:02 Usuario:javier ha hecho log in con la contraseña 12345
 15-05-2025 20:32:26 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 20:33:57 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 20:34:22 [Warning] Intento de retiro superior a la cantidad User id: 1
+15-05-2025 20:35:59 [Warning]Intento inicio de sesion: Usuario:javier Contraseña:123
+15-05-2025 21:13:37 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:16:23 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:16:31 Ingreso de dinero realizado por el User: 1 de cantidad 99999.00
+15-05-2025 21:16:41 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
+15-05-2025 21:16:44 Ingreso de dinero realizado por el User: 1 de cantidad 303.00
+15-05-2025 21:18:15 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:18:24 Ingreso de dinero realizado por el User: 1 de cantidad 9999.00
+15-05-2025 21:19:02 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:19:09 Ingreso de dinero realizado por el User: 1 de cantidad 9999.00
+15-05-2025 21:19:55 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:20:03 Ingreso de dinero realizado por el User: 1 de cantidad 10001.00
+15-05-2025 21:21:35 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:21:46 Ingreso de dinero realizado por el User: 1 de cantidad 58259395182379112991954508228253732826874355222519406104915002819400019536201200564276225056375924727735339602581676629595105178586415872744572746794681281678683643688887067713567770145262892994151405
+15-05-2025 21:21:58 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:22:12 Ingreso de dinero realizado por el User: 1 de cantidad 10001.00
+15-05-2025 21:22:12 ANOMALÍA 6
+
+15-05-2025 21:27:45 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:27:45 ANOMALÍA 6
+
+15-05-2025 21:28:11 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:29:26 Ingreso de dinero realizado por el User: 1 de cantidad 100.00
+15-05-2025 21:29:31 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:29:41 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:35:21 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:35:21 ANOMALÍA 6
+
+15-05-2025 21:35:38 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:36:51 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:36:53 ANOMALÍA 6
+
+15-05-2025 21:36:58 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:37:28 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:37:36 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:37:52 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
+15-05-2025 21:38:02 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:38:54 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:39:00 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:39:06 Ingreso de dinero realizado por el User: 1 de cantidad 1000.00
+15-05-2025 21:39:11 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:39:20 Retiro de dinero realizado por el User: 1 de cantidad 10.00
+15-05-2025 21:39:29 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:40:29 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:41:27 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:42:03 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:42:27 Transferencia de dinero realizado por el User: 2 de cantidad 100.00 al User: 3
+15-05-2025 21:42:47 Transferencia de dinero realizado por el User: 2 de cantidad 0.00 al User: 3
+15-05-2025 21:43:27 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:43:49 Transferencia de dinero realizado por el User: 2 de cantidad 100.00 al User: 3
+15-05-2025 21:44:22 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:44:38 Transferencia de dinero realizado por el User: 2 de cantidad 100.00 al User: 3
+15-05-2025 21:45:09 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:45:19 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:46:47 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:47:05 ANOMALÍA 4
+
+15-05-2025 21:47:05 Transferencia de dinero realizado por el User: 2 de cantidad 99.00 al User: 2
+15-05-2025 21:47:25 Transferencia de dinero realizado por el User: 2 de cantidad 98.00 al User: 2
+15-05-2025 21:48:36 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:50:01 Usuario:javier ha hecho log in con la contraseña 12345
+15-05-2025 21:50:18 Transferencia de dinero realizado por el User: 2 de cantidad 69.00 al User: 2
+15-05-2025 21:50:42 Ingreso de dinero realizado por el User: 1 de cantidad 100000.00
+15-05-2025 21:50:42 ANOMALÍA 6
+
+15-05-2025 21:50:55 Transferencia de dinero realizado por el User: 2 de cantidad 10000.00 al User: 2
+15-05-2025 21:50:55 ANOMALÍA 4
+
+15-05-2025 21:51:23 [Warning]Intento inicio de sesion: Usuario:panch Contraseña:54321
+15-05-2025 21:51:33 [Warning]Intento inicio de sesion: Usuario:anchon Contraseña:54321
+15-05-2025 21:51:45 Usuario:panchon ha hecho log in con la contraseña 54321
+15-05-2025 21:52:55 [Warning] Intento de transferencia superior a la cantidad User id: 0
+15-05-2025 21:53:16 [Warning] Intento de transferencia superior a la cantidad User id: 0
