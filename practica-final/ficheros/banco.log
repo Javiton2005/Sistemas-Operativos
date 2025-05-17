@@ -13890,3 +13890,365 @@
 15-05-2025 21:02:11 Usuario:javier ha hecho log in con la contraseña 12345
 15-05-2025 21:02:11 ANOMALÍA 4
 
+16-05-2025 00:30:13 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:30:13 ANOMALÍA 6
+
+16-05-2025 00:30:13 ANOMALÍA 4
+
+16-05-2025 00:30:25 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:30:47 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:31:10 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:31:47 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:32:01 Ingreso de dinero realizado por el User: 1 de cantidad 10000.00
+16-05-2025 00:32:30 Transferencia de dinero realizado por el User: 2 de cantidad 10000.00 al User: 2
+16-05-2025 00:33:07 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:36:18 Ingreso de dinero realizado por el User: 1 de cantidad 999999.00
+16-05-2025 00:37:37 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:37:53 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
+16-05-2025 00:38:50 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:39:20 Ingreso de dinero realizado por el User: 1 de cantidad 10000.00
+16-05-2025 00:40:54 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:41:41 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:42:56 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:43:22 Ingreso de dinero realizado por el User: 1 de cantidad 10000.00
+16-05-2025 00:44:02 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:44:02 ANOMALÍA 6
+
+16-05-2025 00:44:02 ANOMALÍA 6
+
+16-05-2025 00:44:02 ANOMALÍA 6
+
+16-05-2025 00:44:02 ANOMALÍA 6
+
+16-05-2025 00:44:13 Ingreso de dinero realizado por el User: 1 de cantidad 10000.00
+16-05-2025 00:44:20 ANOMALÍA 6
+
+16-05-2025 00:44:20 Ingreso de dinero realizado por el User: 1 de cantidad 10001.00
+16-05-2025 00:44:20 ANOMALÍA 4
+
+16-05-2025 00:45:10 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:45:18 Ingreso de dinero realizado por el User: 1 de cantidad 10000.00
+16-05-2025 00:45:38 ANOMALÍA 6
+
+16-05-2025 00:45:38 Transferencia de dinero realizado por el User: 2 de cantidad 10001.00 al User: 2
+16-05-2025 00:45:50 ANOMALÍA 6
+
+16-05-2025 00:45:50 Usuario:panchon ha hecho log in con la contraseña 54321
+16-05-2025 00:46:31 Ingreso de dinero realizado por el User: 2 de cantidad 10001.00
+16-05-2025 00:46:31 ANOMALÍA 6
+
+16-05-2025 00:47:05 Usuario:javier ha hecho log in con la contraseña 12345
+16-05-2025 00:47:13 Ingreso de dinero realizado por el User: 1 de cantidad 10001.00
+16-05-2025 00:47:13 ANOMALÍA 6
+
+16-05-2025 00:47:22 ANOMALÍA 6
+
+16-05-2025 00:47:22 Transferencia de dinero realizado por el User: 2 de cantidad 10001.00 al User: 3
+16-05-2025 00:47:31 Usuario:panchon ha hecho log in con la contraseña 54321
+16-05-2025 00:48:12 ANOMALÍA 6
+
+16-05-2025 00:48:12 Usuario:jaime ha hecho log in con la contraseña 43523
+16-05-2025 00:48:53 Usuario:panchon ha hecho log in con la contraseña 54321
+16-05-2025 00:49:06 Retiro de dinero realizado por el User: 2 de cantidad 115.00
+17-05-2025 11:17:19 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 11:17:27 Retiro de dinero realizado por el User: 1 de cantidad 19.00
+17-05-2025 11:17:33 Ingreso de dinero realizado por el User: 1 de cantidad 19.00
+17-05-2025 12:47:20 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 12:47:44 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
+17-05-2025 12:48:12 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 12:48:23 Retiro de dinero realizado por el User: 1 de cantidad 10.00
+17-05-2025 12:49:50 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 12:51:09 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 12:51:36 [Warning]Intento inicio de sesion: Usuario:* Contraseña:w
+17-05-2025 12:51:38 [Warning]Intento inicio de sesion: Usuario:w Contraseña:w
+17-05-2025 12:53:31 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 12:54:15 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 12:59:28 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:01:00 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:01:44 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:04:20 [Warning]Intento inicio de sesion: Usuario:javier Contraseña:13245
+17-05-2025 13:04:24 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:04:32 Retiro de dinero realizado por el User: 1 de cantidad 100.00
+17-05-2025 13:07:12 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:07:13 ANOMALÍA 6
+
+17-05-2025 13:07:13 ANOMALÍA 6
+
+17-05-2025 13:07:13 ANOMALÍA 6
+
+17-05-2025 13:07:13 ANOMALÍA 6
+
+17-05-2025 13:07:13 ANOMALÍA 6
+
+17-05-2025 13:07:13 ANOMALÍA 6
+
+17-05-2025 13:07:13 ANOMALÍA 6
+
+17-05-2025 13:07:13 ANOMALÍA 6
+
+17-05-2025 13:08:51 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:08:51 ANOMALÍA 6
+
+17-05-2025 13:08:51 ANOMALÍA 6
+
+17-05-2025 13:08:51 ANOMALÍA 6
+
+17-05-2025 13:08:51 ANOMALÍA 6
+
+17-05-2025 13:08:51 ANOMALÍA 6
+
+17-05-2025 13:08:51 ANOMALÍA 6
+
+17-05-2025 13:08:51 ANOMALÍA 6
+
+17-05-2025 13:08:51 ANOMALÍA 6
+
+17-05-2025 13:09:50 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:09:50 ANOMALÍA 6
+
+17-05-2025 13:09:50 ANOMALÍA 6
+
+17-05-2025 13:09:50 ANOMALÍA 6
+
+17-05-2025 13:09:50 ANOMALÍA 6
+
+17-05-2025 13:09:50 ANOMALÍA 6
+
+17-05-2025 13:09:50 ANOMALÍA 6
+
+17-05-2025 13:09:50 ANOMALÍA 6
+
+17-05-2025 13:09:50 ANOMALÍA 6
+
+17-05-2025 13:16:55 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:16:55 ANOMALÍA 6
+
+17-05-2025 13:16:55 ANOMALÍA 6
+
+17-05-2025 13:16:55 ANOMALÍA 6
+
+17-05-2025 13:16:55 ANOMALÍA 6
+
+17-05-2025 13:16:55 ANOMALÍA 6
+
+17-05-2025 13:16:55 ANOMALÍA 6
+
+17-05-2025 13:16:55 ANOMALÍA 6
+
+17-05-2025 13:16:55 ANOMALÍA 6
+
+17-05-2025 13:17:25 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:17:25 ANOMALÍA 6
+
+17-05-2025 13:17:25 ANOMALÍA 6
+
+17-05-2025 13:17:25 ANOMALÍA 6
+
+17-05-2025 13:17:25 ANOMALÍA 6
+
+17-05-2025 13:17:25 ANOMALÍA 6
+
+17-05-2025 13:17:25 ANOMALÍA 6
+
+17-05-2025 13:17:25 ANOMALÍA 6
+
+17-05-2025 13:17:25 ANOMALÍA 6
+
+17-05-2025 13:17:30 [Warning]Intento inicio de sesion: Usuario:* Contraseña:ww
+17-05-2025 13:17:32 [Warning]Intento inicio de sesion: Usuario:w Contraseña:w
+17-05-2025 13:18:01 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:18:01 ANOMALÍA 6
+
+17-05-2025 13:18:01 ANOMALÍA 6
+
+17-05-2025 13:18:01 ANOMALÍA 6
+
+17-05-2025 13:18:01 ANOMALÍA 6
+
+17-05-2025 13:18:01 ANOMALÍA 6
+
+17-05-2025 13:18:01 ANOMALÍA 6
+
+17-05-2025 13:18:01 ANOMALÍA 6
+
+17-05-2025 13:18:01 ANOMALÍA 6
+
+17-05-2025 13:18:05 [Warning]Intento inicio de sesion: Usuario:* Contraseña:w
+17-05-2025 13:18:06 [Warning]Intento inicio de sesion: Usuario:w Contraseña:w
+17-05-2025 13:19:11 ANOMALÍA 6
+
+17-05-2025 13:19:11 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:19:11 ANOMALÍA 6
+
+17-05-2025 13:19:11 ANOMALÍA 6
+
+17-05-2025 13:19:11 ANOMALÍA 6
+
+17-05-2025 13:19:11 ANOMALÍA 6
+
+17-05-2025 13:19:11 ANOMALÍA 6
+
+17-05-2025 13:19:11 ANOMALÍA 6
+
+17-05-2025 13:19:11 ANOMALÍA 6
+
+17-05-2025 13:19:25 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:19:25 ANOMALÍA 6
+
+17-05-2025 13:19:25 ANOMALÍA 6
+
+17-05-2025 13:19:25 ANOMALÍA 6
+
+17-05-2025 13:19:25 ANOMALÍA 6
+
+17-05-2025 13:19:25 ANOMALÍA 6
+
+17-05-2025 13:19:25 ANOMALÍA 6
+
+17-05-2025 13:19:25 ANOMALÍA 6
+
+17-05-2025 13:19:25 ANOMALÍA 6
+
+17-05-2025 13:19:45 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:19:45 ANOMALÍA 6
+
+17-05-2025 13:19:45 ANOMALÍA 6
+
+17-05-2025 13:19:45 ANOMALÍA 6
+
+17-05-2025 13:19:45 ANOMALÍA 6
+
+17-05-2025 13:19:45 ANOMALÍA 6
+
+17-05-2025 13:19:45 ANOMALÍA 6
+
+17-05-2025 13:19:45 ANOMALÍA 6
+
+17-05-2025 13:19:45 ANOMALÍA 6
+
+17-05-2025 13:20:54 [Warning]Intento inicio de sesion: Usuario:javier Contraseña:1324
+17-05-2025 13:20:57 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:20:57 ANOMALÍA 6
+
+17-05-2025 13:20:57 ANOMALÍA 6
+
+17-05-2025 13:20:57 ANOMALÍA 6
+
+17-05-2025 13:20:57 ANOMALÍA 6
+
+17-05-2025 13:20:57 ANOMALÍA 6
+
+17-05-2025 13:20:57 ANOMALÍA 6
+
+17-05-2025 13:20:57 ANOMALÍA 6
+
+17-05-2025 13:20:57 ANOMALÍA 6
+
+17-05-2025 13:21:17 [Warning]Intento inicio de sesion: Usuario:* Contraseña:w
+17-05-2025 13:22:06 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:22:06 ANOMALÍA 6
+
+17-05-2025 13:22:06 ANOMALÍA 6
+
+17-05-2025 13:22:06 ANOMALÍA 6
+
+17-05-2025 13:22:06 ANOMALÍA 6
+
+17-05-2025 13:22:06 ANOMALÍA 6
+
+17-05-2025 13:22:06 ANOMALÍA 6
+
+17-05-2025 13:22:06 ANOMALÍA 6
+
+17-05-2025 13:22:06 ANOMALÍA 6
+
+17-05-2025 13:24:04 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:24:04 ANOMALÍA 6
+
+17-05-2025 13:24:04 ANOMALÍA 6
+
+17-05-2025 13:24:04 ANOMALÍA 6
+
+17-05-2025 13:24:04 ANOMALÍA 6
+
+17-05-2025 13:24:04 ANOMALÍA 6
+
+17-05-2025 13:24:04 ANOMALÍA 6
+
+17-05-2025 13:24:04 ANOMALÍA 6
+
+17-05-2025 13:24:04 ANOMALÍA 6
+
+17-05-2025 13:24:38 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:24:38 ANOMALÍA 6
+
+17-05-2025 13:24:38 ANOMALÍA 6
+
+17-05-2025 13:24:38 ANOMALÍA 6
+
+17-05-2025 13:24:38 ANOMALÍA 6
+
+17-05-2025 13:24:38 ANOMALÍA 6
+
+17-05-2025 13:24:38 ANOMALÍA 6
+
+17-05-2025 13:24:38 ANOMALÍA 6
+
+17-05-2025 13:24:38 ANOMALÍA 6
+
+17-05-2025 13:28:03 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 13:28:41 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:32:57 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:33:22 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:34:05 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:34:50 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:35:02 [Warning]Intento inicio de sesion: Usuario:* Contraseña:*
+17-05-2025 16:35:53 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:36:17 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:37:50 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:38:11 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
+17-05-2025 16:38:33 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:39:31 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:39:40 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
+17-05-2025 16:46:04 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:46:32 Retiro de dinero realizado por el User: 1 de cantidad 1.00
+17-05-2025 16:46:34 Retiro de dinero realizado por el User: 1 de cantidad 1.00
+17-05-2025 16:46:35 Retiro de dinero realizado por el User: 1 de cantidad 1.00
+17-05-2025 16:46:35 ANOMALÍA 4
+
+17-05-2025 16:46:37 Ingreso de dinero realizado por el User: 1 de cantidad 0.00
+17-05-2025 16:47:30 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:48:10 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:49:47 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 16:49:57 Ingreso de dinero realizado por el User: 1 de cantidad 100.00
+17-05-2025 17:19:23 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:19:30 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
+17-05-2025 17:22:23 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:22:39 Ingreso de dinero realizado por el User: 1 de cantidad 79.00
+17-05-2025 17:23:40 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:23:47 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
+17-05-2025 17:24:45 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:27:41 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:28:28 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:33:59 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:34:08 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
+17-05-2025 17:40:41 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:41:46 [Warning]Intento inicio de sesion: Usuario:* Contraseña:w
+17-05-2025 17:45:56 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:46:05 Ingreso de dinero realizado por el User: 1 de cantidad 567.00
+17-05-2025 17:47:02 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:47:15 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
+17-05-2025 17:48:33 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:50:37 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:53:59 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:54:33 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:54:49 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
+17-05-2025 17:57:36 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 17:57:43 Ingreso de dinero realizado por el User: 1 de cantidad 10.00
+17-05-2025 18:01:02 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 18:01:10 Ingreso de dinero realizado por el User: 1 de cantidad 89.00
+17-05-2025 18:03:04 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 18:03:14 Ingreso de dinero realizado por el User: 1 de cantidad 1003.00
+17-05-2025 18:19:43 Usuario:javier ha hecho log in con la contraseña 12345
+17-05-2025 18:19:54 Ingreso de dinero realizado por el User: 1 de cantidad 87.00
+17-05-2025 18:20:28 Ingreso de dinero realizado por el User: 1 de cantidad 3.00

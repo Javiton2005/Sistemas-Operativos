@@ -3,7 +3,10 @@
 #include <stdio.h>
 
 USER *leerCsv(int *idLinea){
-  USER *usuario;
+  USER *usuario=malloc(sizeof(USER));
+  if(usuario==NULL){
+    exit(-1);
+  }
 
   if (*idLinea<0) {
     perror("Introduce un id Valido de usuario 0-n");
@@ -20,11 +23,16 @@ USER *leerCsv(int *idLinea){
     return NULL;
   }
   char linea[255];
-  for (int i =0;i<=*idLinea;i++) {
-    fgets(linea, sizeof(linea), fichero);
-  }
 
-  //usuario=crearUsuario(linea,*idLinea);
+  for (int i = 0; i <= *idLinea; i++) {
+    if (!fgets(linea, sizeof(linea), fichero)) {
+        perror("ID de usuario fuera de rango");
+        fclose(fichero);
+        free(usuario);
+        return NULL;
+    }
+  }
+  crearUsuario(linea,*idLinea,usuario);
   fclose(fichero);
   if(usuario!=NULL)
     return usuario;

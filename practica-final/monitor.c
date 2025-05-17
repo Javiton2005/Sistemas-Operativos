@@ -45,6 +45,8 @@ void *hilo_transacciones_grandes(void *arg) {
   for(int i=0; i<nusers;i++){
     if(listaUsuarios[i]==0)
       continue;
+
+    pthread_mutex_lock(&mutex);
     sprintf(nombre_archivo, "./ficheros/%d/transacciones.log", 1001 + i);
     archivo = fopen(nombre_archivo, "r");
     if(archivo==NULL){
@@ -53,6 +55,7 @@ void *hilo_transacciones_grandes(void *arg) {
     }
     else {
       fseek(archivo, posiciones[i] , SEEK_SET);
+
       while (fgets(linea, 256, archivo)){
         TRANSACCION *transaccion = crearTransaccion(linea);
         if(transaccion->cantidad>Config.limite_transferencia && transaccion->cantidad>Config.limite_retiro)
@@ -66,6 +69,7 @@ void *hilo_transacciones_grandes(void *arg) {
       posiciones[i]=ftell(archivo);
     }
     fclose(archivo);
+    pthread_mutex_unlock(&mutex);
   }
 
   return NULL;

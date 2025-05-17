@@ -13,30 +13,6 @@
 #include <stdio.h>
 
 
-void manejar_anomalia(char *mensaje) {
-  printf("BANCO: %s", mensaje);
-
-  int codigo_anomalia = atoi(&mensaje[9]); // Extraer el código de la anomalia
-
-  switch (codigo_anomalia) {
-    case ESTADO_FONDOS_INSUFICIENTES:
-      printf("BANCO: Fondos insuficientes detectados.\n");
-      break;
-    case ESTADO_TRANSACCION_GRANDE:
-      printf("BANCO: Transacción grande detectada.\n");
-      break;
-    case ESTADO_LOGIN_FALLIDO:
-      printf("BANCO: Login fallido detectado.\n");
-      break;
-    case ESTADO_SECUENCIA_INUSUAL:
-      printf("BANCO: Secuencia inusual detectada.\n");
-      break;
-    case ESTADO_USUARIO_NO_EXISTE:
-      printf("BANCO: Usuario no existe detectado.\n");
-      break;
-  }
-}
-
 int main(){
 
   key_t key = ftok("shmfile", 64);
@@ -93,13 +69,7 @@ int main(){
 
       login(tabla, shm_id); // Lanzar el proceso login (JAIME: LO HE PUESTO PARA QUE SE EJECUTE EL LOGIN BORRARLO SI LO HACEIS DE OTRA FORMA)
       
-      // Leer anomalias desde el pipe
-
-      char buffer[256];
-      while (read(pipe_alerta[0], buffer, sizeof(buffer)) > 0) {
-        manejar_anomalia(buffer);
-      }
-
+      // Leer anomalias desde el pipe      
       printf("Presione \\n o para salir presiona *: ");
       while (getchar() != '\n'); // Limpiamos el buffer de entrada
       salir=getchar();

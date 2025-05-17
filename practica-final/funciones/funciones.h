@@ -12,7 +12,12 @@ typedef struct _idValor{
 }IdValor;
 
 
-void MenuOpciones(int *idUser);
+typedef struct {
+    IdValor *parametros;
+    TABLA_USUARIOS *tabla;
+} HiloArgs;
+
+void MenuOpciones(IdValor *parametos);
 
 void SacarDinero(int *idUser);
 void MeterDinero(int *idUser);

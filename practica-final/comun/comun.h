@@ -68,7 +68,6 @@ typedef struct _Transaccion{
   char *descripcion;
 } TRANSACCION;
 
-
 extern struct _Config {
   int limite_retiro;
   int limite_transferencia;

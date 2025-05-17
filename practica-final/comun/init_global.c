@@ -17,6 +17,7 @@ void InitGlobal(){
   sem_unlink("/semaforo_dbcsv");
   sem_unlink("/semaforo_log");
   sem_unlink("/sem_log_trans");
+  sem_unlink("/sem_dbcsv_global");
   
   if(properties==NULL){
     perror("No se a podido abrir el fichero prproperties.txt");

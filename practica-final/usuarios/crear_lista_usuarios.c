@@ -25,6 +25,7 @@ void CrearListaUsuarios(TABLA_USUARIOS *tabla, char *fichero) {
   }
 
   char *linea = NULL;
+
   FILE *archivo = fopen(fichero, "rb"); // Abre el fichero
   if (!archivo) {
     printf("Error al abrir el archivo de cuentas.\n");

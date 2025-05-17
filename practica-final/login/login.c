@@ -25,7 +25,6 @@ void login(TABLA_USUARIOS *listaUsuarios, int memid){
 
   printf("Inserta Contraseña de la cuenta: ");
   scanf("%s", contrasena);
-
   for(int i =0;i<listaUsuarios->num_usuarios;i++){
     //printf("Comparado con: %s, %s",listaUsuarios[i]->nombre,listaUsuarios[i]->contrasena);
     // Si las credenciales conciden entra en el stament
