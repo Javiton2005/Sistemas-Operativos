@@ -24,7 +24,6 @@ void MeterDinero(int *idUser);
 void ConsultarSaldo(int *idUser);
 void InfoCuenta(int *idUser);
 void Transaccion(int *idUser);
-void PagarTasas(int *idUser);
 void CancelarTarjeta(int *idUser);
 
 void EscribirLogTrans(TRANSACCION *trans);
