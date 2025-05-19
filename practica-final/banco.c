@@ -16,16 +16,8 @@
 int main(){
 
   key_t key = ftok("shmfile", 64);
-  char *nombre = strdup("Banco");
   char salir='a';
   InitGlobal();
-  int pipe_alerta[2]; // Descriptores de lectura y escritura del pipe
-
-  if (pipe(pipe_alerta) == -1) { // Crear el pipe
-    perror("Error en pipe");
-    exit(EXIT_FAILURE);
-  }
-
 
   int shm_id = shmget(IPC_PRIVATE, sizeof(TABLA_USUARIOS), IPC_CREAT | 0666);
   if (shm_id == -1) {
