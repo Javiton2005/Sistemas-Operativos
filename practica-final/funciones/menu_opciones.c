@@ -39,13 +39,9 @@ void MenuOpciones(IdValor *parametros){
       break;
     case 6:
       printf("%d\n",*((int *)parametros->valor));
-      PagarTasas(idUser);
-      break;
-    case 7:
-      printf("%d\n",*((int *)parametros->valor));
       CancelarTarjeta(idUser);
       break;
-    case 8:
+    case 7:
       *((int *)parametros->valor)-=1;
       while ((Config.fd_escritura_cerrar = open(FIFO_CERRAR, O_WRONLY)) == -1) {
         perror("Banco: Error al abrir el FIFO para escritura. Intentando de nuevo...");
