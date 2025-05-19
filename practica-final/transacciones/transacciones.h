@@ -4,7 +4,6 @@
 #include "../comun/comun.h"
 
 TRANSACCION *crearTransaccion(char *linea);
-TRANSACCION **CrearListaTransacciones(char *fichero);
 
 #endif // TRANSACCIONES_H
 
