@@ -40,16 +40,13 @@ int main(){
     perror("Error en fork");
     exit(EXIT_FAILURE);
   } else if (pid == 0) {
-    close(pipe_alerta[0]); // Cerrar el descriptor de escritura del pipe
 
     char comando[256];
     char pipe[5];
-    sprintf(pipe, "%d",  pipe_alerta[1]);
     snprintf(comando, sizeof(comando), "./monitor \"%s\" ", pipe);
     execlp("gnome-terminal", "gnome-terminal", "--", "sh", "-c",  comando, (char *)NULL);
     exit(0);
   } else {
-    close(pipe_alerta[1]); // Cerrar el descriptor de lectura del pipe
 
     while (salir != '*') {
       system("clear");
