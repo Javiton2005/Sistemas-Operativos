@@ -14252,3 +14252,13 @@
 17-05-2025 18:19:43 Usuario:javier ha hecho log in con la contraseña 12345
 17-05-2025 18:19:54 Ingreso de dinero realizado por el User: 1 de cantidad 87.00
 17-05-2025 18:20:28 Ingreso de dinero realizado por el User: 1 de cantidad 3.00
+19-05-2025 18:35:50 Usuario:javier ha hecho log in con la contraseña 12345
+19-05-2025 18:36:32 Usuario:javier ha hecho log in con la contraseña 12345
+19-05-2025 18:36:39 Retiro de dinero realizado por el User: 1 de cantidad 10.00
+19-05-2025 18:36:46 Ingreso de dinero realizado por el User: 1 de cantidad 1000000.00
+19-05-2025 18:36:46 ANOMALÍA 6
+
+19-05-2025 18:39:20 Usuario:javier ha hecho log in con la contraseña 12345
+19-05-2025 18:39:25 ANOMALÍA 6 Por user: 1001
+
+19-05-2025 18:39:25 Retiro de dinero realizado por el User: 1 de cantidad 1000000.00

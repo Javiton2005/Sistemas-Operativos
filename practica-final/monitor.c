@@ -19,11 +19,11 @@ struct timeval timeout;
 fd_set readfds;
 pthread_mutex_t mutex;
 // Función para registrar anomalías en el log y mandar al banco
-void registrar_anomalia(int codigo_anomalia) {
+void registrar_anomalia(int codigo_anomalia, int usuario) {
     char mensaje[50];
-    sprintf(mensaje,"ANOMALÍA %d\n", codigo_anomalia);
+    sprintf(mensaje,"ANOMALÍA %d Por user: %d\n", codigo_anomalia,usuario);
     EscribirEnLog(mensaje);
-    printf("ANOMALÍA n:%d\n", codigo_anomalia);
+    printf("ANOMALÍA n:%d Por user: %d\n", codigo_anomalia,usuario);
 }
 
 //------------------------------ FUNCIONES DE LOS HILOS PARA DETECTAR ANOMALÍAS ------------------------------
@@ -59,7 +59,7 @@ void *hilo_transacciones_grandes(void *arg) {
       while (fgets(linea, 256, archivo)){
         TRANSACCION *transaccion = crearTransaccion(linea);
         if(transaccion->cantidad>Config.limite_transferencia && transaccion->cantidad>Config.limite_retiro)
-          registrar_anomalia(ESTADO_EXCEDE_LIMITE); 
+          registrar_anomalia(ESTADO_EXCEDE_LIMITE,i+1001); 
         ultimasTransacciones[i][0]=ultimasTransacciones[i][1];
         ultimasTransacciones[i][1]=ultimasTransacciones[i][2];
         ultimasTransacciones[i][2]=transaccion->fecha;
@@ -99,7 +99,7 @@ void *hilo_secuencia_inusual(void *arg) {
       for (int j = 0; j < 3; j++) {
         memset(&ultimasTransacciones[i][j], 0, sizeof(struct tm));
       }
-      registrar_anomalia(ESTADO_SECUENCIA_INUSUAL);
+      registrar_anomalia(ESTADO_SECUENCIA_INUSUAL,i+1001);
     }
   }
   return NULL;

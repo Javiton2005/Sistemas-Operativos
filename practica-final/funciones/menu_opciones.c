@@ -9,7 +9,7 @@ void MenuOpciones(IdValor *parametros){
   }
   int *idUser=parametros->id;
   int seleccion=-1;
-  //system("clear");
+  system("clear");
   for (int i =0; funcionesMenu[i]!=NULL; i++) {
     printf("%d:%s\n", i+1,funcionesMenu[i]);
   }
