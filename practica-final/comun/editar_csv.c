@@ -24,7 +24,6 @@ void *EditarCsv(USER *usuario) {
       exit(EXIT_FAILURE);
   }
 
-  printf("Nombre user: %.2lf\n",usuario->saldo); 
   char buffer[255];
   int contador = 0;
 
